@@ -84,7 +84,7 @@
         }
         
         /* --- Component Styles --- */
-        #form-modal { transition: opacity 0.3s ease-in-out; }
+        .modal { transition: opacity 0.3s ease-in-out; }
         .modal-content { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
         .dark .ql-toolbar { border-color: var(--border-color) !important; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem;}
         .dark .ql-container { border-color: var(--border-color) !important; border-bottom-left-radius: 0.5rem; border-bottom-right-radius: 0.5rem;}
@@ -104,6 +104,7 @@
 </head>
 <body class="bg-primary">
 
+    <!-- Login Section -->
     <div id="login-section" class="flex items-center justify-center min-h-screen p-4">
         <div class="w-full max-w-md p-8 space-y-6 bg-secondary rounded-2xl shadow-custom">
             <div class="text-center">
@@ -126,8 +127,10 @@
         </div>
     </div>
 
+    <!-- Main Admin Dashboard -->
     <div id="admin-panel" class="hidden">
         <div class="flex h-screen bg-primary">
+            <!-- Sidebar -->
             <div class="flex-shrink-0 w-64 bg-sidebar text-on-sidebar flex flex-col">
                 <div class="flex items-center justify-center h-20 border-b border-gray-700">
                     <h1 class="text-2xl font-bold">Admin</h1>
@@ -143,6 +146,7 @@
                 </div>
             </div>
 
+            <!-- Main Content -->
             <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
                 <div class="flex justify-between items-center">
                     <h1 id="main-content-title" class="text-3xl font-bold text-primary"></h1>
@@ -153,13 +157,15 @@
         </div>
     </div>
     
-    <div id="form-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
+    <!-- Add/Edit Modal (shared for all types) -->
+    <div id="form-modal" class="modal fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
         <div class="bg-secondary rounded-2xl shadow-xl w-full max-w-4xl max-h-full overflow-hidden flex flex-col modal-content transform scale-95 opacity-0">
             <div class="flex justify-between items-center p-5 border-b border-color">
                 <h2 id="modal-title" class="text-2xl font-bold text-primary"></h2>
                 <button id="close-modal-btn" class="p-2 rounded-full hover:bg-primary text-secondary hover:text-primary transition-colors"><i class="fas fa-times"></i></button>
             </div>
-            <form id="item-form" class="p-6 space-y-5 overflow-y-auto">
+            <!-- Form for Projects/Portfolio -->
+            <form id="item-form" class="p-6 space-y-5 overflow-y-auto hidden">
                 <input type="hidden" id="item-id">
                 <input type="hidden" id="item-type-collection">
                 <div>
@@ -181,11 +187,15 @@
                     </div>
                 </div>
             </form>
+            <!-- Form for Shortlinks -->
             <form id="shortlink-form" class="p-6 space-y-5 overflow-y-auto hidden">
                 <input type="hidden" id="shortlink-id">
                  <div>
-                    <label for="shortlink-slug" class="block text-sm font-medium text-secondary mb-2">Short Link (e.g., 'cv' for ardhan.my.id/cv)</label>
-                    <input type="text" id="shortlink-slug" class="input-style" placeholder="cv" required>
+                    <label for="shortlink-slug" class="block text-sm font-medium text-secondary mb-2">Custom Short Link (e.g., 'cv' for ardhan.my.id/cv)</label>
+                    <div class="flex items-center space-x-2">
+                         <input type="text" id="shortlink-slug" class="input-style" placeholder="my-awesome-link" required>
+                         <button type="button" id="generate-slug-btn" class="px-4 py-2.5 font-semibold rounded-lg btn-secondary-bg btn-secondary-text transition hover:opacity-90">Generate</button>
+                    </div>
                 </div>
                 <div>
                     <label for="shortlink-url" class="block text-sm font-medium text-secondary mb-2">Original URL (The link to redirect to)</label>
@@ -199,10 +209,25 @@
         </div>
     </div>
 
+    <!-- Clicks Detail Modal -->
+    <div id="clicks-modal" class="modal fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
+        <div class="bg-secondary rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col modal-content transform scale-95 opacity-0">
+            <div class="flex justify-between items-center p-5 border-b border-color">
+                <h2 id="clicks-modal-title" class="text-2xl font-bold text-primary">Click Details</h2>
+                <button id="close-clicks-modal-btn" class="p-2 rounded-full hover:bg-primary text-secondary hover:text-primary transition-colors"><i class="fas fa-times"></i></button>
+            </div>
+            <div id="clicks-modal-body" class="p-6 overflow-y-auto">
+                <!-- Click data will be rendered here -->
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
-        import { getFirestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, getDoc, setDoc, query, getDocs } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
         // --- Firebase Initialization ---
         const firebaseConfig = {
@@ -329,15 +354,23 @@
                             <tr>
                                 <th class="p-4 font-semibold text-primary">Short Link</th>
                                 <th class="p-4 font-semibold text-primary">Original URL</th>
+                                <th class="p-4 font-semibold text-primary">Clicks</th>
+                                <th class="p-4 font-semibold text-primary">Created</th>
                                 <th class="p-4 font-semibold text-primary text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            ${items.map(item => `
+                             ${items.sort((a,b) => b.createdAt?.toMillis() - a.createdAt?.toMillis()).map(item => `
                                 <tr class="border-b border-color last:border-b-0">
-                                    <td class="p-4 text-blue-500 align-middle font-mono">ardhan.my.id/${item.id}</td>
+                                    <td class="p-4 text-blue-500 align-middle font-mono">
+                                        <a href="http://ardhan.my.id/${item.id}" target="_blank">ardhan.my.id/${item.id}</a>
+                                    </td>
                                     <td class="p-4 text-secondary align-middle truncate max-w-sm">${item.url}</td>
+                                    <td class="p-4 text-primary align-middle font-semibold">${item.clickCount || 0}</td>
+                                    <td class="p-4 text-secondary align-middle">${item.createdAt ? new Date(item.createdAt.toDate()).toLocaleDateString() : 'N/A'}</td>
                                     <td class="p-4 text-right align-middle">
+                                        <button class="view-clicks-btn text-green-500 hover:text-green-700 mr-3 p-2" data-id="${item.id}"><i class="fas fa-chart-bar"></i></button>
+                                        <button class="edit-shortlink-btn text-blue-500 hover:text-blue-700 mr-3 p-2" data-id="${item.id}"><i class="fas fa-pencil-alt"></i></button>
                                         <button class="delete-btn text-red-500 hover:text-red-700 p-2" data-id="${item.id}"><i class="fas fa-trash"></i></button>
                                     </td>
                                 </tr>
@@ -346,6 +379,8 @@
                     </table>
                 </div>`;
             container.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', handleDelete));
+            container.querySelectorAll('.edit-shortlink-btn').forEach(btn => btn.addEventListener('click', handleEditShortlink));
+            container.querySelectorAll('.view-clicks-btn').forEach(btn => btn.addEventListener('click', handleViewClicks));
         }
 
 
@@ -360,51 +395,73 @@
         const modalContent = modal.querySelector('.modal-content');
         const itemForm = document.getElementById('item-form');
         const shortlinkForm = document.getElementById('shortlink-form');
+        const clicksModal = document.getElementById('clicks-modal');
         
-        function openModal() { 
-            modal.classList.remove('hidden'); 
-            modal.classList.add('flex'); 
-            setTimeout(() => modalContent.classList.remove('scale-95', 'opacity-0'), 50); 
+        function openModal(type) {
+            if (type === 'clicks') {
+                clicksModal.classList.remove('hidden'); 
+                clicksModal.classList.add('flex');
+                setTimeout(() => clicksModal.querySelector('.modal-content').classList.remove('scale-95', 'opacity-0'), 50);
+            } else {
+                modal.classList.remove('hidden'); 
+                modal.classList.add('flex'); 
+                setTimeout(() => modalContent.classList.remove('scale-95', 'opacity-0'), 50);
+            }
         }
+
         function closeModal() { 
             modalContent.classList.add('scale-95', 'opacity-0');
+            clicksModal.querySelector('.modal-content').classList.add('scale-95', 'opacity-0');
             setTimeout(() => { 
                 modal.classList.add('hidden'); 
+                clicksModal.classList.add('hidden');
                 itemForm.reset(); 
                 shortlinkForm.reset();
                 itemForm.classList.add('hidden');
                 shortlinkForm.classList.add('hidden');
             }, 300); 
         }
+
+        function generateRandomSlug(length = 6) {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return result;
+        }
         
         function setupModalListeners() {
             document.getElementById('add-new-btn').addEventListener('click', () => {
-                document.getElementById('item-id').value = '';
-                document.getElementById('item-type-collection').value = currentCollection;
-                
                 if (currentCollection === 'shortlinks') {
                     shortlinkForm.reset();
-                    document.getElementById('shortlink-id').value = ''; // No ID for new shortlinks
+                    document.getElementById('shortlink-slug').disabled = false;
                     document.getElementById('modal-title').textContent = `Add New Shortlink`;
                     shortlinkForm.classList.remove('hidden');
                     itemForm.classList.add('hidden');
                 } else {
                     itemForm.reset();
+                    document.getElementById('item-id').value = '';
                     quill.root.innerHTML = '';
                     document.getElementById('modal-title').textContent = `Add New ${currentCollection.slice(0,-1)}`;
                     itemForm.classList.remove('hidden');
                     shortlinkForm.classList.add('hidden');
                 }
-                
-                openModal();
+                openModal('form');
             });
             
+            document.getElementById('generate-slug-btn').addEventListener('click', () => {
+                document.getElementById('shortlink-slug').value = generateRandomSlug();
+            });
+
             document.getElementById('close-modal-btn').addEventListener('click', closeModal);
             document.getElementById('cancel-btn').addEventListener('click', closeModal);
             document.getElementById('save-item-btn').addEventListener('click', handleSave);
+            document.getElementById('close-clicks-modal-btn').addEventListener('click', closeModal);
         }
         
         async function handleEdit(e) {
+            // This function is now only for Projects/Portfolio
             const { id } = e.currentTarget.dataset;
             const docRef = doc(db, currentCollection, id);
             const docSnap = await getDoc(docRef);
@@ -414,16 +471,74 @@
                 shortlinkForm.classList.add('hidden');
 
                 document.getElementById('item-id').value = id;
-                document.getElementById('item-type-collection').value = currentCollection;
                 document.getElementById('item-title').value = item.title;
                 document.getElementById('item-image').value = item.imageUrl;
                 document.getElementById('item-external-url').value = item.externalUrl || '';
                 quill.root.innerHTML = item.content || '';
                 
                 document.getElementById('modal-title').textContent = `Editing: ${item.title}`;
-                openModal();
+                openModal('form');
             }
         }
+
+        async function handleEditShortlink(e) {
+            const { id } = e.currentTarget.dataset;
+            const docRef = doc(db, 'shortlinks', id);
+            const docSnap = await getDoc(docRef);
+             if (docSnap.exists()) {
+                const item = docSnap.data();
+                shortlinkForm.classList.remove('hidden');
+                itemForm.classList.add('hidden');
+
+                document.getElementById('shortlink-slug').value = id;
+                document.getElementById('shortlink-slug').disabled = true; // Cannot edit the slug
+                document.getElementById('shortlink-url').value = item.url;
+                
+                document.getElementById('modal-title').textContent = `Editing: ${id}`;
+                openModal('form');
+            }
+        }
+        
+        async function handleViewClicks(e) {
+            const { id } = e.currentTarget.dataset;
+            document.getElementById('clicks-modal-title').textContent = `Click Details for /${id}`;
+            const clicksBody = document.getElementById('clicks-modal-body');
+            clicksBody.innerHTML = `<div class="text-center py-12 text-secondary"><i class="fas fa-spinner fa-spin fa-2x"></i></div>`;
+            openModal('clicks');
+
+            const clicksQuery = query(collection(db, `shortlinks/${id}/clicks`));
+            const querySnapshot = await getDocs(clicksQuery);
+            const clicks = querySnapshot.docs.map(doc => doc.data());
+
+            if (clicks.length === 0) {
+                 clicksBody.innerHTML = `<p class="text-secondary text-center">No clicks recorded yet.</p>`;
+                 return;
+            }
+
+            clicksBody.innerHTML = `
+                <table class="w-full text-left text-sm">
+                    <thead class="border-b border-color">
+                        <tr>
+                            <th class="p-3 font-semibold text-primary">Timestamp</th>
+                            <th class="p-3 font-semibold text-primary">IP Address</th>
+                            <th class="p-3 font-semibold text-primary">Location</th>
+                            <th class="p-3 font-semibold text-primary">ISP</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${clicks.sort((a,b) => b.timestamp.toMillis() - a.timestamp.toMillis()).map(click => `
+                            <tr class="border-b border-color last:border-b-0">
+                                <td class="p-3 text-secondary align-middle">${new Date(click.timestamp.toDate()).toLocaleString()}</td>
+                                <td class="p-3 text-primary align-middle font-mono">${click.ip || 'N/A'}</td>
+                                <td class="p-3 text-secondary align-middle">${click.location || 'N/A'}</td>
+                                <td class="p-3 text-secondary align-middle">${click.isp || 'N/A'}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
 
         async function handleDelete(e) {
             const { id } = e.currentTarget.dataset;
@@ -440,10 +555,22 @@
                     alert('Please provide both a short link and an original URL.');
                     return;
                 }
-                // For shortlinks, the ID is the slug itself. We use setDoc.
-                await setDoc(doc(db, "shortlinks", slug), { url: url });
+                const docRef = doc(db, "shortlinks", slug);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists() && document.getElementById('shortlink-slug').disabled === false) {
+                     alert('This short link slug already exists. Please choose a different one.');
+                     return;
+                }
+                
+                if (docSnap.exists()) { // Editing
+                     await updateDoc(docRef, { url: url });
+                } else { // Creating new
+                    await setDoc(docRef, { url: url, clickCount: 0, createdAt: serverTimestamp() });
+                }
+
             } else {
-                 const id = document.getElementById('item-id').value;
+                const id = document.getElementById('item-id').value;
                 const collectionName = document.getElementById('item-type-collection').value;
                 const data = {
                     title: document.getElementById('item-title').value,
