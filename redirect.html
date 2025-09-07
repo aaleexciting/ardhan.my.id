@@ -18,7 +18,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, increment, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCCzxxZ0pujMyzvvRorepkzaBWwO1RhUsg",
@@ -32,48 +32,32 @@
         const db = getFirestore(app);
 
         async function handleRedirect() {
+            // Get the path from the URL, e.g., "/my-link"
             const path = window.location.pathname;
+            
+            // Remove the leading slash to get the slug
             const slug = path.substring(1);
-            let destinationUrl = '/index.html'; // Default redirect location
 
             if (!slug) {
-                window.location.href = destinationUrl;
+                window.location.href = '/index.html'; // Redirect to home if no slug
                 return;
             }
 
             try {
                 const docRef = doc(db, 'shortlinks', slug);
-                
-                // Fetch IP info and Firestore doc concurrently for speed
-                const [docSnap, ipResponse] = await Promise.all([
-                    getDoc(docRef),
-                    fetch('http://ip-api.com/json/')
-                ]);
+                const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    const linkData = docSnap.data();
-                    destinationUrl = linkData.url;
-
-                    // Log the click and increment the count, but don't wait for it to complete.
-                    // This makes the redirect feel instantaneous.
-                    const ipData = await ipResponse.json();
-                    const clickData = {
-                        timestamp: serverTimestamp(),
-                        ip: ipData.query || 'N/A',
-                        location: ipData.city && ipData.country ? `${ipData.city}, ${ipData.country}` : 'N/A',
-                        isp: ipData.isp || 'N/A'
-                    };
-                    
-                    const clicksCollectionRef = collection(db, `shortlinks/${slug}/clicks`);
-                    addDoc(clicksCollectionRef, clickData);
-                    updateDoc(docRef, { clickCount: increment(1) });
+                    // Redirect to the original URL
+                    window.location.href = docSnap.data().url;
+                } else {
+                    // If link doesn't exist, go to the homepage
+                    window.location.href = '/index.html';
                 }
             } catch (error) {
-                console.error("Error processing shortlink:", error);
-                // On error, we still redirect to the default homepage
-            } finally {
-                // This ensures the redirect ALWAYS happens.
-                window.location.href = destinationUrl;
+                console.error("Error fetching shortlink:", error);
+                // On error, also redirect to homepage
+                window.location.href = '/index.html';
             }
         }
 
