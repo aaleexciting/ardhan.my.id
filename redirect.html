@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+    <style>
+        body { font-family: sans-serif; background-color: #111827; color: #f3f4f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { text-align: center; }
+        .spinner { border: 4px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 4px solid #f3f4f6; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="spinner"></div>
+        <p>Finding your link...</p>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCCzxxZ0pujMyzvvRorepkzaBWwO1RhUsg",
+            authDomain: "ardhan-s-website.firebaseapp.com",
+            projectId: "ardhan-s-website",
+            storageBucket: "ardhan-s-website.appspot.com",
+            messagingSenderId: "1064954728511",
+            appId: "1:1064954728511:web:b1f2e5ed21bbe0bc14a88a"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        async function handleRedirect() {
+            // Get the path from the URL, e.g., "/my-link"
+            const path = window.location.pathname;
+            
+            // Remove the leading slash to get the slug
+            const slug = path.substring(1);
+
+            if (!slug) {
+                window.location.href = '/index.html'; // Redirect to home if no slug
+                return;
+            }
+
+            try {
+                const docRef = doc(db, 'shortlinks', slug);
+                const docSnap = await getDoc(docRef);
+
+                if (docSnap.exists()) {
+                    // Redirect to the original URL
+                    window.location.href = docSnap.data().url;
+                } else {
+                    // If link doesn't exist, go to the homepage
+                    window.location.href = '/index.html';
+                }
+            } catch (error) {
+                console.error("Error fetching shortlink:", error);
+                // On error, also redirect to homepage
+                window.location.href = '/index.html';
+            }
+        }
+
+        handleRedirect();
+    </script>
+</body>
+</html>
