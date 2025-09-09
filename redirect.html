@@ -18,7 +18,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
-        import { getFirestore, doc, getDoc, updateDoc, collection, addDoc, serverTimestamp, increment } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCCzxxZ0pujMyzvvRorepkzaBWwO1RhUsg",
@@ -31,29 +31,15 @@
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
 
-        async function logVisit(docRef) {
-            let visit = { userAgent: navigator.userAgent };
-            try {
-                const res = await fetch('https://ipapi.co/json/');
-                const data = await res.json();
-                visit.ip = data.ip;
-                visit.country = data.country_name;
-                visit.region = data.region;
-                visit.city = data.city;
-            } catch (err) {
-                console.error('Failed to fetch visitor info', err);
-            }
-            visit.timestamp = serverTimestamp();
-            await addDoc(collection(docRef, 'visits'), visit);
-            await updateDoc(docRef, { clicks: increment(1) });
-        }
-
         async function handleRedirect() {
+            // Get the path from the URL, e.g., "/my-link"
             const path = window.location.pathname;
+            
+            // Remove the leading slash to get the slug
             const slug = path.substring(1);
 
             if (!slug) {
-                window.location.href = '/index.html';
+                window.location.href = '/index.html'; // Redirect to home if no slug
                 return;
             }
 
@@ -62,13 +48,15 @@
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    await logVisit(docRef);
+                    // Redirect to the original URL
                     window.location.href = docSnap.data().url;
                 } else {
+                    // If link doesn't exist, go to the homepage
                     window.location.href = '/index.html';
                 }
             } catch (error) {
                 console.error("Error fetching shortlink:", error);
+                // On error, also redirect to homepage
                 window.location.href = '/index.html';
             }
         }
