@@ -104,7 +104,6 @@
 </head>
 <body class="bg-primary">
 
-    <!-- Login Section -->
     <div id="login-section" class="flex items-center justify-center min-h-screen p-4">
         <div class="w-full max-w-md p-8 space-y-6 bg-secondary rounded-2xl shadow-custom">
             <div class="text-center">
@@ -127,10 +126,8 @@
         </div>
     </div>
 
-    <!-- Main Admin Dashboard -->
     <div id="admin-panel" class="hidden">
         <div class="flex h-screen bg-primary">
-            <!-- Sidebar -->
             <div class="flex-shrink-0 w-64 bg-sidebar text-on-sidebar flex flex-col">
                 <div class="flex items-center justify-center h-20 border-b border-gray-700">
                     <h1 class="text-2xl font-bold">Admin</h1>
@@ -138,6 +135,7 @@
                 <nav class="flex-1 px-4 py-6 space-y-2">
                     <a href="#" id="projects-link" class="sidebar-link flex items-center px-4 py-2.5 rounded-lg transition-colors duration-200"><i class="fas fa-tasks w-6"></i><span>Projects</span></a>
                     <a href="#" id="portfolio-link" class="sidebar-link flex items-center px-4 py-2.5 rounded-lg transition-colors duration-200"><i class="fas fa-briefcase w-6"></i><span>Portfolio</span></a>
+                    <a href="#" id="shortlinks-link" class="sidebar-link flex items-center px-4 py-2.5 rounded-lg transition-colors duration-200"><i class="fas fa-link w-6"></i><span>Shortlinks</span></a>
                 </nav>
                 <div class="p-4 border-t border-gray-700 space-y-3">
                      <button id="theme-toggle" class="w-full flex items-center justify-start py-2 px-4 text-gray-300 rounded-lg hover:bg-gray-700 transition-colors"><i class="fas fa-sun w-6"></i><span>Toggle Theme</span></button>
@@ -145,7 +143,6 @@
                 </div>
             </div>
 
-            <!-- Main Content -->
             <main class="flex-1 p-6 sm:p-10 overflow-y-auto">
                 <div class="flex justify-between items-center">
                     <h1 id="main-content-title" class="text-3xl font-bold text-primary"></h1>
@@ -156,7 +153,6 @@
         </div>
     </div>
     
-    <!-- Add/Edit Modal -->
     <div id="form-modal" class="fixed inset-0 bg-black bg-opacity-70 z-50 hidden items-center justify-center p-4">
         <div class="bg-secondary rounded-2xl shadow-xl w-full max-w-4xl max-h-full overflow-hidden flex flex-col modal-content transform scale-95 opacity-0">
             <div class="flex justify-between items-center p-5 border-b border-color">
@@ -174,21 +170,26 @@
                     <label for="item-image" class="block text-sm font-medium text-secondary mb-2">Thumbnail Image URL (for Banner)</label>
                     <input type="url" id="item-image" class="input-style" placeholder="https://example.com/image.png" required>
                 </div>
-                
-                <!-- REMOVED: Radio buttons are gone. External link is now an optional field below. -->
-                
-                <!-- UPDATED: Field for the external link. It is now always visible and optional. -->
                 <div>
                     <label for="item-external-url" class="block text-sm font-medium text-secondary mb-2">Live Project URL (Optional)</label>
                     <input type="url" id="item-external-url" class="input-style" placeholder="https://www.youtube.com/watch?v=...">
                 </div>
-
-                <!-- Field for the rich text editor, always visible -->
                 <div>
                     <label class="block text-sm font-medium text-secondary mb-2">Page Content</label>
                     <div id="editor-container" class="bg-secondary rounded-lg">
                         <div id="quill-editor" style="min-height: 250px;"></div>
                     </div>
+                </div>
+            </form>
+            <form id="shortlink-form" class="p-6 space-y-5 overflow-y-auto hidden">
+                <input type="hidden" id="shortlink-id">
+                 <div>
+                    <label for="shortlink-slug" class="block text-sm font-medium text-secondary mb-2">Short Link (e.g., 'cv' for ardhan.my.id/cv)</label>
+                    <input type="text" id="shortlink-slug" class="input-style" placeholder="cv" required>
+                </div>
+                <div>
+                    <label for="shortlink-url" class="block text-sm font-medium text-secondary mb-2">Original URL (The link to redirect to)</label>
+                    <input type="url" id="shortlink-url" class="input-style" placeholder="https://your-long-url.com/goes/here" required>
                 </div>
             </form>
             <div class="flex justify-end p-5 border-t border-color bg-primary rounded-b-2xl">
@@ -198,11 +199,10 @@
         </div>
     </div>
 
-    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
-        import { getFirestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
+        import { getFirestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
         // --- Firebase Initialization ---
         const firebaseConfig = {
@@ -254,20 +254,24 @@
             document.getElementById('main-content-title').textContent = `${collectionName.charAt(0).toUpperCase() + collectionName.slice(1)} Management`;
             document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
             document.getElementById(`${collectionName}-link`).classList.add('active');
+            
             if (unsubscribe) unsubscribe();
+            
             const contentArea = document.getElementById('content-area');
             contentArea.innerHTML = `<div class="text-center py-12 text-secondary"><i class="fas fa-spinner fa-spin fa-2x"></i></div>`;
+            
             unsubscribe = onSnapshot(collection(db, currentCollection), snapshot => {
                 const items = snapshot.docs.map(doc => ({ ...doc.data(), id: doc.id }));
-                renderContent(items);
+                if (collectionName === 'shortlinks') {
+                    renderShortlinks(items);
+                } else {
+                    renderContent(items);
+                }
             });
         }
 
         function renderContent(items) {
             const container = document.getElementById('content-area');
-            if (!container) return;
-            
-            // FIXED: Polished empty state message for light theme
             if (items.length === 0) {
                 container.innerHTML = `<div class="text-center py-20 bg-secondary rounded-lg border-2 border-dashed border-color">
                     <i class="fas fa-folder-open fa-3x text-secondary"></i>
@@ -276,14 +280,12 @@
                 </div>`;
                 return;
             }
-
             container.innerHTML = `
                 <div class="bg-secondary rounded-lg shadow-custom overflow-x-auto">
                     <table class="w-full text-left">
                         <thead class="border-b border-color">
                             <tr>
                                 <th class="p-4 font-semibold text-primary">Title</th>
-                                <!-- REMOVED: Link Type column is gone -->
                                 <th class="p-4 font-semibold text-primary">Has Live Link?</th>
                                 <th class="p-4 font-semibold text-primary">Created At</th>
                                 <th class="p-4 font-semibold text-primary text-right">Actions</th>
@@ -310,14 +312,54 @@
             container.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', handleDelete));
         }
 
+        function renderShortlinks(items) {
+            const container = document.getElementById('content-area');
+             if (items.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 bg-secondary rounded-lg border-2 border-dashed border-color">
+                    <i class="fas fa-folder-open fa-3x text-secondary"></i>
+                    <p class="mt-4 text-lg font-medium text-primary">No shortlinks yet.</p>
+                    <p class="text-secondary">Click "Add New Item" to create one.</p>
+                </div>`;
+                return;
+            }
+            container.innerHTML = `
+                <div class="bg-secondary rounded-lg shadow-custom overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead class="border-b border-color">
+                            <tr>
+                                <th class="p-4 font-semibold text-primary">Short Link</th>
+                                <th class="p-4 font-semibold text-primary">Original URL</th>
+                                <th class="p-4 font-semibold text-primary text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${items.map(item => `
+                                <tr class="border-b border-color last:border-b-0">
+                                    <td class="p-4 text-blue-500 align-middle font-mono">ardhan.my.id/${item.id}</td>
+                                    <td class="p-4 text-secondary align-middle truncate max-w-sm">${item.url}</td>
+                                    <td class="p-4 text-right align-middle">
+                                        <button class="delete-btn text-red-500 hover:text-red-700 p-2" data-id="${item.id}"><i class="fas fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>`;
+            container.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', handleDelete));
+        }
+
+
         function setupNavListeners() {
             document.getElementById('projects-link').addEventListener('click', (e) => { e.preventDefault(); switchView('projects'); });
             document.getElementById('portfolio-link').addEventListener('click', (e) => { e.preventDefault(); switchView('portfolio'); });
+            document.getElementById('shortlinks-link').addEventListener('click', (e) => { e.preventDefault(); switchView('shortlinks'); });
         }
         
         // --- Modal & Form ---
         const modal = document.getElementById('form-modal');
         const modalContent = modal.querySelector('.modal-content');
+        const itemForm = document.getElementById('item-form');
+        const shortlinkForm = document.getElementById('shortlink-form');
         
         function openModal() { 
             modal.classList.remove('hidden'); 
@@ -326,16 +368,34 @@
         }
         function closeModal() { 
             modalContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => { modal.classList.add('hidden'); document.getElementById('item-form').reset(); }, 300); 
+            setTimeout(() => { 
+                modal.classList.add('hidden'); 
+                itemForm.reset(); 
+                shortlinkForm.reset();
+                itemForm.classList.add('hidden');
+                shortlinkForm.classList.add('hidden');
+            }, 300); 
         }
         
         function setupModalListeners() {
             document.getElementById('add-new-btn').addEventListener('click', () => {
-                document.getElementById('item-form').reset();
-                quill.root.innerHTML = '';
                 document.getElementById('item-id').value = '';
                 document.getElementById('item-type-collection').value = currentCollection;
-                document.getElementById('modal-title').textContent = `Add New ${currentCollection.slice(0,-1)}`;
+                
+                if (currentCollection === 'shortlinks') {
+                    shortlinkForm.reset();
+                    document.getElementById('shortlink-id').value = ''; // No ID for new shortlinks
+                    document.getElementById('modal-title').textContent = `Add New Shortlink`;
+                    shortlinkForm.classList.remove('hidden');
+                    itemForm.classList.add('hidden');
+                } else {
+                    itemForm.reset();
+                    quill.root.innerHTML = '';
+                    document.getElementById('modal-title').textContent = `Add New ${currentCollection.slice(0,-1)}`;
+                    itemForm.classList.remove('hidden');
+                    shortlinkForm.classList.add('hidden');
+                }
+                
                 openModal();
             });
             
@@ -350,11 +410,13 @@
             const docSnap = await getDoc(docRef);
             if (docSnap.exists()) {
                 const item = docSnap.data();
+                itemForm.classList.remove('hidden');
+                shortlinkForm.classList.add('hidden');
+
                 document.getElementById('item-id').value = id;
                 document.getElementById('item-type-collection').value = currentCollection;
                 document.getElementById('item-title').value = item.title;
                 document.getElementById('item-image').value = item.imageUrl;
-                // UPDATED: Populate both fields
                 document.getElementById('item-external-url').value = item.externalUrl || '';
                 quill.root.innerHTML = item.content || '';
                 
@@ -370,24 +432,32 @@
             }
         }
 
-        // UPDATED: handleSave function simplified to save all fields.
         async function handleSave() {
-            const id = document.getElementById('item-id').value;
-            const collectionName = document.getElementById('item-type-collection').value;
-            
-            const data = {
-                title: document.getElementById('item-title').value,
-                imageUrl: document.getElementById('item-image').value,
-                externalUrl: document.getElementById('item-external-url').value, // Always save the URL field
-                content: quill.root.innerHTML, // Always save the content
-                createdAt: serverTimestamp() 
-            };
-
-            if (id) {
-                data.updatedAt = serverTimestamp();
-                await updateDoc(doc(db, collectionName, id), data);
+            if (currentCollection === 'shortlinks') {
+                const slug = document.getElementById('shortlink-slug').value.trim();
+                const url = document.getElementById('shortlink-url').value.trim();
+                if (!slug || !url) {
+                    alert('Please provide both a short link and an original URL.');
+                    return;
+                }
+                // For shortlinks, the ID is the slug itself. We use setDoc.
+                await setDoc(doc(db, "shortlinks", slug), { url: url });
             } else {
-                await addDoc(collection(db, collectionName), data);
+                 const id = document.getElementById('item-id').value;
+                const collectionName = document.getElementById('item-type-collection').value;
+                const data = {
+                    title: document.getElementById('item-title').value,
+                    imageUrl: document.getElementById('item-image').value,
+                    externalUrl: document.getElementById('item-external-url').value,
+                    content: quill.root.innerHTML,
+                };
+                if (id) {
+                    data.updatedAt = serverTimestamp();
+                    await updateDoc(doc(db, collectionName, id), data);
+                } else {
+                    data.createdAt = serverTimestamp();
+                    await addDoc(collection(db, collectionName), data);
+                }
             }
             closeModal();
         }
