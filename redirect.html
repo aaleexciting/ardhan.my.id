@@ -32,14 +32,12 @@
         const db = getFirestore(app);
 
         async function handleRedirect() {
-            // Get the path from the URL, e.g., "/my-link"
             const path = window.location.pathname;
             
-            // Remove the leading slash to get the slug
             const slug = path.substring(1);
 
             if (!slug) {
-                window.location.href = '/index.html'; // Redirect to home if no slug
+                window.location.href = '/index.html';
                 return;
             }
 
@@ -48,15 +46,12 @@
                 const docSnap = await getDoc(docRef);
 
                 if (docSnap.exists()) {
-                    // Redirect to the original URL
                     window.location.href = docSnap.data().url;
                 } else {
-                    // If link doesn't exist, go to the homepage
                     window.location.href = '/index.html';
                 }
             } catch (error) {
                 console.error("Error fetching shortlink:", error);
-                // On error, also redirect to homepage
                 window.location.href = '/index.html';
             }
         }
@@ -65,3 +60,4 @@
     </script>
 </body>
 </html>
+
