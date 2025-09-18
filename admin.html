@@ -11,13 +11,11 @@
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <style>
-        /* Base styles and variables */
         body { 
             font-family: 'Inter', sans-serif; 
             transition: background-color 0.3s ease, color 0.3s ease; 
         }
 
-        /* --- Theme variables --- */
         .light {
             --bg-primary: #f3f4f6;
             --bg-secondary: #ffffff;
@@ -53,7 +51,6 @@
             --glow-color: rgba(37, 99, 235, 0.3);
         }
         
-        /* --- Applying theme variables --- */
         .bg-primary { background-color: var(--bg-primary); }
         .bg-secondary { background-color: var(--bg-secondary); }
         .bg-sidebar { background-color: var(--bg-sidebar); }
@@ -83,7 +80,6 @@
             box-shadow: 0 0 0 3px var(--glow-color);
         }
         
-        /* --- Component Styles --- */
         #form-modal { transition: opacity 0.3s ease-in-out; }
         .modal-content { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
         .dark .ql-toolbar { border-color: var(--border-color) !important; border-top-left-radius: 0.5rem; border-top-right-radius: 0.5rem;}
@@ -204,7 +200,6 @@
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
         import { getFirestore, collection, doc, onSnapshot, addDoc, updateDoc, deleteDoc, serverTimestamp, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-        // --- Firebase Initialization ---
         const firebaseConfig = {
             apiKey: "AIzaSyCCzxxZ0pujMyzvvRorepkzaBWwO1RhUsg",
             authDomain: "ardhan-s-website.firebaseapp.com",
@@ -226,7 +221,6 @@
             modules: { toolbar: [ [{'header': [1,2,3,false]}], ['bold','italic','underline','strike'], ['blockquote','code-block'], [{'list':'ordered'},{'list':'bullet'}], ['link','image','video'], ['clean'] ] }
         });
 
-        // --- Auth ---
         onAuthStateChanged(auth, user => {
             document.getElementById('login-section').classList.toggle('hidden', !!user);
             document.getElementById('admin-panel').classList.toggle('hidden', !user);
@@ -242,7 +236,6 @@
 
         document.getElementById('logout-button').addEventListener('click', () => signOut(auth));
         
-        // --- Dashboard ---
         function setupDashboard() {
             setupNavListeners();
             switchView('projects');
@@ -355,7 +348,6 @@
             document.getElementById('shortlinks-link').addEventListener('click', (e) => { e.preventDefault(); switchView('shortlinks'); });
         }
         
-        // --- Modal & Form ---
         const modal = document.getElementById('form-modal');
         const modalContent = modal.querySelector('.modal-content');
         const itemForm = document.getElementById('item-form');
@@ -440,7 +432,6 @@
                     alert('Please provide both a short link and an original URL.');
                     return;
                 }
-                // For shortlinks, the ID is the slug itself. We use setDoc.
                 await setDoc(doc(db, "shortlinks", slug), { url: url });
             } else {
                  const id = document.getElementById('item-id').value;
@@ -462,7 +453,6 @@
             closeModal();
         }
 
-        // --- Theme Toggle ---
         const themeToggle = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
         const savedTheme = localStorage.getItem('theme') || 'light';
@@ -475,3 +465,4 @@
     </script>
 </body>
 </html>
+
