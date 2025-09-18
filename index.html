@@ -14,7 +14,6 @@
             font-family: 'Inter', sans-serif;
             transition: background-color 0.3s ease, color 0.3s ease;
         }
-        /* Light theme variables */
         .light {
             --bg-primary: #f3f4f6;
             --bg-card: #ffffff;
@@ -38,11 +37,10 @@
             --border-color: #e5e7eb;
             --shadow-color: rgba(0, 0, 0, 0.07);
             --glow-color: rgba(59, 130, 246, 0.2);
-            --project-title-bg-start: rgba(59, 130, 246, 0); /* blue-500 transparent */
-            --project-title-bg-end: #1f242bbf;  /* blue-500 with opacity */
+            --project-title-bg-start: rgba(59, 130, 246, 0);
+            --project-title-bg-end: #1f242bbf;
             --project-title-text: #ffffff;
         }
-        /* Dark theme variables */
         .dark {
             --bg-primary: #111827;
             --bg-card: #1f2937;
@@ -66,12 +64,11 @@
             --border-color: #374151;
             --shadow-color: rgba(0, 0, 0, 0.25);
             --glow-color: rgba(37, 99, 235, 0.3);
-            --project-title-bg-start: rgba(59, 130, 246, 0); /* blue-500 transparent */
-            --project-title-bg-end: #1f242bbf;  /* blue-500 with opacity */
+            --project-title-bg-start: rgba(59, 130, 246, 0);
+            --project-title-bg-end: #1f242bbf; 
             --project-title-text: #ffffff;
         }
 
-        /* --- REFINED STYLES & LAYOUT --- */
         .bg-primary { background-color: var(--bg-primary); }
         .bg-card { background-color: var(--bg-card); }
         .text-primary { color: var(--text-primary); }
@@ -351,4 +348,5 @@
         const swipeContent = document.getElementById('swipeContent'); const swipeDotsContainer = document.getElementById('swipeDots'); const totalSwipePages = 3; let isDragging = false, startX, scrollLeft; swipeContent.addEventListener('mousedown', (e) => { isDragging = true; swipeContent.classList.add('active-drag'); startX = e.pageX - swipeContent.offsetLeft; scrollLeft = swipeContent.scrollLeft; e.preventDefault(); }); swipeContent.addEventListener('mouseleave', () => { isDragging = false; swipeContent.classList.remove('active-drag'); }); swipeContent.addEventListener('mouseup', () => { isDragging = false; swipeContent.classList.remove('active-drag'); snapToNearestPage(); }); swipeContent.addEventListener('mousemove', (e) => { if (!isDragging) return; e.preventDefault(); const x = e.pageX - swipeContent.offsetLeft; const walk = (x - startX) * 1.5; swipeContent.scrollLeft = scrollLeft - walk; }); function snapToNearestPage() { const currentScroll = swipeContent.scrollLeft; const clientWidth = swipeContent.clientWidth; const targetPageIndex = Math.round(currentScroll / clientWidth); const targetScrollLeft = targetPageIndex * clientWidth; swipeContent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' }); updateSwipeDots(); } for (let i = 0; i < totalSwipePages; i++) { const dot = document.createElement('button'); dot.classList.add('dot', 'w-2', 'h-2', 'bg-gray-400', 'rounded-full', 'cursor-pointer'); dot.dataset.pageIndex = i; dot.addEventListener('click', (event) => { event.preventDefault(); const pageElement = swipeContent.children[i]; if (pageElement) { swipeContent.scrollTo({ left: pageElement.offsetLeft, behavior: 'smooth' }); } }); swipeDotsContainer.appendChild(dot); } const swipeDots = document.querySelectorAll('#swipeDots .dot'); function updateSwipeDots() { const currentScroll = swipeContent.scrollLeft; const clientWidth = swipeContent.clientWidth; if (clientWidth === 0) return; const currentPageIndex = Math.round(currentScroll / clientWidth); swipeDots.forEach((dot, index) => { if (index === currentPageIndex) { dot.classList.add('active'); } else { dot.classList.remove('active'); } }); } let scrollTimeout; swipeContent.addEventListener('scroll', () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(() => { if (!isDragging) { snapToNearestPage(); } }, 150); }); window.addEventListener('keydown', (event) => { const currentScroll = swipeContent.scrollLeft; const clientWidth = swipeContent.clientWidth; const currentPageIndex = Math.round(currentScroll / clientWidth); if (event.key === 'ArrowLeft') { if (currentPageIndex > 0) { const targetPageElement = swipeContent.children[currentPageIndex - 1]; swipeContent.scrollTo({ left: targetPageElement.offsetLeft, behavior: 'smooth' }); event.preventDefault(); } } else if (event.key === 'ArrowRight') { if (currentPageIndex < totalSwipePages - 1) { const targetPageElement = swipeContent.children[currentPageIndex + 1]; swipeContent.scrollTo({ left: targetPageElement.offsetLeft, behavior: 'smooth' }); event.preventDefault(); } } }); updateSwipeDots();
     </script>
 </body>
+
 </html>
