@@ -20,28 +20,26 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCCzxxZ0pujMyzvvRorepkzaBWwO1RhUsg",
-            authDomain: "ardhan-s-website.firebaseapp.com",
-            projectId: "ardhan-s-website",
-            storageBucket: "ardhan-s-website.appspot.com",
-            messagingSenderId: "1064954728511",
-            appId: "1:1064954728511:web:b1f2e5ed21bbe0bc14a88a"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-
-        async function handleRedirect() {
-            const path = window.location.pathname;
-            
-            const slug = path.substring(1);
-
-            if (!slug) {
-                window.location.href = '/index.html';
-                return;
-            }
-
+        async function initializeAndRedirect() {
             try {
+                // Securely fetch the Firebase configuration
+                const response = await fetch('/.netlify/functions/firebase-config');
+                if (!response.ok) throw new Error(`Firebase config fetch failed: ${response.statusText}`);
+                const firebaseConfig = await response.json();
+
+                // Initialize Firebase with the secure config
+                const app = initializeApp(firebaseConfig);
+                const db = getFirestore(app);
+
+                // --- Original redirect logic (unchanged) ---
+                const path = window.location.pathname;
+                const slug = path.substring(1);
+
+                if (!slug) {
+                    window.location.href = '/index.html';
+                    return;
+                }
+
                 const docRef = doc(db, 'shortlinks', slug);
                 const docSnap = await getDoc(docRef);
 
@@ -50,14 +48,16 @@
                 } else {
                     window.location.href = '/index.html';
                 }
+
             } catch (error) {
-                console.error("Error fetching shortlink:", error);
+                console.error("Error handling redirect:", error);
+                // Fallback to the homepage if anything goes wrong
                 window.location.href = '/index.html';
             }
         }
 
-        handleRedirect();
+        // Run the function
+        initializeAndRedirect();
     </script>
 </body>
 </html>
-

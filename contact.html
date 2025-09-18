@@ -16,127 +16,33 @@
         }
 
         .light {
-            --bg-primary: #f3f4f6;
-            --bg-card: #ffffff;
-            --text-primary: #1f2937;
-            --text-secondary: #6b7280;
-            --btn-primary-bg: #3b82f6;
-            --btn-primary-text: #ffffff;
-            --btn-secondary-bg: #e5e7eb;
-            --btn-secondary-text: #374151;
-            --icon-color: #6b7280;
-            --icon-hover-color: #3b82f6;
-            --border-color: #e5e7eb;
-            --shadow-color: rgba(0, 0, 0, 0.07);
-            --glow-color: rgba(59, 130, 246, 0.2);
-            --text-input: #1f2937; 
-            --bg-input: #ffffff; 
-            --border-input: #d1d5db; 
-            --border-input-focus: #3b82f6;
+            --bg-primary: #f3f4f6; --bg-card: #ffffff; --text-primary: #1f2937; --text-secondary: #6b7280; --btn-primary-bg: #3b82f6; --btn-primary-text: #ffffff; --btn-secondary-bg: #e5e7eb; --btn-secondary-text: #374151; --icon-color: #6b7280; --icon-hover-color: #3b82f6; --border-color: #e5e7eb; --shadow-color: rgba(0, 0, 0, 0.07); --glow-color: rgba(59, 130, 246, 0.2); --text-input: #1f2937; --bg-input: #ffffff; --border-input: #d1d5db; --border-input-focus: #3b82f6;
         }
 
         .dark {
-            --bg-primary: #111827;
-            --bg-card: #1f2937;
-            --text-primary: #f3f4f6;
-            --text-secondary: #9ca3af;
-            --btn-primary-bg: #2563eb;
-            --btn-primary-text: #ffffff;
-            --btn-secondary-bg: #374151;
-            --btn-secondary-text: #d1d5db;
-            --icon-color: #9ca3af;
-            --icon-hover-color: #60a5fa;
-            --border-color: #374151;
-            --shadow-color: rgba(0, 0, 0, 0.25);
-            --glow-color: rgba(37, 99, 235, 0.3);
-            --text-input: #f3f4f6;
-            --bg-input: #374151;
-            --border-input: #4b5563;
-            --border-input-focus: #60a5fa;
+            --bg-primary: #111827; --bg-card: #1f2937; --text-primary: #f3f4f6; --text-secondary: #9ca3af; --btn-primary-bg: #2563eb; --btn-primary-text: #ffffff; --btn-secondary-bg: #374151; --btn-secondary-text: #d1d5db; --icon-color: #9ca3af; --icon-hover-color: #60a5fa; --border-color: #374151; --shadow-color: rgba(0, 0, 0, 0.25); --glow-color: rgba(37, 99, 235, 0.3); --text-input: #f3f4f6; --bg-input: #374151; --border-input: #4b5563; --border-input-focus: #60a5fa;
         }
 
-        .bg-primary { background-color: var(--bg-primary); }
-        .bg-card { background-color: var(--bg-card); }
-        .text-primary { color: var(--text-primary); }
-        .text-secondary { color: var(--text-secondary); }
-        .btn-primary-bg { background-color: var(--btn-primary-bg); }
-        .btn-primary-text { color: var(--btn-primary-text); }
-        .btn-secondary-bg { background-color: var(--btn-secondary-bg); }
-        .btn-secondary-text { color: var(--btn-secondary-text); }
-        .icon-color { color: var(--icon-color); }
-        .icon-hover-color:hover { color: var(--icon-hover-color); }
-        .border-color { border-color: var(--border-color); }
+        .bg-primary { background-color: var(--bg-primary); } .bg-card { background-color: var(--bg-card); } .text-primary { color: var(--text-primary); } .text-secondary { color: var(--text-secondary); } .btn-primary-bg { background-color: var(--btn-primary-bg); } .btn-primary-text { color: var(--btn-primary-text); } .btn-secondary-bg { background-color: var(--btn-secondary-bg); } .btn-secondary-text { color: var(--btn-secondary-text); } .icon-color { color: var(--icon-color); } .icon-hover-color:hover { color: var(--icon-hover-color); } .border-color { border-color: var(--border-color); }
         
-        .portfolio-card { 
-            max-width: 380px; 
-            width: 100%; 
-            border-radius: 1.25rem; 
-            animation: fadeInScaleUp 0.6s ease-out forwards; 
-            opacity: 0; 
-        }
-        @keyframes fadeInScaleUp { 
-            0% { opacity: 0; transform: translateY(20px) scale(0.98); } 
-            100% { opacity: 1; transform: translateY(0) scale(1); } 
-        }
+        .portfolio-card { max-width: 380px; width: 100%; border-radius: 1.25rem; animation: fadeInScaleUp 0.6s ease-out forwards; opacity: 0; }
+        @keyframes fadeInScaleUp { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
         
-        .shadow-custom { 
-            box-shadow: 0 8px 25px -5px var(--shadow-color); 
-            transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; 
-        }
-        .shadow-custom:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 12px 30px -5px var(--shadow-color), 0 0 20px var(--glow-color); 
-        }
+        .shadow-custom { box-shadow: 0 8px 25px -5px var(--shadow-color); transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; }
+        .shadow-custom:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -5px var(--shadow-color), 0 0 20px var(--glow-color); }
         
-        .btn-fancy { 
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; 
-        }
-        .btn-fancy:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 4px 12px -2px var(--shadow-color), 0 0 10px var(--glow-color); 
-        }
-        .btn-fancy:active { 
-            transform: translateY(0); 
-            box-shadow: 0 2px 5px -1px var(--shadow-color); 
-        }
+        .btn-fancy { transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; }
+        .btn-fancy:hover { transform: translateY(-2px); box-shadow: 0 4px 12px -2px var(--shadow-color), 0 0 10px var(--glow-color); }
+        .btn-fancy:active { transform: translateY(0); box-shadow: 0 2px 5px -1px var(--shadow-color); }
 
         #theme-toggle { background-color: transparent !important; }
-        .theme-toggle-icon { 
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
-        }
-        .theme-toggle-icon.rotate { 
-            transform: rotate(360deg) scale(1); 
-        }
+        .theme-toggle-icon { transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); }
+        .theme-toggle-icon.rotate { transform: rotate(360deg) scale(1); }
 
-        .form-label {
-            font-size: 0.875rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-            display: block;
-            text-align: left;
-        }
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 0.75rem 1rem;
-            border-radius: 0.5rem;
-            border-width: 1px;
-            border-style: solid;
-            background-color: var(--bg-input);
-            color: var(--text-input);
-            border-color: var(--border-input);
-            transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-            appearance: none;
-        }
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--border-input-focus);
-            box-shadow: 0 0 0 3px var(--glow-color);
-        }
-        .form-textarea {
-            min-height: 120px;
-            resize: vertical;
-        }
+        .form-label { font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem; display: block; text-align: left; }
+        .form-input, .form-textarea { width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border-width: 1px; border-style: solid; background-color: var(--bg-input); color: var(--text-input); border-color: var(--border-input); transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; appearance: none; }
+        .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--border-input-focus); box-shadow: 0 0 0 3px var(--glow-color); }
+        .form-textarea { min-height: 120px; resize: vertical; }
     </style>
 </head>
 <body class="bg-primary flex items-center justify-center min-h-screen p-4 sm:p-6">
@@ -218,7 +124,15 @@
                 const messageContent = document.getElementById('messageContent').value.trim();
 
                 if (!senderName || !messageContent) {
-                    alert('Please fill in both your name and message.');
+                    // Using a simple, non-blocking notification
+                    const submitButton = event.submitter;
+                    const originalText = submitButton.innerHTML;
+                    submitButton.innerHTML = '<span>Please fill all fields</span>';
+                    submitButton.disabled = true;
+                    setTimeout(() => {
+                        submitButton.innerHTML = originalText;
+                        submitButton.disabled = false;
+                    }, 2000);
                     return;
                 }
                 
@@ -234,4 +148,3 @@
     </script>
 </body>
 </html>
-
