@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet">
     <style>
-        /* --- Base Theme Styles --- */
         body {
             font-family: 'Inter', sans-serif;
             transition: background-color 0.3s ease, color 0.3s ease;
@@ -53,7 +52,6 @@
             --code-bg: #111827;
         }
 
-        /* --- Global Styles --- */
         .bg-primary { background-color: var(--bg-primary); }
         .bg-card { background-color: var(--bg-card); }
         .text-primary { color: var(--text-primary); }
@@ -82,10 +80,8 @@
             transform: scale(1.15) translateY(-2px);
         }
 
-        /* --- DEDICATED ARTICLE CONTENT STYLES --- */
         #item-content {
             font-size: 1.1rem;
-            /* FIXED: Line height is now tighter */
             line-height: 1.6;
         }
         #item-content > * {
@@ -168,18 +164,14 @@
     </style>
 </head>
 <body class="bg-primary flex items-center justify-center min-h-screen p-4 sm:p-6">
-    <!-- Loading spinner -->
     <div id="page-loader" class="flex flex-col items-center justify-center text-secondary">
         <i class="fas fa-spinner fa-spin fa-3x"></i>
         <p class="mt-4">Loading Project...</p>
     </div>
 
-    <!-- Main card container -->
     <div id="content-card" class="hidden portfolio-card bg-card shadow-custom overflow-hidden">
         <div id="item-banner" class="card-banner">
-            <a href="index.html" class="absolute top-4 left-4 p-2 rounded-full text-white bg-black/30 hover:bg-black/50 transition-all z-20 flex items-center px-3"><i class="fas fa-arrow-left mr-2"></i> Back</a>
-            <!-- FIXED: Background classes removed from the theme toggle button -->
-            <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full text-white hover:text-gray-200 transition-all z-20"><i class="fas fa-moon text-xl"></i></button>
+            <a href="index.html" class="absolute top-4 left-4 p-2 rounded-full text-white bg-black/30 hover:bg-black/50 transition-all z-20 flex items-center px-3"><i class="fas fa-arrow-left mr-2"></i> Back</a>            <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full text-white hover:text-gray-200 transition-all z-20"><i class="fas fa-moon text-xl"></i></button>
         </div>
         
         <div class="p-6 sm:p-10">
@@ -188,11 +180,9 @@
             <a id="live-overview-btn" href="#" target="_blank" rel="noopener noreferrer" class="hidden btn-fancy mb-8 inline-flex items-center justify-center space-x-2 btn-primary-bg btn-primary-text py-2 px-4 rounded-lg font-semibold text-sm"><i class="fas fa-external-link-alt"></i><span>View Live Project</span></a>
             
             <div id="item-content">
-                <!-- Content from Firestore goes here -->
             </div>
         </div>
 
-        <!-- Footer -->
         <div class="border-t border-color mt-10">
              <div class="p-6 sm:p-8 flex flex-col sm:flex-row items-center text-center sm:text-left">
                 <img src="avatar.png" alt="Ardan Ridho" class="w-16 h-16 rounded-full object-cover mr-0 sm:mr-5 mb-4 sm:mb-0" onerror="this.src='https://placehold.co/100x100/E2E8F0/4A5568?text=AR'; this.onerror=null;">
@@ -213,14 +203,12 @@
         </div>
     </div>
     
-    <!-- Error Message -->
     <div id="error-message" class="hidden text-center py-12 bg-card p-8 rounded-2xl shadow-custom">
         <i class="fas fa-exclamation-triangle fa-3x text-red-500"></i>
         <h2 class="mt-4 text-2xl font-bold text-primary">Content Not Found</h2>
         <a href="index.html" class="mt-6 inline-block btn-primary-bg btn-primary-text py-2 px-5 rounded-lg font-semibold btn-fancy">Return Home</a>
     </div>
-
-    <!-- Firebase -->
+    
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
@@ -298,4 +286,5 @@
         document.addEventListener('DOMContentLoaded', loadContent);
     </script>
 </body>
+
 </html>
