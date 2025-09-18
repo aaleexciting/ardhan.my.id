@@ -11,13 +11,54 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
-        .light { --bg-primary: #f3f4f6; --bg-card: #ffffff; --bg-card-banner-gradient-start: rgba(229, 231, 235, 0.678); --bg-card-banner-gradient-end: rgba(249, 250, 251, 0.425); --text-primary: #1f2937; --text-secondary: #6b7280; --text-summary: #4b5563; --text-skill-icon: #3b82f6; --btn-primary-bg: #3b82f6; --btn-primary-text: #ffffff; --btn-secondary-bg: #e5e7eb; --btn-secondary-text: #374151; --tab-container-bg: #e5e7eb; --tab-active-bg: #374151; --tab-active-text: #ffffff; --tab-inactive-bg: #d1d5db; --tab-inactive-text: #4b5563; --icon-color: #6b7280; --icon-hover-color: #3b82f6; --border-color: #e5e7eb; --shadow-color: rgba(0, 0, 0, 0.07); --glow-color: rgba(59, 130, 246, 0.2); --project-title-bg-start: rgba(59, 130, 246, 0); --project-title-bg-end: #1f242bbf; --project-title-text: #ffffff; }
-        .dark { --bg-primary: #111827; --bg-card: #1f2937; --bg-card-banner-gradient-start: rgba(55, 65, 81, 0.7); --bg-card-banner-gradient-end: rgba(31, 41, 55, 0.9); --text-primary: #f3f4f6; --text-secondary: #9ca3af; --text-summary: #d1d5db; --text-skill-icon: #60a5fa; --btn-primary-bg: #2563eb; --btn-primary-text: #ffffff; --btn-secondary-bg: #374151; --btn-secondary-text: #d1d5db; --tab-container-bg: #171e2b; --tab-active-bg: #4b5563; --tab-active-text: #ffffff; --tab-inactive-bg: #374151; --tab-inactive-text: #9ca3af; --icon-color: #9ca3af; --icon-hover-color: #60a5fa; --border-color: #374151; --shadow-color: rgba(0, 0, 0, 0.25); --glow-color: rgba(37, 99, 235, 0.3); --project-title-bg-start: rgba(59, 130, 246, 0); --project-title-bg-end: #1f242bbf; --project-title-text: #ffffff; }
-        .bg-primary { background-color: var(--bg-primary); } .bg-card { background-color: var(--bg-card); } .text-primary { color: var(--text-primary); } .text-secondary { color: var(--text-secondary); } .text-summary { color: var(--text-summary); } .text-skill-icon { color: var(--text-skill-icon); } .btn-primary-bg { background-color: var(--btn-primary-bg); } .btn-primary-text { color: var(--btn-primary-text); } .btn-secondary-bg { background-color: var(--btn-secondary-bg); } .btn-secondary-text { color: var(--btn-secondary-text); } .tab-container-custom-bg { background-color: var(--tab-container-bg); } .tab-active-bg { background-color: var(--tab-active-bg); } .tab-active-text { color: var(--tab-active-text); } .tab-inactive-bg { background-color: var(--tab-inactive-bg); } .tab-inactive-text { color: var(--tab-inactive-text); } .icon-color { color: var(--icon-color); } .icon-hover-color:hover { color: var(--icon-hover-color); } .border-color { border-color: var(--border-color); } .shadow-custom { box-shadow: 0 8px 25px -5px var(--shadow-color); transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; } .shadow-custom:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -5px var(--shadow-color), 0 0 20px var(--glow-color); } .portfolio-card { max-width: 380px; width: 100%; border-radius: 1.25rem; animation: fadeInScaleUp 0.6s ease-out forwards; opacity: 0; }
+        .light { --bg-primary: #f3f4f6; --bg-card: #ffffff; --bg-subtle: #f9fafb; --bg-card-banner-gradient-start: rgba(229, 231, 235, 0.678); --bg-card-banner-gradient-end: rgba(249, 250, 251, 0.425); --text-primary: #1f2937; --text-secondary: #6b7280; --text-summary: #4b5563; --text-skill-icon: #3b82f6; --btn-primary-bg: #3b82f6; --btn-primary-text: #ffffff; --btn-secondary-bg: #e5e7eb; --btn-secondary-text: #374151; --tab-container-bg: #e5e7eb; --tab-active-bg: #ffffff; --tab-active-text: #1f2937; --tab-inactive-bg: transparent; --tab-inactive-text: #4b5563; --icon-color: #6b7280; --icon-hover-color: #3b82f6; --border-color: #e5e7eb; --shadow-color: rgba(0, 0, 0, 0.07); --glow-color: rgba(59, 130, 246, 0.2); --project-title-bg-start: rgba(20, 20, 20, 0); --project-title-bg-end: rgba(20, 20, 20, 0.8); --project-title-text: #ffffff; }
+        .dark { --bg-primary: #111827; --bg-card: #1f2937; --bg-subtle: #171e2b; --bg-card-banner-gradient-start: rgba(55, 65, 81, 0.7); --bg-card-banner-gradient-end: rgba(31, 41, 55, 0.9); --text-primary: #f3f4f6; --text-secondary: #9ca3af; --text-summary: #d1d5db; --text-skill-icon: #60a5fa; --btn-primary-bg: #2563eb; --btn-primary-text: #ffffff; --btn-secondary-bg: #374151; --btn-secondary-text: #d1d5db; --tab-container-bg: #111827; --tab-active-bg: #374151; --tab-active-text: #ffffff; --tab-inactive-bg: transparent; --tab-inactive-text: #9ca3af; --icon-color: #9ca3af; --icon-hover-color: #60a5fa; --border-color: #374151; --shadow-color: rgba(0, 0, 0, 0.25); --glow-color: rgba(37, 99, 235, 0.3); --project-title-bg-start: rgba(10, 10, 10, 0); --project-title-bg-end: rgba(10, 10, 10, 0.9); --project-title-text: #ffffff; }
+        
+        .bg-primary { background-color: var(--bg-primary); } .bg-card { background-color: var(--bg-card); } .bg-subtle { background-color: var(--bg-subtle); } .text-primary { color: var(--text-primary); } .text-secondary { color: var(--text-secondary); } .text-summary { color: var(--text-summary); } .text-skill-icon { color: var(--text-skill-icon); } .btn-primary-bg { background-color: var(--btn-primary-bg); } .btn-primary-text { color: var(--btn-primary-text); } .btn-secondary-bg { background-color: var(--btn-secondary-bg); } .btn-secondary-text { color: var(--btn-secondary-text); } .tab-container-custom-bg { background-color: var(--tab-container-bg); } .tab-active-bg { background-color: var(--tab-active-bg); } .tab-active-text { color: var(--tab-active-text); } .tab-inactive-bg { background-color: var(--tab-inactive-bg); } .tab-inactive-text { color: var(--tab-inactive-text); } .icon-color { color: var(--icon-color); } .icon-hover-color:hover { color: var(--icon-hover-color); } .border-color { border-color: var(--border-color); } 
+        
+        .portfolio-card { max-width: 400px; width: 100%; border-radius: 1.5rem; animation: fadeInScaleUp 0.6s ease-out forwards; opacity: 0; }
         @keyframes fadeInScaleUp { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
-        .card-banner { height: 10rem; background-size: cover; background-position: center; position: relative; } .card-banner::before { content: ""; position: absolute; top: 0; right: 0; bottom: 0; left: 0; background-image: linear-gradient(to bottom, var(--bg-card-banner-gradient-start), var(--bg-card-banner-gradient-end)); z-index: 1; } .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-top: -50px; border: 4px solid var(--bg-card); position: relative; z-index: 10; transition: transform 0.3s ease; } .profile-img:hover { transform: scale(1.05); } .summary-section { line-height: 1.6; } .leading-normal { line-height: 1.6; } .project-image-container { position: relative; border-radius: 0.75rem; overflow: hidden; } .project-image { height: 12rem; object-fit: cover; transition: transform 0.3s ease; display: block; width: 100%; } .project-image-container:hover .project-image { transform: scale(1.05); } .project-title-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem 1rem 1rem; background-image: linear-gradient(to top, var(--project-title-bg-end) 30%, var(--project-title-bg-start) 100%); color: var(--project-title-text); font-size: 1rem; font-weight: 600; text-align: left; } .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(80px, 1fr)); gap: 0.5rem 1rem; padding: 0.5rem 0; width: 100%; } .skill-item { display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform 0.2s ease-out; padding: 0.5rem 0.25rem; } .skill-item:hover { transform: translateY(-3px); } .skill-item i { font-size: 1.5rem; margin-bottom: 0.5rem; transition: color 0.2s; } .skill-item:hover i { color: var(--icon-hover-color); } .skill-item span { font-size: 0.75rem; font-weight: 500; line-height: 1.2; } #theme-toggle { background-color: transparent !important; } .theme-toggle-icon { transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); } .theme-toggle-icon.rotate { transform: rotate(360deg) scale(1); } #swipeContent { cursor: grab; user-select: none; } #swipeContent.active-drag { cursor: grabbing; } #swipeContent::-webkit-scrollbar { display: none; } .dot { transition: all 0.3s ease; } .dot.active { background-color: var(--btn-primary-bg); transform: scale(1.25); } .tab-content-item { animation: fadeIn 0.5s ease-in-out; }
+        
+        .shadow-custom { box-shadow: 0 10px 15px -3px var(--shadow-color), 0 4px 6px -4px var(--shadow-color); transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; } 
+        .shadow-custom:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px var(--shadow-color), 0 8px 10px -6px var(--shadow-color); }
+        
+        .card-banner { height: 11rem; background-size: cover; background-position: center; position: relative; } 
+        .card-banner::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to bottom, var(--bg-card-banner-gradient-start), var(--bg-card-banner-gradient-end)); z-index: 1; } 
+        
+        .profile-img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-top: -50px; border: 4px solid var(--bg-card); position: relative; z-index: 10; transition: transform 0.3s ease; } 
+        .profile-img:hover { transform: scale(1.05); }
+        
+        .project-image-container { position: relative; border-radius: 0.75rem; overflow: hidden; display: block; } 
+        .project-image { height: 12rem; object-fit: cover; transition: transform 0.4s ease; width: 100%; } 
+        .project-image-container:hover .project-image { transform: scale(1.05); } 
+        
+        .project-title-overlay { position: absolute; bottom: 0; left: 0; right: 0; padding: 2.5rem 1rem 1rem; background-image: linear-gradient(to top, var(--project-title-bg-end) 30%, var(--project-title-bg-start) 100%); color: var(--project-title-text); font-size: 1rem; font-weight: 600; text-align: left; transition: background 0.3s ease; }
+        
+        .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; } 
+        .skill-item { display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform 0.2s ease-out, background-color 0.2s ease; padding: 0.75rem 0.5rem; border-radius: 0.5rem; } 
+        .skill-item:hover { transform: translateY(-3px); background-color: var(--bg-primary); } 
+        .skill-item i { font-size: 1.5rem; margin-bottom: 0.5rem; } 
+        .skill-item span { font-size: 0.75rem; font-weight: 500; line-height: 1.2; }
+        
+        #theme-toggle { background-color: transparent !important; } 
+        .theme-toggle-icon { transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); } 
+        .theme-toggle-icon.rotate { transform: rotate(360deg) scale(1); } 
+        
+        #swipeContent { cursor: grab; user-select: none; } #swipeContent.active-drag { cursor: grabbing; } #swipeContent::-webkit-scrollbar { display: none; } 
+        
+        .dot { transition: all 0.3s ease; } .dot.active { background-color: var(--btn-primary-bg); transform: scale(1.25); } 
+        
+        .tab-content-item { animation: fadeIn 0.5s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .btn-fancy { transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; } .btn-fancy:hover { transform: translateY(-2px); box-shadow: 0 4px 12px -2px var(--shadow-color), 0 0 10px var(--glow-color); } .btn-fancy:active { transform: translateY(0); box-shadow: 0 2px 5px -1px var(--shadow-color); } .social-icon-link { transition: transform 0.2s ease-out, color 0.2s ease-out; } .social-icon-link:hover { transform: scale(1.15) translateY(-2px); }
+        
+        .btn-fancy { transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s; } 
+        .btn-fancy:hover { transform: translateY(-2px); box-shadow: 0 4px 12px -2px var(--shadow-color), 0 0 10px var(--glow-color); } 
+        .btn-fancy:active { transform: translateY(0); box-shadow: 0 2px 5px -1px var(--shadow-color); }
+        
+        .social-icon-link { transition: transform 0.2s ease-out, color 0.2s ease-out; } 
+        .social-icon-link:hover { transform: scale(1.15) translateY(-2px); }
+        
+        .tab-button { transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease; }
     </style>
 </head>
 <body class="bg-primary flex items-center justify-center min-h-screen p-4 sm:p-6">
@@ -29,23 +70,29 @@
         <div class="card-banner" style="background-image: url('banner.png');"></div>
         
         <div class="relative">
-            <img src="avatar.png" alt="Ardan Ridho" class="profile-img mx-auto" onerror="this.src='https://placehold.co/100x100/E2E8F0/4A5568?text=Ardan Ridho'; this.onerror=null;">
+            <img src="avatar.png" alt="Ardan Ridho" class="profile-img mx-auto" onerror="this.src='https://placehold.co/100x100/E2E8F0/4A5568?text=AR'; this.onerror=null;">
         </div>
 
         <div class="text-center px-6 pt-2 pb-5">
             <h1 class="text-2xl font-bold text-primary mt-2">Ardan Ridho</h1>
             <p class="text-secondary text-base">Video Editor & Multimedia Producer</p>
+             <div class="inline-flex items-center bg-green-100 text-green-800 text-xs font-semibold px-2.5 py-1 rounded-full mt-3 dark:bg-green-900 dark:text-green-300">
+                <span class="w-2 h-2 mr-2 bg-green-500 rounded-full"></span>
+                Available for Work
+            </div>
             <div class="flex justify-center space-x-5 mt-5">
+                <a href="https://www.facebook.com/ardhnrd/" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/ardnrd/" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-instagram"></i></a>                
                 <a href="https://www.linkedin.com/in/ardnrd/" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-linkedin"></i></a>
                 <a href="https://www.youtube.com/@ardnrd" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-youtube"></i></a>
             </div>
         </div>
 
-        <div class="summary-section border-t border-b border-color py-5 px-6 text-sm text-summary relative overflow-hidden">
+        <div class="bg-subtle border-t border-b border-color py-6 px-6 relative overflow-hidden">
             <div id="swipeContent" class="flex w-full overflow-x-scroll snap-x snap-mandatory scroll-smooth hide-scrollbar">
-                <div id="summary-page" class="flex-none w-full snap-center px-0">
+                <div id="summary-page" class="flex-none w-full snap-center px-0 text-sm text-summary">
                     <h2 class="text-lg font-semibold text-primary mb-3 text-center">Summary</h2>
-                    <p class="leading-normal">Over 3 years of experience in video editing, multimedia production, graphic design, and front-end development. Proven ability to create impactful content for digital and broadcast platforms. Skilled in troubleshooting, networking, IT systems, and artificial intelligence applications. Fluent in English for both written and spoken communication. Currently pursuing a B.Sc. in Computer Science focused on software development and network systems.</p>
+                    <p class="leading-relaxed">Creative and tech-minded professional with a background in video editing, multimedia production, and design, combined with growing skills in front-end development. Experienced in producing digital content that connects with audiences, and fluent in English for both written and spoken communication. Currently pursuing a degree in Computer Science.</p>
                 </div>
                 <div id="skills-page-1" class="flex-none w-full snap-center px-0">
                     <h2 class="text-lg font-semibold text-primary mb-3 text-center">Core Skills</h2>
@@ -59,19 +106,19 @@
             <div id="swipeDots" class="flex justify-center space-x-2 mt-5 pb-1"></div>
         </div>
 
-        <div class="px-6 py-5 flex items-center space-x-3">
-             <button onclick="window.open('https://drive.google.com/file/d/1Iv-xTidLawifOXDaPz0hv8X5fpG9ba2d/view?usp=sharing', '_blank')" class="btn-fancy flex-grow btn-primary-bg btn-primary-text py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2">
-                <span>Download CV</span><i class="fas fa-download"></i>
+        <div class="p-6 flex items-center space-x-3">
+             <button onclick="window.open('https://drive.google.com/file/d/1Iv-xTidLawifOXDaPz0hv8X5fpG9ba2d/view?usp=sharing', '_blank')" class="group btn-fancy flex-grow btn-primary-bg btn-primary-text py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2">
+                <span>Download CV</span><i class="fas fa-download transition-transform duration-200 group-hover:translate-x-1"></i>
             </button>
-            <button onclick="window.location.href='contact.html'" class="btn-fancy flex-grow btn-secondary-bg btn-secondary-text py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2">
-                <span>Contact Me</span><i class="fas fa-paper-plane"></i>
+            <button onclick="window.location.href='contact.html'" class="group btn-fancy flex-grow btn-secondary-bg btn-secondary-text py-3 px-4 rounded-xl font-semibold text-sm flex items-center justify-center space-x-2">
+                <span>Contact Me</span><i class="fas fa-paper-plane transition-transform duration-200 group-hover:translate-x-1"></i>
             </button>
         </div>
 
         <div class="px-6 pb-2">
-            <div class="flex space-x-2 tab-container-custom-bg p-1 rounded-lg">
-                <button class="flex-1 py-2 px-4 rounded-md text-sm font-medium focus:outline-none btn-fancy">Projects</button>
-                <button class="flex-1 py-2 px-4 rounded-md text-sm font-medium focus:outline-none btn-fancy">Portfolio</button>
+            <div class="flex space-x-1 tab-container-custom-bg p-1 rounded-lg">
+                <button class="tab-button flex-1 py-2 px-4 rounded-md text-sm font-medium focus:outline-none">Projects</button>
+                <button class="tab-button flex-1 py-2 px-4 rounded-md text-sm font-medium focus:outline-none">Portfolio</button>
             </div>
         </div>
 
@@ -86,24 +133,21 @@
 
         async function initializeFirebase() {
             try {
-                // Securely fetch the Firebase configuration from the serverless function
                 const response = await fetch('/.netlify/functions/firebase-config');
                 if (!response.ok) throw new Error(`Firebase config fetch failed: ${response.statusText}`);
                 const firebaseConfig = await response.json();
-
-                // Initialize Firebase with the secure configuration
                 const app = initializeApp(firebaseConfig);
                 const db = getFirestore(app);
 
-                // --- All original tab-switching and content-loading logic goes here ---
-                const tabButtons = document.querySelectorAll('.tab-container-custom-bg button');
+                const tabButtons = document.querySelectorAll('.tab-button');
                 const tabContentContainer = document.querySelector('.current-tab-content');
 
                 function generateContentHTML(items, type) {
                     if (!items || items.length === 0) {
                         return `<div class="tab-content-item text-center py-8 text-secondary">
+                                    <i class="fas fa-folder-open fa-2x mb-3"></i>
                                     <p>No ${type} items have been added yet.</p>
-                                    <p class="mt-2 text-primary font-semibold">Content coming soon!</p>
+                                    <p class="mt-1 text-sm">Content coming soon!</p>
                                 </div>`;
                     }
                     return `
@@ -114,10 +158,13 @@
                                 const target = isExternal ? 'target="_blank" rel="noopener noreferrer"' : '';
 
                                 return `
-                                <a href="${href}" ${target} class="project-image-container block rounded-lg overflow-hidden transition-shadow duration-300">
+                                <a href="${href}" ${target} class="group project-image-container shadow-sm hover:shadow-xl transition-shadow duration-300">
                                     <img src="${item.imageUrl}" alt="${item.title}" class="project-image" onerror="this.src='https://placehold.co/600x400/cccccc/999999?text=Image+Not+Found'; this.onerror=null;">
                                     <div class="project-title-overlay">
                                         ${item.title}
+                                        <span class="text-xs font-medium block mt-1 opacity-80 group-hover:opacity-100 transition-opacity">
+                                            View Project <i class="fas fa-arrow-right ml-1"></i>
+                                        </span>
                                     </div>
                                 </a>`
                             }).join('')}
@@ -140,10 +187,10 @@
                 tabButtons.forEach(button => {
                     button.addEventListener('click', () => {
                         tabButtons.forEach(btn => {
-                            btn.classList.remove('tab-active-bg', 'tab-active-text');
+                            btn.classList.remove('tab-active-bg', 'tab-active-text', 'shadow-sm');
                             btn.classList.add('tab-inactive-bg', 'tab-inactive-text');
                         });
-                        button.classList.add('tab-active-bg', 'tab-active-text');
+                        button.classList.add('tab-active-bg', 'tab-active-text', 'shadow-sm');
                         button.classList.remove('tab-inactive-bg', 'tab-inactive-text');
                         loadContent(button.textContent.trim().toLowerCase());
                     });
@@ -153,10 +200,8 @@
                     const projectsButton = Array.from(tabButtons).find(btn => btn.textContent.trim().toLowerCase() === 'projects');
                     if (projectsButton) {
                         projectsButton.click();
-                    } else {
-                        loadContent('projects');
-                        tabButtons[0]?.classList.add('tab-active-bg', 'tab-active-text');
-                        tabButtons[0]?.classList.remove('tab-inactive-bg', 'tab-inactive-text');
+                    } else { // Fallback
+                        tabButtons[0]?.click();
                     }
                 }
                 initializeView();
@@ -166,20 +211,16 @@
             }
         }
 
-        // Run the initialization function
         initializeFirebase();
     </script>
 
     <script>
-        // This script now ONLY handles theme switching and the skills slider animation.
-        // The Discord logging functionality has been moved to discord-logger.js
         const themeToggle = document.getElementById('theme-toggle'); const themeToggleIcon = themeToggle.querySelector('.theme-toggle-icon'); const htmlElement = document.documentElement; const moonIconHTML = '<i class="fas fa-moon text-xl"></i>'; const sunIconHTML = '<i class="fas fa-sun text-xl"></i>'; function applyTheme(theme, animateIcon = false) { if (animateIcon) { themeToggleIcon.classList.add('rotate'); setTimeout(() => themeToggleIcon.classList.remove('rotate'), 600); } if (theme === 'dark') { htmlElement.classList.add('dark'); htmlElement.classList.remove('light'); themeToggleIcon.innerHTML = sunIconHTML; } else { htmlElement.classList.add('light'); htmlElement.classList.remove('dark'); themeToggleIcon.innerHTML = moonIconHTML; } } const savedTheme = localStorage.getItem('theme') || 'light'; applyTheme(savedTheme); themeToggle.addEventListener('click', () => { const newTheme = htmlElement.classList.contains('light') ? 'dark' : 'light'; applyTheme(newTheme, true); localStorage.setItem('theme', newTheme); });
-        const skillsData = [ { icon: 'fas fa-film', text: 'Video Editing' }, { icon: 'fas fa-camera', text: 'Photography' }, { icon: 'fas fa-video', text: 'Videography' }, { icon: 'fas fa-paint-brush', text: 'Graphic Designing' }, { icon: 'fas fa-file-word', text: 'Microsoft Office' }, { icon: 'fas fa-icons', text: 'Social Media' }, { icon: 'fas fa-brain', text: 'Artificial Intelligence' }, { icon: 'fas fa-tower-broadcast', text: 'Video Broadcasting' }, { icon: 'fas fa-code', text: 'Front-End Developement' }, { icon: 'fas fa-screwdriver-wrench', text: 'System Troubleshooting' }, { icon: 'fas fa-ethernet', text: 'Computer Networking' }, { icon: 'fas fa-server', text: 'IT Infrastructure' }, ]; const skillsPage1 = skillsData.slice(0, 6); const skillsPage2 = skillsData.slice(6, 12); function generateSkillsGridHTML(skills) { return skills.map(skill => ` <div class="skill-item p-3 rounded-lg"> <i class="${skill.icon} text-skill-icon"></i> <span class="text-xs font-medium mt-1">${skill.text}</span> </div> `).join(''); }
+        const skillsData = [ { icon: 'fas fa-film', text: 'Video Editing' }, { icon: 'fas fa-camera', text: 'Photography' }, { icon: 'fas fa-video', text: 'Videography' }, { icon: 'fas fa-paint-brush', text: 'Graphic Design' }, { icon: 'fas fa-file-word', text: 'Microsoft Office' }, { icon: 'fas fa-icons', text: 'Social Media' }, { icon: 'fas fa-brain', text: 'AI Tools' }, { icon: 'fas fa-tower-broadcast', text: 'Broadcasting' }, { icon: 'fas fa-code', text: 'Front-End Dev' }, { icon: 'fas fa-screwdriver-wrench', text: 'Troubleshooting' }, { icon: 'fas fa-ethernet', text: 'Networking' }, { icon: 'fas fa-server', text: 'IT Systems' }, ]; const skillsPage1 = skillsData.slice(0, 6); const skillsPage2 = skillsData.slice(6, 12); function generateSkillsGridHTML(skills) { return skills.map(skill => ` <div class="skill-item"> <i class="${skill.icon} text-skill-icon"></i> <span class="text-xs font-medium mt-1">${skill.text}</span> </div> `).join(''); }
         document.getElementById('skills-page-1').querySelector('.skills-grid').innerHTML = generateSkillsGridHTML(skillsPage1); document.getElementById('skills-page-2').querySelector('.skills-grid').innerHTML = generateSkillsGridHTML(skillsPage2);
         const swipeContent = document.getElementById('swipeContent'); const swipeDotsContainer = document.getElementById('swipeDots'); const totalSwipePages = 3; let isDragging = false, startX, scrollLeft; swipeContent.addEventListener('mousedown', (e) => { isDragging = true; swipeContent.classList.add('active-drag'); startX = e.pageX - swipeContent.offsetLeft; scrollLeft = swipeContent.scrollLeft; e.preventDefault(); }); swipeContent.addEventListener('mouseleave', () => { isDragging = false; swipeContent.classList.remove('active-drag'); }); swipeContent.addEventListener('mouseup', () => { isDragging = false; swipeContent.classList.remove('active-drag'); snapToNearestPage(); }); swipeContent.addEventListener('mousemove', (e) => { if (!isDragging) return; e.preventDefault(); const x = e.pageX - swipeContent.offsetLeft; const walk = (x - startX) * 1.5; swipeContent.scrollLeft = scrollLeft - walk; }); function snapToNearestPage() { const currentScroll = swipeContent.scrollLeft; const clientWidth = swipeContent.clientWidth; const targetPageIndex = Math.round(currentScroll / clientWidth); const targetScrollLeft = targetPageIndex * clientWidth; swipeContent.scrollTo({ left: targetScrollLeft, behavior: 'smooth' }); updateSwipeDots(); } for (let i = 0; i < totalSwipePages; i++) { const dot = document.createElement('button'); dot.classList.add('dot', 'w-2', 'h-2', 'bg-gray-400', 'rounded-full', 'cursor-pointer'); dot.dataset.pageIndex = i; dot.addEventListener('click', (event) => { event.preventDefault(); const pageElement = swipeContent.children[i]; if (pageElement) { swipeContent.scrollTo({ left: pageElement.offsetLeft, behavior: 'smooth' }); } }); swipeDotsContainer.appendChild(dot); } const swipeDots = document.querySelectorAll('#swipeDots .dot'); function updateSwipeDots() { const currentScroll = swipeContent.scrollLeft; const clientWidth = swipeContent.clientWidth; if (clientWidth === 0) return; const currentPageIndex = Math.round(currentScroll / clientWidth); swipeDots.forEach((dot, index) => { if (index === currentPageIndex) { dot.classList.add('active'); } else { dot.classList.remove('active'); } }); } let scrollTimeout; swipeContent.addEventListener('scroll', () => { clearTimeout(scrollTimeout); scrollTimeout = setTimeout(() => { if (!isDragging) { snapToNearestPage(); } }, 150); }); window.addEventListener('keydown', (event) => { const currentScroll = swipeContent.scrollLeft; const clientWidth = swipeContent.clientWidth; const currentPageIndex = Math.round(currentScroll / clientWidth); if (event.key === 'ArrowLeft') { if (currentPageIndex > 0) { const targetPageElement = swipeContent.children[currentPageIndex - 1]; swipeContent.scrollTo({ left: targetPageElement.offsetLeft, behavior: 'smooth' }); event.preventDefault(); } } else if (event.key === 'ArrowRight') { if (currentPageIndex < totalSwipePages - 1) { const targetPageElement = swipeContent.children[currentPageIndex + 1]; swipeContent.scrollTo({ left: targetPageElement.offsetLeft, behavior: 'smooth' }); event.preventDefault(); } } }); updateSwipeDots();
     </script>
     
-    <!-- This new script tag loads the separated Discord logging functionality -->
     <script src="discord-logger.js" defer></script>
 </body>
 </html>

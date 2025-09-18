@@ -22,16 +22,13 @@
 
         async function initializeAndRedirect() {
             try {
-                // Securely fetch the Firebase configuration
                 const response = await fetch('/.netlify/functions/firebase-config');
                 if (!response.ok) throw new Error(`Firebase config fetch failed: ${response.statusText}`);
                 const firebaseConfig = await response.json();
 
-                // Initialize Firebase with the secure config
                 const app = initializeApp(firebaseConfig);
                 const db = getFirestore(app);
 
-                // --- Original redirect logic (unchanged) ---
                 const path = window.location.pathname;
                 const slug = path.substring(1);
 
@@ -51,12 +48,10 @@
 
             } catch (error) {
                 console.error("Error handling redirect:", error);
-                // Fallback to the homepage if anything goes wrong
                 window.location.href = '/index.html';
             }
         }
 
-        // Run the function
         initializeAndRedirect();
     </script>
 </body>

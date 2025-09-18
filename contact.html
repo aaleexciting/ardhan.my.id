@@ -16,7 +16,7 @@
         }
 
         .light {
-            --bg-primary: #f3f4f6; --bg-card: #ffffff; --text-primary: #1f2937; --text-secondary: #6b7280; --btn-primary-bg: #3b82f6; --btn-primary-text: #ffffff; --btn-secondary-bg: #e5e7eb; --btn-secondary-text: #374151; --icon-color: #6b7280; --icon-hover-color: #3b82f6; --border-color: #e5e7eb; --shadow-color: rgba(0, 0, 0, 0.07); --glow-color: rgba(59, 130, 246, 0.2); --text-input: #1f2937; --bg-input: #ffffff; --border-input: #d1d5db; --border-input-focus: #3b82f6;
+            --bg-primary: #f3f4f6; --bg-card: #ffffff; --text-primary: #1f2937; --text-secondary: #6b7280; --btn-primary-bg: #3b82f6; --btn-primary-text: #ffffff; --btn-secondary-bg: #e5e7eb; --btn-secondary-text: #374151; --icon-color: #6b7280; --icon-hover-color: #3b82f6; --border-color: #e5e7eb; --shadow-color: rgba(0, 0, 0, 0.07); --glow-color: rgba(59, 130, 246, 0.2); --text-input: #1f2937; --bg-input: #f9fafb; --border-input: #d1d5db; --border-input-focus: #3b82f6;
         }
 
         .dark {
@@ -25,7 +25,7 @@
 
         .bg-primary { background-color: var(--bg-primary); } .bg-card { background-color: var(--bg-card); } .text-primary { color: var(--text-primary); } .text-secondary { color: var(--text-secondary); } .btn-primary-bg { background-color: var(--btn-primary-bg); } .btn-primary-text { color: var(--btn-primary-text); } .btn-secondary-bg { background-color: var(--btn-secondary-bg); } .btn-secondary-text { color: var(--btn-secondary-text); } .icon-color { color: var(--icon-color); } .icon-hover-color:hover { color: var(--icon-hover-color); } .border-color { border-color: var(--border-color); }
         
-        .portfolio-card { max-width: 380px; width: 100%; border-radius: 1.25rem; animation: fadeInScaleUp 0.6s ease-out forwards; opacity: 0; }
+        .portfolio-card { max-width: 420px; width: 100%; border-radius: 1.25rem; animation: fadeInScaleUp 0.6s ease-out forwards; opacity: 0; }
         @keyframes fadeInScaleUp { 0% { opacity: 0; transform: translateY(20px) scale(0.98); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
         
         .shadow-custom { box-shadow: 0 8px 25px -5px var(--shadow-color); transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out; }
@@ -40,42 +40,72 @@
         .theme-toggle-icon.rotate { transform: rotate(360deg) scale(1); }
 
         .form-label { font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); margin-bottom: 0.5rem; display: block; text-align: left; }
-        .form-input, .form-textarea { width: 100%; padding: 0.75rem 1rem; border-radius: 0.5rem; border-width: 1px; border-style: solid; background-color: var(--bg-input); color: var(--text-input); border-color: var(--border-input); transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; appearance: none; }
+        .input-group { position: relative; }
+        .input-icon { position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%); color: var(--border-input); }
+        .form-input, .form-textarea { width: 100%; padding: 0.75rem 1rem 0.75rem 2.5rem; border-radius: 0.5rem; border-width: 1px; border-style: solid; background-color: var(--bg-input); color: var(--text-input); border-color: var(--border-input); transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out; appearance: none; }
         .form-input:focus, .form-textarea:focus { outline: none; border-color: var(--border-input-focus); box-shadow: 0 0 0 3px var(--glow-color); }
-        .form-textarea { min-height: 120px; resize: vertical; }
+        .form-input:focus ~ .input-icon, .form-textarea:focus ~ .input-icon { color: var(--border-input-focus); }
+        .form-textarea { min-height: 120px; resize: vertical; padding-top: 0.75rem; }
+        .form-textarea ~ .input-icon { top: 1.1rem; transform: none; }
+        .social-icon-link { transition: transform 0.2s ease-out, color 0.2s ease-out; } 
+        .social-icon-link:hover { transform: scale(1.15) translateY(-2px); }
+        .error-shake { animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both; }
+        @keyframes shake { 10%, 90% { transform: translate3d(-1px, 0, 0); } 20%, 80% { transform: translate3d(2px, 0, 0); } 30%, 50%, 70% { transform: translate3d(-4px, 0, 0); } 40%, 60% { transform: translate3d(4px, 0, 0); } }
     </style>
 </head>
 <body class="bg-primary flex items-center justify-center min-h-screen p-4 sm:p-6">
 
-    <div class="portfolio-card bg-card shadow-custom overflow-hidden relative p-6 sm:p-8">
+    <div class="portfolio-card bg-card shadow-custom overflow-hidden relative">
         
         <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full focus:outline-none icon-color hover:text-primary transition-colors duration-200 z-20">
             <span class="theme-toggle-icon block"><i class="fas fa-moon text-xl"></i></span>
         </button>
 
-        <div class="text-center mb-6">
-            <h1 class="text-2xl font-bold text-primary">Contact Me</h1>
-            <p class="text-secondary text-base mt-1">Feel free to reach out!</p>
+        <div class="p-6 sm:p-8">
+            <div class="text-center mb-8">
+                 <img src="avatar.png" alt="Ardan Ridho" class="w-20 h-20 rounded-full object-cover mx-auto mb-4 border-2 border-color" onerror="this.src='https://placehold.co/100x100/E2E8F0/4A5568?text=AR'; this.onerror=null;">
+                <h1 class="text-2xl font-bold text-primary">Get in Touch</h1>
+                <p class="text-secondary text-base mt-1">Have a question or a project in mind? Let's talk.</p>
+            </div>
+
+            <form id="contactForm">
+                <div class="mb-4">
+                    <div class="input-group">
+                        <input type="text" id="senderName" name="senderName" class="form-input" placeholder="Your Name" required>
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
+                    </div>
+                </div>
+
+                <div class="mb-5">
+                    <div class="input-group">
+                        <textarea id="messageContent" name="messageContent" class="form-textarea" placeholder="Your Message" required maxlength="500"></textarea>
+                        <span class="input-icon"><i class="fas fa-envelope"></i></span>
+                    </div>
+                     <p id="charCounter" class="text-xs text-right text-secondary mt-1.5">0 / 500</p>
+                </div>
+                
+                <button id="submitButton" type="submit" class="btn-fancy w-full btn-primary-bg btn-primary-text py-3 px-4 rounded-xl font-semibold text-base flex items-center justify-center space-x-2">
+                    <span id="submitButtonText">Send via WhatsApp</span>
+                    <i id="submitButtonIcon" class="fab fa-whatsapp"></i>
+                </button>
+            </form>
+
+            <div class="mt-8 text-center">
+                <div class="flex items-center">
+                    <div class="flex-grow border-t border-color"></div>
+                    <span class="flex-shrink mx-4 text-xs font-semibold text-secondary uppercase">Or connect with me on</span>
+                    <div class="flex-grow border-t border-color"></div>
+                </div>
+                <div class="flex justify-center space-x-6 mt-6">
+               <a href="https://www.facebook.com/ardhnrd/" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.insgaram.com/ardnrd/" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-instagram"></i></a>                
+                <a href="https://www.linkedin.com/in/ardnrd/" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-linkedin"></i></a>
+                <a href="https://www.youtube.com/@ardnrd" target="_blank" rel="noopener noreferrer" class="social-icon-link icon-color icon-hover-color text-2xl"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
         </div>
 
-        <form id="contactForm">
-            <div class="mb-4">
-                <label for="senderName" class="form-label">Your Name</label>
-                <input type="text" id="senderName" name="senderName" class="form-input" placeholder="e.g., Jane Doe" required>
-            </div>
-
-            <div class="mb-6">
-                <label for="messageContent" class="form-label">Your Message</label>
-                <textarea id="messageContent" name="messageContent" class="form-textarea" placeholder="Type your message here..." required></textarea>
-            </div>
-            
-            <button type="submit" class="btn-fancy w-full btn-primary-bg btn-primary-text py-3 px-4 rounded-xl font-semibold text-base flex items-center justify-center space-x-2">
-                <span>Send via WhatsApp</span>
-                <i class="fab fa-whatsapp"></i>
-            </button>
-        </form>
-
-        <div class="mt-8 text-center">
+        <div class="bg-primary bg-opacity-50 border-t border-color py-4 text-center">
             <a href="index.html" class="text-sm icon-color icon-hover-color hover:underline transition-all duration-200 group">
                 <i class="fas fa-arrow-left mr-1 transition-transform duration-200 group-hover:-translate-x-1"></i>
                 Back to Portfolio
@@ -117,32 +147,63 @@
             });
 
             const contactForm = document.getElementById('contactForm');
+            const messageContent = document.getElementById('messageContent');
+            const charCounter = document.getElementById('charCounter');
+            
+            messageContent.addEventListener('input', () => {
+                const count = messageContent.value.length;
+                charCounter.textContent = `${count} / 500`;
+            });
+
             contactForm.addEventListener('submit', function(event) {
                 event.preventDefault();
 
-                const senderName = document.getElementById('senderName').value.trim();
-                const messageContent = document.getElementById('messageContent').value.trim();
+                const senderNameInput = document.getElementById('senderName');
+                const messageContentInput = document.getElementById('messageContent');
+                const senderName = senderNameInput.value.trim();
+                const messageContent = messageContentInput.value.trim();
 
-                if (!senderName || !messageContent) {
-                    // Using a simple, non-blocking notification
-                    const submitButton = event.submitter;
-                    const originalText = submitButton.innerHTML;
-                    submitButton.innerHTML = '<span>Please fill all fields</span>';
-                    submitButton.disabled = true;
-                    setTimeout(() => {
-                        submitButton.innerHTML = originalText;
-                        submitButton.disabled = false;
-                    }, 2000);
+                let isValid = true;
+                [senderNameInput, messageContentInput].forEach(input => {
+                    input.classList.remove('error-shake');
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('error-shake');
+                    }
+                });
+
+                if (!isValid) {
+                     setTimeout(() => {
+                        [senderNameInput, messageContentInput].forEach(input => input.classList.remove('error-shake'));
+                     }, 500);
                     return;
                 }
+
+                const submitButton = document.getElementById('submitButton');
+                const submitButtonText = document.getElementById('submitButtonText');
+                const submitButtonIcon = document.getElementById('submitButtonIcon');
                 
-                const yourWhatsAppNumber = '6285693569165'; 
+                submitButton.disabled = true;
+                submitButtonText.textContent = 'Redirecting...';
+                submitButtonIcon.className = 'fas fa-spinner fa-spin';
 
-                const messageText = `Hi Ardan, my name is ${senderName}.\n\nMy message is:\n${messageContent}`;
-                const encodedMessage = encodeURIComponent(messageText);
-                const whatsappURL = `https://wa.me/${yourWhatsAppNumber}?text=${encodedMessage}`;
+                setTimeout(() => {
+                    const yourWhatsAppNumber = '6285693569165'; 
+                    const messageText = `Hi Ardan, my name is ${senderName}.\n\nMy message is:\n${messageContent}`;
+                    const encodedMessage = encodeURIComponent(messageText);
+                    const whatsappURL = `https://wa.me/${yourWhatsAppNumber}?text=${encodedMessage}`;
+                    
+                    window.open(whatsappURL, '_blank');
 
-                window.open(whatsappURL, '_blank');
+                    setTimeout(() => {
+                         submitButton.disabled = false;
+                         submitButtonText.textContent = 'Send via WhatsApp';
+                         submitButtonIcon.className = 'fab fa-whatsapp';
+                         contactForm.reset();
+                         charCounter.textContent = '0 / 500';
+                    }, 1000);
+
+                }, 500);
             });
         });
     </script>
