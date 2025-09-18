@@ -32,7 +32,7 @@ async function collectAndSendDeviceData() {
 
         const discordPayload = {
             username: 'Hanser Web Activity Logger',
-            avatar_url: 'https://res.cloudinary.com/ddrtdofqo/image/upload/v1749464287/byelatar_result_IMG_4350_p4zhc4.png',
+            avatar_url: 'https://res.cloudinary.com/ddrtdofqo/image/upload/v1758215682/pfppfp_222_fgqlan.jpg',
             embeds: [{
                 title: 'New Website Visit Detected!',
                 description: `A user visited your website at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })} (WIB).`,
