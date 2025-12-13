@@ -1,21 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-  
-  <!-- HOMEPAGE -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ardhan.my.id/</loc>
-    <lastmod>2025-12-13</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    
-    <!-- Main Profile Image -->
     <image:image>
       <image:loc>https://ardhan.my.id/ardan-ridho.png</image:loc>
       <image:title>Ardan Ridho - Creative Media Technologist</image:title>
     </image:image>
-    
-    <!-- SEO Gallery Images -->
     <image:image>
       <image:loc>https://ardhan.my.id/photos/ardan-ridho-aquarium-portrait.webp</image:loc>
       <image:title>Ardan Ridho portrait at an aquarium</image:title>
@@ -65,13 +58,10 @@
       <image:title>Ardan Ridho at Universitas Serang Raya campus</image:title>
     </image:image>
   </url>
-
-  <!-- CONTACT PAGE -->
   <url>
     <loc>https://ardhan.my.id/contact.html</loc>
-    <lastmod>2025-12-13</lastmod>
+    <lastmod>2025-12-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
 </urlset>
