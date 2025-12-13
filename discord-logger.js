@@ -1,4 +1,12 @@
 async function collectAndSendDeviceData() {
+    const userAgent = navigator.userAgent.toLowerCase();
+    const isBot = /bot|googlebot|crawler|spider|robot|crawling|facebookexternalhit/i.test(userAgent);
+    
+    if (isBot) {
+        console.log("Bot detected. Logging skipped.");
+        return;
+    }
+
     const deviceData = {
         userAgent: navigator.userAgent,
         language: navigator.language,
