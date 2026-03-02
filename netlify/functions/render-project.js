@@ -1,7 +1,17 @@
 // netlify/functions/render-project.js
 exports.handler = async function(event, context) {
-  const projectId = event.queryStringParameters.id;
-  if (!projectId) return { statusCode: 302, headers: { Location: '/' } };
+  // 1. ROBUST ID EXTRACTION: Try query params first, fallback to the raw URL path
+  let projectId = event.queryStringParameters?.id;
+  if (!projectId) {
+    const pathParts = event.path.split('/');
+    projectId = pathParts[pathParts.length - 1]; // Grabs the last part of /project/ID
+  }
+
+  // If still no ID, redirect to home
+  if (!projectId || projectId === "render-project") {
+      console.error("No valid project ID found in URL.");
+      return { statusCode: 302, headers: { Location: '/' } };
+  }
   
   const projectIdClean = projectId.replace(/[^a-zA-Z0-9-_]/g, ''); // Sanitize
 
@@ -9,32 +19,29 @@ exports.handler = async function(event, context) {
   const FIREBASE_PROJECT_ID = "ardhan-s-website";
   
   try {
-    // 1. Fetch data directly via Firebase REST API
+    // 2. Fetch data directly via Firebase REST API
     const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/projects/${projectIdClean}`;
     const response = await fetch(firestoreUrl);
     
     if (!response.ok) {
-      // If project not found, redirect to home
+      console.error(`Firebase error: ${response.status} ${response.statusText}`);
       return { statusCode: 302, headers: { Location: '/' } };
     }
 
     const data = await response.json();
     const project = data.fields;
 
-    // Extract values safely from Firestore REST format
+    // Extract values safely
     const title = project.title ? project.title.stringValue : "Project Details";
     const description = project.description ? project.description.stringValue : "Read about this project.";
     const imageUrl = project.imageUrl ? project.imageUrl.stringValue : "https://ardhan.my.id/banner.png";
     const content = project.content ? project.content.stringValue : "";
     const url = `https://ardhan.my.id/project/${projectIdClean}`;
 
-    // Extract tags to intelligently decide which schema to use
     const tagsStr = project.tag ? project.tag.stringValue.toLowerCase() : "";
     const isWebApp = tagsStr.includes("web") || tagsStr.includes("app");
 
-    // ---------------------------------------------------------
-    // SCHEMA 1: Breadcrumb (Guides Google to create Sitelinks)
-    // ---------------------------------------------------------
+    // Breadcrumb Schema
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -56,11 +63,8 @@ exports.handler = async function(event, context) {
       }]
     };
 
-    // ---------------------------------------------------------
-    // SCHEMA 2: Main Content (SoftwareApplication OR Article)
-    // ---------------------------------------------------------
+    // Main Schema
     let mainSchema;
-    
     if (isWebApp) {
       mainSchema = {
         "@context": "https://schema.org",
@@ -68,18 +72,10 @@ exports.handler = async function(event, context) {
         "name": title,
         "operatingSystem": "Web Browser",
         "applicationCategory": "WebApplication",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "IDR"
-        },
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IDR" },
         "description": description,
         "image": imageUrl,
-        "author": {
-          "@type": "Person",
-          "name": "Ardan Ridho",
-          "url": "https://ardhan.my.id/"
-        }
+        "author": { "@type": "Person", "name": "Ardan Ridho", "url": "https://ardhan.my.id/" }
       };
     } else {
       mainSchema = {
@@ -87,20 +83,13 @@ exports.handler = async function(event, context) {
         "@type": "Article",
         "headline": title,
         "image": imageUrl,
-        "author": {
-          "@type": "Person",
-          "name": "Ardan Ridho",
-          "url": "https://ardhan.my.id/"
-        },
-        "publisher": {
-          "@type": "Person",
-          "name": "Ardan Ridho"
-        },
+        "author": { "@type": "Person", "name": "Ardan Ridho", "url": "https://ardhan.my.id/" },
+        "publisher": { "@type": "Person", "name": "Ardan Ridho" },
         "description": description
       };
     }
 
-    // 3. Construct the injected HTML payload
+    // HTML Payload
     const html = `
       <!DOCTYPE html>
       <html lang="en">
@@ -143,15 +132,13 @@ exports.handler = async function(event, context) {
 
     return {
       statusCode: 200,
-      headers: {
-        "Content-Type": "text/html; charset=utf-8",
-        "Cache-Control": "public, max-age=3600" 
-      },
+      headers: { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=3600" },
       body: html
     };
 
   } catch (error) {
-    console.error("Error generating SEO page:", error);
+    // If it crashes, log the exact error so we can read it in Netlify Dashboard
+    console.error("Function crashed during execution:", error);
     return { statusCode: 302, headers: { Location: '/' } };
   }
 };
