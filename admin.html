@@ -9,17 +9,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
-    <!-- Modern typography matching index.html -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     
-    <!-- Add Chart.js for Professional Analytics -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
     <style>
-        /* Core Physics & Framer-like Easing */
         :root {
             --spring-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
             --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
@@ -37,7 +34,6 @@
             min-height: 100vh;
         }
 
-        /* LIQUID GLASS DESIGN SYSTEM */
         .light { 
             --bg-base: #f1f5f9;
             --text-primary: #0f172a; 
@@ -76,7 +72,6 @@
             --orb-1: #0369a1; --orb-2: #3730a3; --orb-3: #0f172a;
         }
 
-        /* Ambient Liquid Mesh Background */
         .mesh-bg {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
             overflow: hidden; pointer-events: none;
@@ -100,7 +95,6 @@
             100% { transform: translate(5%, 5%) scale(1.05); } 
         }
 
-        /* Glass Utility Classes */
         .glass-panel { 
             background: var(--glass-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
@@ -112,7 +106,6 @@
             transition: all 0.3s var(--spring-smooth);
         }
         
-        /* Interactive Elements */
         .interactive-btn {
             transition: transform 0.4s var(--spring-bounce), background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
@@ -131,7 +124,6 @@
             background-color: var(--glass-bg-hover);
         }
 
-        /* Quill Editor Glass Adjustments */
         .ql-toolbar, .ql-container { border-color: var(--element-border) !important; font-family: 'Plus Jakarta Sans', sans-serif !important; }
         .ql-toolbar { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; background: var(--element-bg); backdrop-filter: blur(10px); }
         .ql-container { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; background: var(--input-bg); backdrop-filter: blur(10px); font-size: 1rem !important;}
@@ -139,7 +131,6 @@
         .dark .ql-snow .ql-stroke { stroke: var(--text-secondary); }
         .dark .ql-snow .ql-picker-label, .dark .ql-snow .ql-picker { color: var(--text-secondary); }
         
-        /* Sidebar active link */
         .sidebar-link.active {
             background-color: rgba(14, 165, 233, 0.15);
             color: rgb(14, 165, 233);
@@ -147,7 +138,6 @@
             font-weight: 700;
         }
 
-        /* Custom Scrollbars */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--text-secondary); border-radius: 10px; opacity: 0.5; }
@@ -156,14 +146,12 @@
 </head>
 <body class="selection:bg-sky-500/30 selection:text-sky-500">
 
-    <!-- Ambient Liquid Mesh Background -->
     <div class="mesh-bg">
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
     </div>
 
-    <!-- Login Section -->
     <div id="login-section" class="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div class="w-full max-w-md p-8 sm:p-10 space-y-6 glass-panel rounded-[2.5rem]">
             <div class="text-center">
@@ -188,10 +176,8 @@
         </div>
     </div>
 
-    <!-- Admin Panel Structure -->
     <div id="admin-panel" class="hidden relative z-10 min-h-screen flex">
         
-        <!-- Glass Sidebar -->
         <div id="sidebar" class="fixed inset-y-0 left-0 w-72 transform -translate-x-full lg:translate-x-0 transition-transform duration-500 ease-in-out z-40 lg:p-6 lg:pr-0">
             <div class="h-full glass-panel lg:rounded-[2rem] rounded-none flex flex-col overflow-hidden">
                 <div class="flex items-center justify-start px-8 h-24 border-b border-black/5 dark:border-white/5 flex-shrink-0">
@@ -214,9 +200,7 @@
         
         <div id="sidebar-overlay" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden z-30 lg:hidden transition-opacity"></div>
 
-        <!-- Main Content Area -->
         <div class="w-full lg:pl-72 flex flex-col min-h-screen">
-            <!-- Mobile Header -->
             <header class="lg:hidden glass-panel rounded-none border-t-0 border-x-0 sticky top-0 z-20">
                 <div class="flex items-center justify-between p-5">
                     <button id="sidebar-toggle" class="text-primary text-xl w-10 h-10 rounded-full glass-element flex items-center justify-center">
@@ -239,13 +223,11 @@
                 </div>
                 
                 <div id="content-area" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                    <!-- Dynamic Items -->
                 </div>
             </main>
         </div>
     </div>
     
-    <!-- Modal -->
     <div id="form-modal" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-md z-50 hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
         <div class="glass-panel rounded-[2rem] shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col modal-content transform scale-95 transition-all duration-500 var(--spring-bounce)">
             
@@ -256,10 +238,8 @@
             
             <div class="overflow-y-auto hide-scrollbar">
                 
-                <!-- Shared Hidden Fields -->
                 <input type="hidden" id="global-item-id">
                 
-                <!-- Main Project Form -->
                 <form id="project-form" class="p-6 sm:p-8 space-y-6 hidden">
                     <div>
                         <label for="proj-title" class="block text-[0.75rem] font-bold text-secondary mb-2 uppercase tracking-wider">Title</label>
@@ -308,7 +288,6 @@
                     </div>
                 </form>
 
-                <!-- Experience Form -->
                 <form id="experience-form" class="p-6 sm:p-8 space-y-6 hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -346,7 +325,6 @@
                     </div>
                 </form>
 
-                <!-- Shortlink Form -->
                 <form id="shortlink-form" class="p-6 sm:p-8 space-y-6 hidden">
                      <div>
                         <label for="shortlink-slug" class="block text-[0.75rem] font-bold text-secondary mb-2 uppercase tracking-wider">Short Link (Slug)</label>
@@ -387,17 +365,14 @@
                 let currentCollection = 'projects';
                 let unsubscribe;
                 
-                // Analytics State Variables
                 let allVisitsData = [];
                 let currentVisitFilter = 'all'; 
 
-                // Shared Quill Configuration
                 const quillConfig = {
                     theme: 'snow',
                     modules: { toolbar: [ [{'header': [1,2,3,false]}], ['bold','italic','underline','strike'], ['blockquote','code-block'], [{'list':'ordered'},{'list':'bullet'}], ['link','image','video'], ['clean'] ] }
                 };
                 
-                // Initialize dedicated editors
                 const quillProject = new Quill('#project-quill-editor', quillConfig);
 
                 onAuthStateChanged(auth, user => {
@@ -431,7 +406,6 @@
                     const addNewBtn = document.getElementById('add-new-btn');
                     const contentArea = document.getElementById('content-area');
 
-                    // Adjust Grid Classes dynamically. Give Analytics a full-width container for graphs.
                     if (collectionName === 'visits') {
                         addNewBtn.style.display = 'none';
                         contentArea.className = "grid grid-cols-1 gap-6";
@@ -462,7 +436,7 @@
                             renderExperience(items);
                         } else if (collectionName === 'visits') {
                             allVisitsData = items;
-                            renderVisits(); // Call without params to utilize global filtered state
+                            renderVisits();
                         } else {
                             renderProjects(items);
                         }
@@ -576,7 +550,6 @@
                     const now = Date.now();
                     const startOfToday = new Date(new Date().setHours(0,0,0,0)).getTime();
                     
-                    // 1. Apply Time Filter
                     const filteredData = allVisitsData.filter(item => {
                         const time = (item.visitedAt && item.visitedAt.toMillis) ? item.visitedAt.toMillis() : Date.now();
                         if (currentVisitFilter === 'today') return time >= startOfToday;
@@ -585,11 +558,9 @@
                         return true;
                     });
 
-                    // 2. Data Aggregation Engines
                     const countryMap = {}, cityMap = {}, ispMap = {}, deviceMap = {};
                     let uniqueIPs = new Set();
 
-                    // Dynamic Timeline Buckets
                     const timelineLabels = [];
                     const timelineData = [];
                     if (currentVisitFilter === 'today') {
@@ -606,7 +577,6 @@
                         const timeStr = (item.visitedAt && item.visitedAt.toMillis) ? item.visitedAt.toMillis() : Date.now();
                         const dateObj = new Date(timeStr);
                         
-                        // Populate Timeline Graph Data
                         if (currentVisitFilter === 'today') {
                             timelineData[dateObj.getHours()]++;
                         } else {
@@ -615,7 +585,6 @@
                             if(idx !== -1) timelineData[idx]++;
                         }
 
-                        // Populate Map Trackers
                         const country = item.country || 'Unknown';
                         const city = item.city || 'Unknown';
                         const isp = item.isp || 'Unknown';
@@ -628,7 +597,6 @@
                         deviceMap[device] = (deviceMap[device] || 0) + 1;
                     });
 
-                    // Sorting Helper to grab Top N items
                     const getSortedData = (map, limit=5) => Object.entries(map).sort((a,b)=>b[1]-a[1]).slice(0,limit);
                     
                     const topCountries = getSortedData(countryMap, 5);
@@ -636,7 +604,6 @@
                     const topIsps = getSortedData(ispMap, 5);
                     const topDevices = getSortedData(deviceMap, 4);
 
-                    // 3. Build the Upper Dashboard HTML
                     container.innerHTML = `
                     <div class="col-span-full">
                         
@@ -703,7 +670,6 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="logs-container"></div>
                     </div>`;
 
-                    // 4. Populate Detailed Logs underneath Dashboard
                     const logsContainer = document.getElementById('logs-container');
                     logsContainer.innerHTML = filteredData.map(item => {
                         const timeStr = item.visitedAt ? new Date(item.visitedAt.toDate()).toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }) : 'Just now';
@@ -759,16 +725,14 @@
                         </div>`;
                     }).join('');
 
-                    // 5. Attach Listeners for Filters & Deletion
                     logsContainer.querySelectorAll('.delete-btn').forEach(btn => btn.addEventListener('click', handleDelete));
                     container.querySelectorAll('.visit-filter-btn').forEach(btn => {
                         btn.addEventListener('click', (e) => {
                             currentVisitFilter = e.currentTarget.dataset.filter;
-                            renderVisits(); // Re-render graphs based on new timescale
+                            renderVisits();
                         });
                     });
 
-                    // 6. Draw Chart.js Graphs
                     Chart.defaults.color = document.documentElement.classList.contains('dark') ? '#94a3b8' : '#475569';
                     Chart.defaults.font.family = "'Plus Jakarta Sans', sans-serif";
                     
@@ -776,7 +740,6 @@
                     const bgColors = ['rgba(14, 165, 233, 0.7)', 'rgba(99, 102, 241, 0.7)', 'rgba(168, 85, 247, 0.7)', 'rgba(16, 185, 129, 0.7)', 'rgba(245, 158, 11, 0.7)'];
                     const borderColors = ['#0ea5e9', '#6366f1', '#a855f7', '#10b981', '#f59e0b'];
 
-                    // 1. Timeline Chart (Line)
                     destroyChart('ctxTimeline');
                     window.ctxTimeline = new Chart(document.getElementById('chart-timeline'), {
                         type: 'line',
@@ -784,7 +747,6 @@
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: { mode: 'index', intersect: false } }, scales: { y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: 'rgba(148, 163, 184, 0.1)' } }, x: { grid: { display: false } } } }
                     });
 
-                    // 2. Countries Chart (Doughnut)
                     destroyChart('ctxCountries');
                     window.ctxCountries = new Chart(document.getElementById('chart-countries'), {
                         type: 'doughnut',
@@ -792,7 +754,6 @@
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { boxWidth: 10, font: { size: 10 } } } }, cutout: '65%' }
                     });
 
-                    // 3. ISPs Chart (Bar)
                     destroyChart('ctxIsps');
                     window.ctxIsps = new Chart(document.getElementById('chart-isps'), {
                         type: 'bar',
@@ -800,7 +761,6 @@
                         options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { display: false }, y: { beginAtZero: true, ticks: { precision: 0 }, grid: { color: 'rgba(148, 163, 184, 0.1)' } } } }
                     });
 
-                    // 4. Devices Chart (Doughnut)
                     destroyChart('ctxDevices');
                     window.ctxDevices = new Chart(document.getElementById('chart-devices'), {
                         type: 'doughnut',
@@ -981,7 +941,6 @@
                         }
                     } 
                     else {
-                        // Projects
                         const data = {
                             title: document.getElementById('proj-title').value.trim(),
                             tag: document.getElementById('proj-tag').value.trim(),
@@ -1005,7 +964,6 @@
                     closeModal();
                 }
 
-                // Theme Initialization
                 const themeToggle = document.getElementById('theme-toggle');
                 const htmlElement = document.documentElement;
                 function applyTheme(theme) {
@@ -1013,7 +971,7 @@
                     htmlElement.classList.toggle('light', theme !== 'dark');
                     themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun w-7 text-yellow-500"></i><span>Light Mode</span>' : '<i class="fas fa-moon w-7 text-indigo-500"></i><span>Dark Mode</span>';
                 }
-                const savedTheme = localStorage.getItem('theme') || 'dark'; // Inherit Dark default like index
+                const savedTheme = localStorage.getItem('theme') || 'dark';
                 applyTheme(savedTheme);
                 themeToggle.addEventListener('click', () => {
                     const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';

@@ -3,18 +3,15 @@ exports.handler = async function(event, context) {
   const FIREBASE_PROJECT_ID = "ardhan-s-website"; 
   
   try {
-    // 1. Fetch all projects directly from Firebase REST API
     const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/projects`;
     const response = await fetch(firestoreUrl);
     const data = await response.json();
     
     const documents = data.documents || [];
     
-    // 2. Start building the XML
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
     
-    // 3. Add your static Homepage WITH your Knowledge Panel image array
     xml += `
   <url>
     <loc>https://ardhan.my.id/</loc>
@@ -80,17 +77,14 @@ exports.handler = async function(event, context) {
   </url>
 `;
 
-    // 4. Dynamically loop through your Firebase projects
     documents.forEach(doc => {
       const pathParts = doc.name.split('/');
       const projectId = pathParts[pathParts.length - 1];
       const lastMod = doc.updateTime ? doc.updateTime.split('T')[0] : new Date().toISOString().split('T')[0];
       
-      // Extract project image for Image SEO
       let projectImageXml = '';
       if (doc.fields && doc.fields.imageUrl && doc.fields.imageUrl.stringValue) {
           const imgUrl = doc.fields.imageUrl.stringValue;
-          // Use project title for alt/title if available, else generic fallback
           const imgTitle = (doc.fields.title && doc.fields.title.stringValue) ? doc.fields.title.stringValue : 'Project Image';
           
           projectImageXml = `
@@ -110,12 +104,11 @@ exports.handler = async function(event, context) {
 
     xml += `</urlset>`;
 
-    // 5. Return the XML document
     return {
       statusCode: 200,
       headers: {
         "Content-Type": "application/xml",
-        "Cache-Control": "public, max-age=3600" // Cache at the edge for 1 hour
+        "Cache-Control": "public, max-age=3600"
       },
       body: xml
     };

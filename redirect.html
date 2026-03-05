@@ -1,38 +1,253 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
-    <title>Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecting... - Ardan Ridho</title>
+    
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Tailwind CSS & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Modern typography matching detail.html -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: sans-serif; background-color: #111827; color: #f3f4f6; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { text-align: center; }
-        .spinner { border: 4px solid rgba(255, 255, 255, 0.3); border-radius: 50%; border-top: 4px solid #f3f4f6; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        /* Core Physics & Framer-like Easing */
+        :root {
+            --spring-bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --spring-smooth: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            transition: background-color 0.8s var(--spring-smooth), color 0.8s var(--spring-smooth);
+            overflow: hidden; /* Prevent scroll on this simple page */
+            height: 100vh;
+        }
+
+        /* LIQUID GLASS DESIGN SYSTEM */
+        .light { 
+            --bg-base: #f1f5f9;
+            --text-primary: #0f172a; 
+            --text-secondary: #475569;
+            
+            --glass-bg: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.06);
+            
+            --orb-1: #bae6fd; --orb-2: #e0e7ff; --orb-3: #fce7f3;
+        }
+        
+        .dark { 
+            --bg-base: #020617; 
+            --text-primary: #f8fafc; 
+            --text-secondary: #94a3b8; 
+            
+            --glass-bg: rgba(15, 23, 42, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+            
+            --orb-1: #0369a1; --orb-2: #3730a3; --orb-3: #0f172a;
+        }
+
+        /* Ambient Liquid Mesh Background */
+        .mesh-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;
+            overflow: hidden; pointer-events: none;
+            background-color: var(--bg-base);
+            transition: background-color 0.8s var(--spring-smooth);
+        }
+        
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px);
+            opacity: 0.6; animation: float 24s infinite ease-in-out alternate;
+            transition: background-color 1s ease; mix-blend-mode: normal;
+        }
+        .dark .orb { opacity: 0.4; filter: blur(100px); }
+        .orb-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: var(--orb-1); }
+        .orb-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: var(--orb-2); animation-delay: -8s; }
+        .orb-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: var(--orb-3); animation-delay: -16s; }
+
+        @keyframes float { 
+            0% { transform: translate(0, 0) scale(1); } 
+            33% { transform: translate(10%, -10%) scale(1.1); }
+            66% { transform: translate(-5%, 15%) scale(0.9); }
+            100% { transform: translate(5%, 5%) scale(1.05); } 
+        }
+
+        /* Utility Classes */
+        .glass-panel { 
+            background: var(--glass-bg); backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow);
+        }
+
+        /* Modern Simple Dots Loader */
+        .dot-loader {
+            display: flex;
+            gap: 0.6rem;
+            align-items: center;
+            justify-content: center;
+        }
+        .dot {
+            width: 12px;
+            height: 12px;
+            background-color: #0ea5e9;
+            border-radius: 50%;
+            animation: smooth-bounce 1.4s infinite ease-in-out both;
+        }
+        .dot:nth-child(1) { animation-delay: -0.32s; }
+        .dot:nth-child(2) { animation-delay: -0.16s; }
+        .dot:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes smooth-bounce {
+            0%, 80%, 100% { 
+                transform: scale(0.6) translateY(0); 
+                opacity: 0.4;
+                box-shadow: 0 0 0 rgba(14, 165, 233, 0);
+            }
+            40% { 
+                transform: scale(1) translateY(-6px); 
+                opacity: 1;
+                box-shadow: 0 8px 16px rgba(14, 165, 233, 0.6);
+            }
+        }
+
+        /* Modern Custom Cursor */
+        @media (pointer: fine) { body, a, button { cursor: none !important; } }
+        
+        #custom-cursor {
+            position: fixed; top: 0; left: 0; width: 12px; height: 12px; border-radius: 50%; pointer-events: none; z-index: 99999;
+            will-change: transform, width, height; transition: width 0.25s var(--spring-bounce), height 0.25s var(--spring-bounce), background-color 0.3s ease, border 0.3s ease;
+            background-color: #f8fafc; border: 1.5px solid transparent; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        .light #custom-cursor { background-color: #0f172a; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); }
+        
+        /* Disable custom cursor display on touch/mobile devices */
+        @media (pointer: coarse), (hover: none) {
+            #custom-cursor { display: none !important; }
+        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="spinner"></div>
-        <p>Finding your link...</p>
+<body class="selection:bg-sky-500/30 selection:text-sky-500 flex items-center justify-center p-4 relative">
+
+    <!-- Minimal Custom Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Ambient Liquid Mesh Background -->
+    <div class="mesh-bg">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <!-- Main Content Panel -->
+    <div id="redirect-card" class="glass-panel rounded-[2rem] sm:rounded-[2.5rem] p-10 sm:p-14 text-center max-w-sm w-full shadow-2xl relative overflow-hidden transform scale-95 opacity-0 transition-all duration-700 ease-out z-10">
+        
+        <!-- Soft background accent inside the card -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-sky-500/10 dark:bg-sky-500/5 rounded-full blur-[40px] pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
+        
+        <!-- Icon/Spinner Container -->
+        <div id="icon-container" class="relative mx-auto mb-8 h-16 flex items-center justify-center transition-all duration-300">
+            <!-- Simple Dots Loader -->
+            <div class="dot-loader relative z-10">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        
+        <h1 id="status-heading" class="text-2xl sm:text-3xl font-extrabold text-primary mb-3 tracking-tight transition-colors">Redirecting</h1>
+        <p id="status-text" class="text-[0.95rem] text-secondary font-medium leading-relaxed transition-colors">Locating your destination...</p>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-firestore.js";
 
+        // --- Theme Sync Logic (Matches detail.html) ---
+        const htmlElement = document.documentElement;
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        if (savedTheme === 'light') {
+            htmlElement.classList.add('light');
+            htmlElement.classList.remove('dark');
+        }
+
+        // --- Custom Cursor Logic ---
+        const cursor = document.getElementById('custom-cursor');
+        const isFinePointer = window.matchMedia("(pointer: fine)").matches;
+        
+        if (!isFinePointer && cursor) {
+            cursor.style.display = 'none';
+        }
+
+        let mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2, cursorX = window.innerWidth / 2, cursorY = window.innerHeight / 2;
+
+        if (isFinePointer) {
+            window.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; });
+            animateCursor();
+        }
+
+        function animateCursor() {
+            if (!isFinePointer) return;
+            cursorX += (mouseX - cursorX) * 0.4; cursorY += (mouseY - cursorY) * 0.4;
+            cursor.style.transform = `translate3d(calc(${cursorX}px - 50%), calc(${cursorY}px - 50%), 0)`;
+            requestAnimationFrame(animateCursor);
+        }
+
+        // --- Error State UI Helper ---
+        function showErrorState(message = "Redirecting home...") {
+            const iconContainer = document.getElementById('icon-container');
+            const statusHeading = document.getElementById('status-heading');
+            const statusText = document.getElementById('status-text');
+
+            iconContainer.innerHTML = `
+                <div class="w-16 h-16 rounded-[1.25rem] bg-rose-500/10 text-rose-500 flex items-center justify-center text-3xl border border-rose-500/20 shadow-inner relative z-10 animate-bounce">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <div class="absolute inset-0 bg-rose-500/20 dark:bg-rose-500/10 rounded-full blur-xl"></div>
+            `;
+            statusHeading.textContent = "Link Not Found";
+            statusText.textContent = message;
+            
+            // Redirect after a short delay so user sees the message
+            setTimeout(() => { window.location.href = '/index.html'; }, 2000);
+        }
+
+        // --- Core Firebase Logic ---
         async function initializeAndRedirect() {
             try {
-                const response = await fetch('/.netlify/functions/firebase-config');
-                if (!response.ok) throw new Error(`Firebase config fetch failed: ${response.statusText}`);
-                const firebaseConfig = await response.json();
+                // Check if running on localhost/testing environment without Netlify
+                let firebaseConfig = null;
+                try {
+                    const response = await fetch('/.netlify/functions/firebase-config');
+                    if (response.ok) {
+                        firebaseConfig = await response.json();
+                    }
+                } catch (err) {
+                    console.log("Local/Test environment detected, Netlify fetch skipped.");
+                }
+
+                // If no config found (dev mode fallback)
+                if (!firebaseConfig) {
+                    throw new Error("Missing Firebase config");
+                }
 
                 const app = initializeApp(firebaseConfig);
                 const db = getFirestore(app);
 
+                // Assuming format: /anything (we take 'anything')
                 const path = window.location.pathname;
-                const slug = path.substring(1);
+                const slug = path.substring(1).replace(/\/$/, ""); // Remove leading and trailing slash
 
-                if (!slug) {
+                if (!slug || slug === 'index.html' || slug === '') {
                     window.location.href = '/index.html';
                     return;
                 }
@@ -40,19 +255,30 @@
                 const docRef = doc(db, 'shortlinks', slug);
                 const docSnap = await getDoc(docRef);
 
-                if (docSnap.exists()) {
+                if (docSnap.exists() && docSnap.data().url) {
                     window.location.href = docSnap.data().url;
                 } else {
-                    window.location.href = '/index.html';
+                    showErrorState("This link doesn't exist. Returning home...");
                 }
 
             } catch (error) {
                 console.error("Error handling redirect:", error);
-                window.location.href = '/index.html';
+                showErrorState("Oops, something went wrong. Returning home...");
             }
         }
 
-        initializeAndRedirect();
+        // Trigger entrance animation and start process
+        window.addEventListener('DOMContentLoaded', () => {
+            const card = document.getElementById('redirect-card');
+            // Slight delay for a buttery smooth entrance
+            setTimeout(() => {
+                card.classList.remove('scale-95', 'opacity-0');
+                card.classList.add('scale-100', 'opacity-100');
+            }, 100);
+
+            // Execute redirect logic
+            initializeAndRedirect();
+        });
     </script>
 </body>
 </html>

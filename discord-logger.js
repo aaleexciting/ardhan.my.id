@@ -10,7 +10,6 @@ async function collectAndSendDeviceData() {
         return;
     }
 
-    // 1. Gather advanced device & hardware data
     const deviceData = {
         userAgent: navigator.userAgent,
         language: navigator.language,
@@ -25,7 +24,6 @@ async function collectAndSendDeviceData() {
         path: window.location.pathname
     };
 
-    // Extract GPU Information
     try {
         const canvas = document.createElement('canvas');
         const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
@@ -34,7 +32,6 @@ async function collectAndSendDeviceData() {
         deviceData.gpu = 'Error getting WebGL info';
     }
 
-    // Determine Device Type
     if (window.innerWidth < 768) {
         deviceData.deviceType = 'Mobile';
     } else if (window.innerWidth < 1024) {
@@ -43,7 +40,6 @@ async function collectAndSendDeviceData() {
         deviceData.deviceType = 'Desktop';
     }
 
-    // Fetch IP and Location Data (Wrapped safely in case of AdBlockers)
     let ipData = { ip: 'Unknown', city: 'Unknown', country_name: 'Unknown', org: 'Unknown' };
     try {
         const ipResponse = await fetch('https://ipapi.co/json/');
@@ -54,7 +50,6 @@ async function collectAndSendDeviceData() {
         console.warn('IP tracking blocked or failed.');
     }
 
-    // 2. Initialize Firebase and Save to Database (For Admin Dashboard)
     try {
         const visitPayload = {
             ...deviceData,
@@ -71,13 +66,12 @@ async function collectAndSendDeviceData() {
             const app = initializeApp(firebaseConfig);
             const db = getFirestore(app);
             await addDoc(collection(db, "visits"), visitPayload);
-            console.log('Visitor data securely logged to Firebase Dashboard.');
+            console.log('Firebase OK');
         }
     } catch (error) {
         console.error('Error logging visit to Firebase:', error);
     }
 
-    // 3. Send Rich Notification to Discord (via Secure Netlify Function)
     try {
         const discordPayload = {
             username: 'Hanser Web Activity Logger',
@@ -85,7 +79,7 @@ async function collectAndSendDeviceData() {
             embeds: [{
                 title: 'New Website Visit Detected!',
                 description: `A user visited **${deviceData.path || '/'}** at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })} (WIB).`,
-                color: 3447003, // A nice subtle blue
+                color: 3447003,
                 fields: [
                     { name: 'Location', value: `${ipData.city || 'N/A'}, ${ipData.country_name || 'N/A'}`, inline: true },
                     { name: 'IP Address', value: ipData.ip || 'Unknown', inline: true },
@@ -102,7 +96,6 @@ async function collectAndSendDeviceData() {
             }]
         };
 
-        // Calls your server-side function, keeping the webhook secret safe
         const discordResponse = await fetch('/.netlify/functions/log-visit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -110,14 +103,13 @@ async function collectAndSendDeviceData() {
         });
         
         if (discordResponse.ok) {
-            console.log('Visitor data securely relayed to Discord!');
+            console.log('Discord OK');
         }
     } catch (error) {
         console.error('Error triggering Discord webhook function:', error);
     }
 }
 
-// Trigger logging when page is fully loaded
 if (document.readyState === 'complete') {
     collectAndSendDeviceData();
 } else {

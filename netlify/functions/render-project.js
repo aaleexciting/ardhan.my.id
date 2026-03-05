@@ -1,13 +1,11 @@
 // netlify/functions/render-project.js
 exports.handler = async function(event, context) {
-  // 1. ROBUST ID EXTRACTION: Try query params first, fallback to the raw URL path
   let projectId = event.queryStringParameters?.id;
   if (!projectId) {
     const pathParts = event.path.split('/');
     projectId = pathParts[pathParts.length - 1]; // Grabs the last part of /project/ID
   }
 
-  // If still no ID, redirect to home
   if (!projectId || projectId === "render-project") {
       console.error("No valid project ID found in URL.");
       return { statusCode: 302, headers: { Location: '/' } };
@@ -15,11 +13,9 @@ exports.handler = async function(event, context) {
   
   const projectIdClean = projectId.replace(/[^a-zA-Z0-9-_]/g, ''); // Sanitize
 
-  // Your Firebase Project ID
   const FIREBASE_PROJECT_ID = "ardhan-s-website";
   
   try {
-    // 2. Fetch data directly via Firebase REST API
     const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/projects/${projectIdClean}`;
     const response = await fetch(firestoreUrl);
     
@@ -31,7 +27,6 @@ exports.handler = async function(event, context) {
     const data = await response.json();
     const project = data.fields;
 
-    // Extract values safely
     const title = project.title ? project.title.stringValue : "Project Details";
     const description = project.description ? project.description.stringValue : "Read about this project.";
     const imageUrl = project.imageUrl ? project.imageUrl.stringValue : "https://ardhan.my.id/banner.png";
@@ -41,7 +36,6 @@ exports.handler = async function(event, context) {
     const tagsStr = project.tag ? project.tag.stringValue.toLowerCase() : "";
     const isWebApp = tagsStr.includes("web") || tagsStr.includes("app");
 
-    // Breadcrumb Schema
     const breadcrumbSchema = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
@@ -63,7 +57,6 @@ exports.handler = async function(event, context) {
       }]
     };
 
-    // Main Schema
     let mainSchema;
     if (isWebApp) {
       mainSchema = {
@@ -89,7 +82,6 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // HTML Payload
     const html = `
       <!DOCTYPE html>
       <html lang="en">
@@ -137,7 +129,6 @@ exports.handler = async function(event, context) {
     };
 
   } catch (error) {
-    // If it crashes, log the exact error so we can read it in Netlify Dashboard
     console.error("Function crashed during execution:", error);
     return { statusCode: 302, headers: { Location: '/' } };
   }
