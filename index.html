@@ -154,7 +154,7 @@
     <!-- Lenis Smooth Scroll Library -->
     <script src="https://unpkg.com/@studio-freight/lenis@1.0.33/dist/lenis.min.js"></script>
 
-    <!-- Modern typography (Plus Jakarta Sans gives a very premium tech feel) -->
+    <!-- Modern typography -->
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
 
@@ -842,7 +842,7 @@
 
             <!-- Left: Lanyard Widget -->
             <div id="lanyard-widget"
-                class="glass-element py-1.5 pl-3 pr-6 rounded-full flex items-center gap-3.5 w-fit min-w-[200px] max-w-[260px] sm:max-w-[340px] hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 cursor-pointer shadow-sm group/lanyard text-left shrink-0"
+                class="glass-element py-1.5 pl-3 pr-5 sm:pr-6 rounded-full flex items-center gap-3 sm:gap-3.5 w-fit min-w-[160px] max-w-[240px] sm:max-w-[340px] hover:bg-black/5 dark:hover:bg-white/5 transition-all duration-300 cursor-pointer shadow-sm group/lanyard text-left shrink-0"
                 onclick="window.open('https://discord.com/users/94490510688792576', '_blank')">
 
                 <!-- Skeleton -->
@@ -857,14 +857,10 @@
                 <!-- Content -->
                 <div id="lanyard-content"
                     class="w-full flex items-center gap-3.5 opacity-0 hidden transition-opacity duration-500">
-                    <div class="relative shrink-0 flex items-center justify-center">
+                    <div class="shrink-0 flex items-center justify-center">
                         <img id="lanyard-image" src=""
-                            class="w-9 h-9 rounded-full object-cover shadow-sm border border-black/5 dark:border-white/10 transition-transform duration-500 group-hover/lanyard:scale-105"
+                            class="w-9 h-9 rounded-full object-cover shadow-sm border border-black/5 dark:border-white/10 transition-all duration-500 group-hover/lanyard:scale-105"
                             alt="Status">
-                        <!-- Status dot -->
-                        <div id="lanyard-status-dot"
-                            class="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-[2.5px] border-[#f1f5f9] dark:border-[#020617] transition-colors duration-300">
-                        </div>
                     </div>
 
                     <div class="flex flex-col justify-center overflow-hidden flex-grow">
@@ -937,10 +933,10 @@
 
                         <div class="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto mt-auto">
                             <div class="flex items-center gap-3 w-full sm:w-auto">
-                                <button onclick="window.open('#', '_blank')"
+                                <a href="http://ardhan.my.id/resume" target="_blank"
                                     class="interactive-btn flex-1 sm:flex-none flex items-center justify-center gap-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 px-6 py-3 rounded-full text-[0.85rem] font-bold shadow-lg">
                                     <i class="fas fa-arrow-down text-[0.75rem]"></i> Resume
-                                </button>
+                                </a>
                                 <a href="contact.html"
                                     class="interactive-btn flex-1 sm:flex-none flex items-center justify-center gap-2 glass-element px-6 py-3 rounded-full text-[0.85rem] font-bold text-primary hover:bg-black/5 dark:hover:bg-white/10">
                                     Let's Talk
@@ -1200,14 +1196,14 @@
                         <div class="flex overflow-x-auto gap-4 sm:gap-5 snap-x snap-mandatory hide-scrollbar pb-4 pt-2 cursor-grab active:cursor-grabbing" id="music-carousel">
                             
                             <!-- Track 1 -->
-                            <div class="music-video-card w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
-                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Platform_2_Feed_z0culp.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Platform_2_Feed_z0culp.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata"></video>
-                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10 pointer-events-none">
-                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm pointer-events-auto">
+                            <div class="music-video-card select-none w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
+                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Platform_2_Feed_z0culp.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Platform_2_Feed_z0culp.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata" draggable="false"></video>
+                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10">
+                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm">
                                         <span class="text-[0.6rem] font-bold text-white tracking-widest uppercase">Track 01</span>
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg pointer-events-auto">
+                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg">
                                             <i class="fas fa-play ml-1 text-lg group-[.playing]:hidden drop-shadow-md"></i>
                                             <i class="fas fa-pause text-lg hidden group-[.playing]:block drop-shadow-md"></i>
                                         </div>
@@ -1216,14 +1212,14 @@
                             </div>
 
                             <!-- Track 2 -->
-                            <div class="music-video-card w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
-                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607760/Window_Seat_Feed_meph8s.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607760/Window_Seat_Feed_meph8s.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata"></video>
-                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10 pointer-events-none">
-                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm pointer-events-auto">
+                            <div class="music-video-card select-none w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
+                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607760/Window_Seat_Feed_meph8s.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607760/Window_Seat_Feed_meph8s.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata" draggable="false"></video>
+                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10">
+                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm">
                                         <span class="text-[0.6rem] font-bold text-white tracking-widest uppercase">Track 02</span>
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg pointer-events-auto">
+                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg">
                                             <i class="fas fa-play ml-1 text-lg group-[.playing]:hidden drop-shadow-md"></i>
                                             <i class="fas fa-pause text-lg hidden group-[.playing]:block drop-shadow-md"></i>
                                         </div>
@@ -1232,14 +1228,14 @@
                             </div>
 
                             <!-- Track 3 -->
-                            <div class="music-video-card w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
-                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Passing_Scenery_Feed_is1i4i.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Passing_Scenery_Feed_is1i4i.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata"></video>
-                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10 pointer-events-none">
-                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm pointer-events-auto">
+                            <div class="music-video-card select-none w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
+                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Passing_Scenery_Feed_is1i4i.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Passing_Scenery_Feed_is1i4i.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata" draggable="false"></video>
+                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10">
+                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm">
                                         <span class="text-[0.6rem] font-bold text-white tracking-widest uppercase">Track 03</span>
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg pointer-events-auto">
+                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg">
                                             <i class="fas fa-play ml-1 text-lg group-[.playing]:hidden drop-shadow-md"></i>
                                             <i class="fas fa-pause text-lg hidden group-[.playing]:block drop-shadow-md"></i>
                                         </div>
@@ -1248,14 +1244,14 @@
                             </div>
 
                             <!-- Track 4 -->
-                            <div class="music-video-card w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
-                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Rush_Hour_Tea_Time_Feed_axuq2l.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Rush_Hour_Tea_Time_Feed_axuq2l.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata"></video>
-                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10 pointer-events-none">
-                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm pointer-events-auto">
+                            <div class="music-video-card select-none w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
+                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Rush_Hour_Tea_Time_Feed_axuq2l.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607533/Rush_Hour_Tea_Time_Feed_axuq2l.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata" draggable="false"></video>
+                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10">
+                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm">
                                         <span class="text-[0.6rem] font-bold text-white tracking-widest uppercase">Track 04</span>
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg pointer-events-auto">
+                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg">
                                             <i class="fas fa-play ml-1 text-lg group-[.playing]:hidden drop-shadow-md"></i>
                                             <i class="fas fa-pause text-lg hidden group-[.playing]:block drop-shadow-md"></i>
                                         </div>
@@ -1264,14 +1260,14 @@
                             </div>
 
                             <!-- Track 5 -->
-                            <div class="music-video-card w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
-                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Next_Stop_Home_Feed_tt2cqt.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Next_Stop_Home_Feed_tt2cqt.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata"></video>
-                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10 pointer-events-none">
-                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm pointer-events-auto">
+                            <div class="music-video-card select-none w-[180px] md:w-[240px] aspect-[9/16] shrink-0 snap-center relative rounded-[1.5rem] overflow-hidden glass-element border border-black/10 dark:border-white/10 group cursor-pointer">
+                                <video src="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Next_Stop_Home_Feed_tt2cqt.mp4" poster="https://res.cloudinary.com/ddrtdofqo/video/upload/v1772607534/Next_Stop_Home_Feed_tt2cqt.jpg" class="absolute inset-0 w-full h-full object-cover" loop playsinline preload="metadata" draggable="false"></video>
+                                <div class="video-overlay absolute inset-0 bg-black/10 transition-opacity duration-300 flex flex-col p-4 opacity-100 group-[.playing]:opacity-0 group-[.playing]:hover:opacity-100 z-10">
+                                    <div class="self-end bg-black/50 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 shadow-sm">
                                         <span class="text-[0.6rem] font-bold text-white tracking-widest uppercase">Track 05</span>
                                     </div>
                                     <div class="absolute inset-0 flex items-center justify-center">
-                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg pointer-events-auto">
+                                        <div class="w-14 h-14 rounded-full bg-black/40 backdrop-blur-md flex items-center justify-center text-white border border-white/40 transform transition-transform duration-300 group-hover:scale-110 shadow-lg">
                                             <i class="fas fa-play ml-1 text-lg group-[.playing]:hidden drop-shadow-md"></i>
                                             <i class="fas fa-pause text-lg hidden group-[.playing]:block drop-shadow-md"></i>
                                         </div>
@@ -1584,9 +1580,10 @@
         </section>
 
         <!-- Footer -->
-        <footer
-            class="text-center py-8 text-[0.75rem] text-secondary font-bold tracking-widest uppercase mb-4 opacity-70">
-            © 2026 Ardan Ridho <span class="mx-2 opacity-30">|</span> All rights reserved.
+        <footer class="flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-4 py-8 text-[0.65rem] sm:text-[0.75rem] text-secondary font-bold tracking-widest uppercase opacity-50 hover:opacity-100 transition-opacity duration-300">
+            <span>&copy; 2026 Ardan Ridho</span>
+            <span class="hidden sm:block opacity-30">|</span>
+            <span>All rights reserved</span>
         </footer>
 
     </main>
@@ -1906,37 +1903,62 @@
         let startX;
         let scrollLeft;
         let isDragging = false;
+        const dragThreshold = 5; // Minimum pixels moved to be considered a drag
 
         // Desktop Drag-to-Scroll Logic
         if (musicCarousel) {
+            // Prevent native drag-and-drop for images and videos inside the carousel
+            musicCarousel.querySelectorAll('img, video').forEach(el => {
+                el.addEventListener('dragstart', (e) => e.preventDefault());
+            });
+
             musicCarousel.addEventListener('mousedown', (e) => {
                 isDown = true;
                 isDragging = false;
                 startX = e.pageX - musicCarousel.offsetLeft;
                 scrollLeft = musicCarousel.scrollLeft;
-                musicCarousel.style.scrollBehavior = 'auto'; // Remove smooth scroll during drag
-                musicCarousel.style.scrollSnapType = 'none'; // Disable snap during drag
+                
+                // Disable smooth scroll and snap for precise dragging
+                musicCarousel.style.scrollBehavior = 'auto'; 
+                musicCarousel.classList.remove('snap-x', 'snap-mandatory'); 
+                musicCarousel.style.cursor = 'grabbing';
             });
             
             musicCarousel.addEventListener('mouseleave', () => {
+                if (!isDown) return;
                 isDown = false;
-                musicCarousel.style.scrollSnapType = 'x mandatory';
+                musicCarousel.classList.add('snap-x', 'snap-mandatory');
                 musicCarousel.style.scrollBehavior = 'smooth';
+                musicCarousel.style.cursor = 'grab';
             });
             
             musicCarousel.addEventListener('mouseup', () => {
                 isDown = false;
-                musicCarousel.style.scrollSnapType = 'x mandatory';
+                musicCarousel.classList.add('snap-x', 'snap-mandatory');
                 musicCarousel.style.scrollBehavior = 'smooth';
+                musicCarousel.style.cursor = 'grab';
+                
+                // Delay resetting isDragging slightly so click event handlers can check it
+                setTimeout(() => {
+                    isDragging = false;
+                }, 50);
             });
             
             musicCarousel.addEventListener('mousemove', (e) => {
                 if (!isDown) return;
-                e.preventDefault();
-                isDragging = true; // Mark as dragging so we don't trigger click events
+                e.preventDefault(); // Prevent text highlighting while dragging
+                
                 const x = e.pageX - musicCarousel.offsetLeft;
-                const walk = (x - startX) * 1.2; // Optimized Scroll speed multiplier
-                musicCarousel.scrollLeft = scrollLeft - walk;
+                const walk = (x - startX) * 1.5; // Adjust scrolling speed
+                
+                // Only consider it a drag if moved beyond threshold
+                if (Math.abs(x - startX) > dragThreshold) {
+                    isDragging = true;
+                }
+                
+                if (isDragging) {
+                    musicCarousel.scrollLeft = scrollLeft - walk;
+                }
             });
         }
         
@@ -1973,8 +1995,21 @@
                 
                 // Toggle current video
                 if (video.paused) {
-                    video.play();
-                    card.classList.add('playing');
+                    // Mobile Safari sometimes needs this to trigger the download if preload="metadata" stalled
+                    if (video.readyState === 0) {
+                        video.load();
+                    }
+                    
+                    card.classList.add('playing'); // Instant UI feedback
+                    
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.error("Video playback failed:", error);
+                            // Revert UI if auto-play is blocked
+                            card.classList.remove('playing');
+                        });
+                    }
                 } else {
                     video.pause();
                     card.classList.remove('playing');
@@ -2050,6 +2085,7 @@
 
         const LANYARD_WS_URL = "wss://api.lanyard.rest/socket";
         let lanyardHeartbeat;
+        let activityTimerInterval;
 
         function connectLanyard() {
             const ws = new WebSocket(LANYARD_WS_URL);
@@ -2088,7 +2124,6 @@
             const content = document.getElementById('lanyard-content');
 
             const img = document.getElementById('lanyard-image');
-            const dot = document.getElementById('lanyard-status-dot');
             const title = document.getElementById('lanyard-title');
             const subtitle = document.getElementById('lanyard-subtitle');
             const equalizer = document.getElementById('lanyard-equalizer');
@@ -2098,61 +2133,101 @@
             content.classList.remove('hidden');
             setTimeout(() => content.classList.remove('opacity-0'), 50);
 
-            // Base Status Dot Color Configuration
-            dot.className = `absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 rounded-full border-[2.5px] border-[#f1f5f9] dark:border-[#020617] transition-colors duration-300 status-${presence.discord_status}`;
-
-            // Reset subtitle and dot visibility
+            // Reset subtitle and image rounding
             subtitle.classList.remove('hidden');
-            dot.classList.remove('hidden');
+            img.classList.remove('rounded-[0.65rem]');
+            img.classList.add('rounded-full');
+
+            const userDisplayName = presence.discord_user.display_name || presence.discord_user.username;
 
             // 1. Check if Listening to Spotify
             if (presence.listening_to_spotify && presence.spotify) {
-                dot.classList.add('hidden'); // Hide status dot when listening to music
                 img.src = presence.spotify.album_art_url;
                 img.classList.remove('rounded-full');
-                img.classList.add('rounded-lg'); // Make beautifully rounded square for album art
+                img.classList.add('rounded-[0.65rem]'); // Make beautifully rounded square for album art
                 title.textContent = presence.spotify.song;
                 subtitle.innerHTML = `<i class="fab fa-spotify text-emerald-500 text-[0.7rem]"></i> <span class="truncate">${presence.spotify.artist}</span>`;
                 equalizer.classList.remove('hidden');
                 equalizer.classList.add('flex');
                 setTimeout(() => equalizer.classList.remove('opacity-0'), 50);
+                clearInterval(activityTimerInterval); // Clear any active game timers
                 return;
             }
 
             // 2. Hide Equalizer if not Spotify
             equalizer.classList.remove('flex');
             equalizer.classList.add('hidden', 'opacity-0');
+            clearInterval(activityTimerInterval); // Clear any active game timers
 
             // Fetch generic Discord Avatar as fallback image
             const avatarUrl = `https://cdn.discordapp.com/avatars/${presence.discord_user.id}/${presence.discord_user.avatar}.png`;
-            img.classList.remove('rounded-lg');
-            img.classList.add('rounded-full'); // Make round for discord avatar
             img.src = avatarUrl;
 
-            // 3. Check for other Game/Activities
-            if (presence.activities && presence.activities.length > 0) {
-                // Filter out Custom Status (type 4), we want games/apps
-                const appActivity = presence.activities.find(a => a.type !== 4);
+            // Filter Activities
+            const customStatus = presence.activities.find(a => a.type === 4);
+            const appActivity = presence.activities.find(a => a.type !== 4);
 
-                if (appActivity) {
-                    title.textContent = appActivity.name;
-                    subtitle.innerHTML = `<i class="fas fa-gamepad text-indigo-500 text-[0.6rem]"></i> <span class="truncate">${appActivity.details || appActivity.state || "Playing"}</span>`;
-                    return;
+            // 3. Check for Game/App Activities
+            if (appActivity) {
+                title.textContent = appActivity.name;
+                
+                // Handle Elapsed Time if timestamps exist
+                if (appActivity.timestamps && appActivity.timestamps.start) {
+                    subtitle.innerHTML = `<span class="truncate" id="lanyard-timer">...</span>`;
+                    
+                    const updateTimer = () => {
+                        const diff = Date.now() - appActivity.timestamps.start;
+                        let seconds = Math.floor(diff / 1000);
+                        let hours = Math.floor(seconds / 3600);
+                        seconds %= 3600;
+                        let minutes = Math.floor(seconds / 60);
+                        seconds %= 60;
+                        
+                        let timeStr = hours > 0 
+                            ? `${hours}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}` 
+                            : `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                            
+                        const timerEl = document.getElementById('lanyard-timer');
+                        if (timerEl) timerEl.textContent = `${timeStr} elapsed`;
+                        else clearInterval(activityTimerInterval);
+                    };
+                    
+                    updateTimer(); // Initial call
+                    activityTimerInterval = setInterval(updateTimer, 1000); // Tick every second
+                } else {
+                    // Fallback to state/details if no timer available
+                    const actionText = appActivity.details || appActivity.state || "Playing";
+                    subtitle.innerHTML = `<span class="truncate">${actionText}</span>`;
                 }
+                return;
             }
 
-            // 4. Default Discord Status (Simple One Line)
-            let statusText = presence.discord_status.charAt(0).toUpperCase() + presence.discord_status.slice(1);
-            if (statusText === "Dnd") statusText = "Do Not Disturb";
-
-            const customStatus = presence.activities.find(a => a.type === 4);
+            // 4. Default Discord Status / Custom Status
+            title.textContent = userDisplayName;
 
             if (customStatus && customStatus.state) {
-                title.textContent = customStatus.state;
-                subtitle.classList.add('hidden'); // Simplify to one line
+                let emojiHtml = '';
+                if (customStatus.emoji) {
+                    if (customStatus.emoji.id) {
+                         emojiHtml = `<img src="https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.png" class="w-3.5 h-3.5 inline-block -mt-0.5" alt="emoji"> `;
+                    } else if (customStatus.emoji.name) {
+                         emojiHtml = `<span class="text-[0.75rem] inline-block -mt-0.5">${customStatus.emoji.name}</span> `;
+                    }
+                }
+                subtitle.innerHTML = `${emojiHtml}<span class="truncate">${customStatus.state}</span>`;
             } else {
-                title.textContent = statusText;
-                subtitle.classList.add('hidden'); // Simplify to one line
+                let statusText = presence.discord_status.charAt(0).toUpperCase() + presence.discord_status.slice(1);
+                if (statusText === "Dnd") statusText = "Do Not Disturb";
+                
+                let statusColor = "text-slate-400";
+                let statusIcon = "fas fa-circle";
+                
+                if (presence.discord_status === 'online') { statusColor = 'text-emerald-500'; }
+                else if (presence.discord_status === 'idle') { statusColor = 'text-amber-500'; statusIcon = 'fas fa-moon'; }
+                else if (presence.discord_status === 'dnd') { statusColor = 'text-rose-500'; statusIcon = 'fas fa-minus-circle'; }
+                else { statusIcon = 'fas fa-circle-notch'; }
+
+                subtitle.innerHTML = `<i class="${statusIcon} ${statusColor} text-[0.55rem] opacity-90"></i> <span class="truncate">${statusText}</span>`;
             }
         }
 
