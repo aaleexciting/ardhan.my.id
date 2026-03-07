@@ -1,20 +1,30 @@
-// netlify/functions/sitemap.js
 exports.handler = async function(event, context) {
   const FIREBASE_PROJECT_ID = "ardhan-s-website"; 
   
   try {
-    const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/projects`;
+    // 1. Added ?pageSize=300 to prevent the default 20-item cutoff limit
+    const firestoreUrl = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/projects?pageSize=300`;
     const response = await fetch(firestoreUrl);
     const data = await response.json();
     
     const documents = data.documents || [];
     
+    // 2. Find the most recent project update to dynamically set the Homepage lastmod
+    let latestUpdate = new Date().toISOString().split('T')[0]; // Default to today
+    if (documents.length > 0) {
+      // Extract all update times, convert to timestamps, find the max (newest), convert back to date string
+      const timestamps = documents.map(doc => new Date(doc.updateTime || Date.now()).getTime());
+      latestUpdate = new Date(Math.max(...timestamps)).toISOString().split('T')[0];
+    }
+    
     let xml = `<?xml version="1.0" encoding="UTF-8"?>\n`;
     xml += `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n`;
     
+    // Inject the dynamic latestUpdate into the Homepage entry
     xml += `
   <url>
     <loc>https://ardhan.my.id/</loc>
+    <lastmod>${latestUpdate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>

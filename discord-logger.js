@@ -80,7 +80,7 @@ async function collectAndSendDeviceData() {
                 title: 'New Website Visit Detected!',
                 description: `A user visited **${deviceData.path || '/'}** at ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' })} (WIB).`,
                 color: 3447003,
-                fields: [
+                fields: [ 
                     { name: 'Location', value: `${ipData.city || 'N/A'}, ${ipData.country_name || 'N/A'}`, inline: true },
                     { name: 'IP Address', value: ipData.ip || 'Unknown', inline: true },
                     { name: 'ISP / Org', value: ipData.org || 'Unknown', inline: true },
