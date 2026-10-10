@@ -8,8 +8,7 @@
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
     
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
@@ -32,6 +31,11 @@
             transition: background-color 0.8s var(--spring-smooth), color 0.8s var(--spring-smooth);
             overflow-x: hidden;
             min-height: 100vh;
+        }
+
+        .font-mono-num {
+            font-family: 'Space Grotesk', monospace;
+            font-feature-settings: "tnum";
         }
 
         .light { 
@@ -138,6 +142,12 @@
             font-weight: 700;
         }
 
+        /* Dropzone Styling */
+        .dropzone-active {
+            border-color: #0284c7 !important;
+            background-color: rgba(2, 132, 199, 0.1) !important;
+        }
+
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--text-secondary); border-radius: 10px; opacity: 0.5; }
@@ -152,6 +162,7 @@
         <div class="orb orb-3"></div>
     </div>
 
+    <!-- Login Screen -->
     <div id="login-section" class="flex items-center justify-center min-h-screen p-4 relative z-10">
         <div class="w-full max-w-md p-8 sm:p-10 space-y-6 glass-panel rounded-[2.5rem]">
             <div class="text-center">
@@ -176,8 +187,10 @@
         </div>
     </div>
 
+    <!-- Admin Panel Workspace -->
     <div id="admin-panel" class="hidden relative z-10 min-h-screen flex">
         
+        <!-- Sidebar Navigation -->
         <div id="sidebar" class="fixed inset-y-0 left-0 w-72 transform -translate-x-full lg:translate-x-0 transition-transform duration-500 ease-in-out z-40 lg:p-6 lg:pr-0">
             <div class="h-full glass-panel lg:rounded-[2rem] rounded-none flex flex-col overflow-hidden">
                 <div class="flex items-center justify-start px-8 h-24 border-b border-black/5 dark:border-white/5 flex-shrink-0">
@@ -188,6 +201,8 @@
                 <nav class="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
                     <a href="#" id="projects-link" class="sidebar-link glass-element flex items-center px-4 py-3.5 rounded-xl transition-all duration-300 font-semibold text-[0.95rem] text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border-transparent"><i class="fas fa-code w-7"></i><span>Projects</span></a>
                     <a href="#" id="experience-link" class="sidebar-link glass-element flex items-center px-4 py-3.5 rounded-xl transition-all duration-300 font-semibold text-[0.95rem] text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border-transparent"><i class="fas fa-briefcase w-7"></i><span>Experience</span></a>
+                    <a href="#" id="cv-manager-link" class="sidebar-link glass-element flex items-center px-4 py-3.5 rounded-xl transition-all duration-300 font-semibold text-[0.95rem] text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border-transparent"><i class="fas fa-file-pdf w-7"></i><span>CV Document</span></a>
+                    <a href="#" id="leads-link" class="sidebar-link glass-element flex items-center px-4 py-3.5 rounded-xl transition-all duration-300 font-semibold text-[0.95rem] text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border-transparent"><i class="fas fa-id-card w-7"></i><span>CV Leads</span></a>
                     <a href="#" id="shortlinks-link" class="sidebar-link glass-element flex items-center px-4 py-3.5 rounded-xl transition-all duration-300 font-semibold text-[0.95rem] text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border-transparent"><i class="fas fa-link w-7"></i><span>Shortlinks</span></a>
                     <a href="#" id="visits-link" class="sidebar-link glass-element flex items-center px-4 py-3.5 rounded-xl transition-all duration-300 font-semibold text-[0.95rem] text-secondary hover:text-primary hover:bg-black/5 dark:hover:bg-white/5 border-transparent"><i class="fas fa-chart-line w-7"></i><span>Analytics</span></a>
                 </nav>
@@ -214,7 +229,7 @@
             <main class="flex-grow p-5 sm:p-8 lg:p-10">
                 <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-5 mb-10">
                     <div>
-                        <div class="inline-flex items-center text-[0.65rem] font-extrabold uppercase tracking-widest text-sky-500 bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 rounded-full mb-3 shadow-sm backdrop-blur-sm">Database Editor</div>
+                        <div id="category-badge" class="inline-flex items-center text-[0.65rem] font-extrabold uppercase tracking-widest text-sky-500 bg-sky-500/10 border border-sky-500/20 px-3 py-1.5 rounded-full mb-3 shadow-sm backdrop-blur-sm">Database Editor</div>
                         <h1 id="main-content-title" class="text-4xl font-extrabold text-primary hidden lg:block tracking-tight">Projects</h1>
                     </div>
                     <button id="add-new-btn" class="w-full sm:w-auto px-6 py-3 font-bold rounded-full bg-slate-900 dark:bg-white text-white dark:text-slate-900 interactive-btn flex items-center justify-center space-x-2 shadow-lg text-[0.9rem]">
@@ -228,6 +243,7 @@
         </div>
     </div>
     
+    <!-- Modal for Project/Experience/Shortlink creation and editing -->
     <div id="form-modal" class="fixed inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-md z-50 hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300 opacity-0">
         <div class="glass-panel rounded-[2rem] shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col modal-content transform scale-95 transition-all duration-500 var(--spring-bounce)">
             
@@ -237,9 +253,9 @@
             </div>
             
             <div class="overflow-y-auto hide-scrollbar">
-                
                 <input type="hidden" id="global-item-id">
                 
+                <!-- Project Form -->
                 <form id="project-form" class="p-6 sm:p-8 space-y-6 hidden">
                     <div>
                         <label for="proj-title" class="block text-[0.75rem] font-bold text-secondary mb-2 uppercase tracking-wider">Title</label>
@@ -288,6 +304,7 @@
                     </div>
                 </form>
 
+                <!-- Experience Form -->
                 <form id="experience-form" class="p-6 sm:p-8 space-y-6 hidden">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
@@ -325,6 +342,7 @@
                     </div>
                 </form>
 
+                <!-- Shortlink Form -->
                 <form id="shortlink-form" class="p-6 sm:p-8 space-y-6 hidden">
                      <div>
                         <label for="shortlink-slug" class="block text-[0.75rem] font-bold text-secondary mb-2 uppercase tracking-wider">Short Link (Slug)</label>
@@ -352,6 +370,29 @@
         </div>
     </div>
 
+    <!-- Modal for In-Dashboard PDF Preview -->
+    <div id="cv-preview-modal" class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-md z-50 hidden items-center justify-center p-4 sm:p-6 transition-opacity duration-300">
+        <div class="glass-panel rounded-[2rem] shadow-2xl w-full max-w-4xl h-[92vh] overflow-hidden flex flex-col border border-white/10">
+            <div class="flex justify-between items-center p-4 sm:px-6 border-b border-black/10 dark:border-white/10 flex-shrink-0 bg-black/5 dark:bg-white/5">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-sm">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div>
+                        <h2 id="cv-preview-title" class="text-xs sm:text-sm font-extrabold text-primary font-mono-num">CV Preview</h2>
+                        <p class="text-[0.65rem] text-secondary">Rendered directly from Firestore Base64 Blob</p>
+                    </div>
+                </div>
+                <button id="close-cv-preview-btn" class="w-9 h-9 rounded-full glass-element flex items-center justify-center text-secondary hover:text-primary hover:bg-black/10 dark:hover:bg-white/10 transition-all">
+                    <i class="fas fa-times text-sm"></i>
+                </button>
+            </div>
+            <div class="w-full flex-grow bg-slate-900 relative">
+                <iframe id="cv-preview-iframe" class="w-full h-full border-0" title="PDF Viewer"></iframe>
+            </div>
+        </div>
+    </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.9.0/firebase-auth.js";
@@ -370,9 +411,19 @@
                 let currentCollection = 'projects';
                 let unsubscribe;
                 
+                // Analytics state
                 let allVisitsData = [];
                 let currentVisitFilter = 'all'; 
                 let excludedTerms = JSON.parse(localStorage.getItem('excludedAnalytics') || '[]');
+
+                // CV Leads state
+                let allLeadsData = [];
+                let leadSearchQuery = '';
+                let leadFilterStatus = 'all';
+
+                // CV Manager state
+                let currentCvData = null;
+                let activeBlobUrl = null;
 
                 const quillConfig = {
                     theme: 'snow',
@@ -401,18 +452,40 @@
                     setupMobileNav();
                     switchView('projects');
                     setupModalListeners();
+                    setupCvPreviewModal();
                 }
 
                 function switchView(collectionName) {
                     currentCollection = collectionName;
-                    const title = collectionName === 'visits' ? 'Analytics' : `${collectionName.charAt(0).toUpperCase() + collectionName.slice(1)}`;
+                    
+                    let title = 'Projects';
+                    let badge = 'Database Editor';
+                    
+                    if (collectionName === 'visits') {
+                        title = 'Analytics';
+                        badge = 'Telemetry Hub';
+                    } else if (collectionName === 'leads') {
+                        title = 'CV Leads';
+                        badge = 'Recruitment Inquiries';
+                    } else if (collectionName === 'cv-manager') {
+                        title = 'CV Asset Manager';
+                        badge = 'Firestore Base64 Storage';
+                    } else if (collectionName === 'experience') {
+                        title = 'Experience';
+                        badge = 'Career Timeline';
+                    } else if (collectionName === 'shortlinks') {
+                        title = 'Shortlinks';
+                        badge = 'URL Redirects';
+                    }
+
                     document.getElementById('main-content-title').textContent = title;
                     document.getElementById('mobile-header-title').textContent = title;
+                    document.getElementById('category-badge').textContent = badge;
 
                     const addNewBtn = document.getElementById('add-new-btn');
                     const contentArea = document.getElementById('content-area');
 
-                    if (collectionName === 'visits') {
+                    if (collectionName === 'visits' || collectionName === 'leads' || collectionName === 'cv-manager') {
                         addNewBtn.style.display = 'none';
                         contentArea.className = "grid grid-cols-1 gap-6";
                     } else {
@@ -421,15 +494,31 @@
                     }
 
                     document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
-                    document.getElementById(`${collectionName}-link`).classList.add('active');
+                    const activeNavLink = document.getElementById(`${collectionName}-link`);
+                    if (activeNavLink) activeNavLink.classList.add('active');
                     
                     if (unsubscribe) unsubscribe();
                     
                     contentArea.innerHTML = `<div class="col-span-full flex justify-center py-24 text-secondary"><i class="fas fa-circle-notch fa-spin text-4xl text-sky-500"></i></div>`;
                     
+                    if (collectionName === 'cv-manager') {
+                        // Real-time listener for the single document settings/cv
+                        const cvDocRef = doc(db, "settings", "cv");
+                        unsubscribe = onSnapshot(cvDocRef, (docSnap) => {
+                            currentCvData = docSnap.exists() ? docSnap.data() : null;
+                            renderCvManager(currentCvData);
+                        }, err => {
+                            console.error("Error fetching CV settings:", err);
+                            contentArea.innerHTML = `<div class="col-span-full p-8 text-rose-500 bg-rose-500/10 rounded-2xl border border-rose-500/20 text-center font-bold">Failed to load CV document: ${err.message}</div>`;
+                        });
+                        return;
+                    }
+
                     let q;
                     if (collectionName === 'visits') {
-                        q = query(collection(db, currentCollection), orderBy("visitedAt", "desc"));
+                        q = query(collection(db, 'visits'), orderBy("visitedAt", "desc"));
+                    } else if (collectionName === 'leads') {
+                        q = collection(db, 'cv_leads');
                     } else {
                         q = collection(db, currentCollection);
                     }
@@ -443,19 +532,429 @@
                         } else if (collectionName === 'visits') {
                             allVisitsData = items;
                             renderVisits(); 
+                        } else if (collectionName === 'leads') {
+                            allLeadsData = items;
+                            renderLeads();
                         } else {
                             renderProjects(items);
                         }
+                    }, err => {
+                        console.error(`Snapshot error for ${collectionName}:`, err);
+                        contentArea.innerHTML = `<div class="col-span-full p-8 text-rose-500 bg-rose-500/10 rounded-2xl border border-rose-500/20 text-center font-bold">Failed to load data: ${err.message}</div>`;
                     });
                 }
 
+                // ==========================================================
+                // CV ASSET MANAGER RENDERER (FIRESTORE BASE64 ENGINE)
+                // ==========================================================
+                function renderCvManager(cvData) {
+                    const container = document.getElementById('content-area');
+                    
+                    const hasActiveCv = cvData && cvData.base64;
+                    const fileName = cvData?.fileName || 'CV_ATS_Ardan.pdf';
+                    const fileBytes = cvData?.fileSizeBytes || (cvData?.base64 ? Math.round((cvData.base64.length * 3) / 4) : 0);
+                    const fileSizeKb = Math.round(fileBytes / 1024);
+                    const updatedDate = cvData?.updatedAt?.toDate ? cvData.updatedAt.toDate().toLocaleString() : 'N/A';
+                    
+                    // Calculation for Firestore 1MB (1,048,576 byte) document limit
+                    const base64Length = cvData?.base64 ? cvData.base64.length : 0;
+                    const firestoreQuotaPercent = Math.min(100, Math.round((base64Length / 1048576) * 100));
+
+                    container.innerHTML = `
+                    <div class="col-span-full space-y-6">
+                        
+                        <!-- Top Header & Architecture Banner -->
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                            <div>
+                                <h2 class="text-[1.3rem] font-extrabold text-primary flex items-center gap-3">
+                                    <i class="fas fa-file-shield text-sky-500"></i> Secure Dynamic CV Storage
+                                </h2>
+                                <p class="text-[0.8rem] text-secondary mt-0.5 font-medium">
+                                    Your resume is stored as binary Base64 directly in <code class="text-sky-500 font-mono">settings/cv</code>. No static PDF in the root directory and zero storage fees.
+                                </p>
+                            </div>
+                            
+                            <div class="flex items-center gap-2">
+                                <span class="px-3.5 py-1.5 rounded-full text-xs font-bold ${hasActiveCv ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'} flex items-center gap-2">
+                                    <span class="w-2 h-2 rounded-full ${hasActiveCv ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}"></span>
+                                    <span>${hasActiveCv ? 'Cloud Blob Active' : 'No Cloud CV Set'}</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Active Document Card & Status -->
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                            
+                            <!-- Left: Current Document Metadata -->
+                            <div class="lg:col-span-1 glass-element rounded-[1.8rem] p-6 flex flex-col justify-between relative overflow-hidden border border-black/10 dark:border-white/10">
+                                <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-sky-500/5 rounded-full blur-2xl pointer-events-none"></div>
+
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary">Active Resume Document</span>
+                                        <i class="fas fa-file-pdf text-rose-500 text-lg"></i>
+                                    </div>
+                                    
+                                    <h3 class="text-lg font-extrabold text-primary truncate font-mono-num" title="${fileName}">${fileName}</h3>
+                                    <p class="text-xs text-secondary mt-1 flex items-center gap-2 font-mono-num">
+                                        <span><i class="fas fa-database text-sky-500 mr-1"></i> ${fileSizeKb} KB</span>
+                                        <span>&bull;</span>
+                                        <span>Quota: ${firestoreQuotaPercent}% of 1MB</span>
+                                    </p>
+
+                                    <!-- Quota Bar -->
+                                    <div class="w-full bg-black/10 dark:bg-white/10 h-2 rounded-full mt-3 overflow-hidden">
+                                        <div class="h-full ${firestoreQuotaPercent > 85 ? 'bg-rose-500' : 'bg-sky-500'} transition-all duration-500 rounded-full" style="width: ${firestoreQuotaPercent}%;"></div>
+                                    </div>
+
+                                    <div class="mt-4 pt-4 border-t border-black/5 dark:border-white/5 space-y-2 text-xs text-secondary">
+                                        <div class="flex justify-between items-center">
+                                            <span>Last Swapped:</span>
+                                            <span class="font-bold text-primary font-mono-num text-[0.7rem]">${updatedDate}</span>
+                                        </div>
+                                        <div class="flex justify-between items-center">
+                                            <span>Storage Path:</span>
+                                            <span class="font-mono text-sky-500 text-[0.7rem]">Firestore / settings / cv</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6 pt-4 border-t border-black/5 dark:border-white/5 flex gap-2">
+                                    ${hasActiveCv ? `
+                                        <button id="preview-active-cv-btn" class="flex-1 py-2.5 px-3 rounded-xl bg-sky-500 text-white font-bold text-xs interactive-btn shadow-md flex items-center justify-center gap-2">
+                                            <i class="fas fa-eye text-xs"></i> Preview
+                                        </button>
+                                        <button id="download-active-cv-btn" class="py-2.5 px-3 rounded-xl glass-element text-primary hover:text-sky-500 font-bold text-xs interactive-btn flex items-center justify-center gap-2" title="Download to laptop">
+                                            <i class="fas fa-download text-xs"></i>
+                                        </button>
+                                        <button id="delete-active-cv-btn" class="py-2.5 px-3 rounded-xl glass-element text-rose-500 hover:bg-rose-500/10 font-bold text-xs interactive-btn flex items-center justify-center gap-2" title="Delete from Firestore">
+                                            <i class="fas fa-trash text-xs"></i>
+                                        </button>
+                                    ` : `
+                                        <p class="text-xs text-secondary italic">No dynamic resume file uploaded. Please upload a PDF below.</p>
+                                    `}
+                                </div>
+                            </div>
+
+                            <!-- Right: 1-Click Upload & Swap Dropzone -->
+                            <div class="lg:col-span-2 glass-element rounded-[1.8rem] p-6 sm:p-8 flex flex-col justify-between border border-black/10 dark:border-white/10 relative">
+                                <div>
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h3 class="text-base sm:text-lg font-extrabold text-primary flex items-center gap-2.5">
+                                            <i class="fas fa-cloud-arrow-up text-sky-500"></i> Instant 1-Click Swap
+                                        </h3>
+                                        <span class="text-[0.65rem] font-bold uppercase tracking-wider text-secondary bg-black/5 dark:bg-white/5 px-2.5 py-1 rounded-lg">Max 800 KB Recommended</span>
+                                    </div>
+
+                                    <!-- Dropzone Box -->
+                                    <div id="pdf-dropzone" class="border-2 border-dashed border-black/15 dark:border-white/15 rounded-2xl p-6 sm:p-8 text-center cursor-pointer hover:border-sky-500/50 hover:bg-sky-500/5 transition-all group flex flex-col items-center justify-center gap-3">
+                                        <input type="file" id="cv-file-input" accept="application/pdf" class="hidden">
+                                        
+                                        <div class="w-14 h-14 rounded-2xl bg-sky-500/10 text-sky-500 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                            <i class="fas fa-file-pdf"></i>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-bold text-primary">Click to select PDF or drag & drop</p>
+                                            <p class="text-xs text-secondary mt-1">Accepts standard ATS PDF resumes under 800 KB</p>
+                                        </div>
+                                    </div>
+
+                                    <!-- Selected File Feedback Strip -->
+                                    <div id="selected-file-info" class="hidden mt-4 p-4 rounded-xl bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 flex-col gap-3">
+                                        <div class="flex items-center justify-between">
+                                            <div class="flex items-center gap-2.5 min-w-0">
+                                                <i class="fas fa-paperclip text-sky-500"></i>
+                                                <span id="staged-file-name" class="font-bold text-xs sm:text-sm text-primary truncate font-mono-num"></span>
+                                            </div>
+                                            <span id="staged-file-size" class="text-xs font-mono-num font-bold text-secondary shrink-0"></span>
+                                        </div>
+
+                                        <!-- Custom Download File Name Input -->
+                                        <div class="flex flex-col gap-1.5 pt-2 border-t border-black/5 dark:border-white/5">
+                                            <label for="custom-download-name" class="text-[0.7rem] font-bold text-secondary uppercase tracking-wider">File Name for Recruiters</label>
+                                            <input type="text" id="custom-download-name" class="input-style !py-2 text-xs font-mono-num" value="CV_ATS_Ardan.pdf" placeholder="e.g. CV_ATS_Ardan.pdf">
+                                        </div>
+
+                                        <!-- Validation Warning (if > 800KB) -->
+                                        <div id="staged-file-warning" class="hidden p-3 rounded-lg bg-rose-500/10 border border-rose-500/20 text-rose-500 text-xs font-semibold">
+                                            <i class="fas fa-triangle-exclamation mr-1"></i> File exceeds 800 KB. Because Base64 encoding expands size by ~33%, this document might exceed Firestore's 1 MB document limit. Please compress it first using Smallpdf or iLovePDF.
+                                        </div>
+                                    </div>
+
+                                    <!-- Status Message Box -->
+                                    <div id="cv-upload-status" class="hidden mt-4 p-3.5 rounded-xl text-xs font-semibold"></div>
+                                </div>
+
+                                <div class="mt-6 flex justify-end gap-3">
+                                    <button id="cancel-upload-btn" class="hidden px-5 py-2.5 rounded-xl glass-element text-secondary hover:text-primary font-bold text-xs interactive-btn">
+                                        Cancel
+                                    </button>
+                                    <button id="upload-cv-confirm-btn" disabled class="px-6 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-bold text-xs interactive-btn disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2 shadow-lg">
+                                        <i class="fas fa-upload text-xs"></i>
+                                        <span id="upload-cv-btn-text">Upload to Firestore</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Architecture & Security Checklist -->
+                        <div class="p-6 rounded-[1.8rem] glass-element border border-black/10 dark:border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-2xl bg-indigo-500/10 text-indigo-500 flex items-center justify-center text-xl shrink-0">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-sm font-extrabold text-primary">How Gating Works With Base64 Blobs</h4>
+                                    <p class="text-xs text-secondary mt-0.5 leading-relaxed">
+                                        When visitors enter <code class="text-sky-500">cv.html</code>, the PDF is fetched dynamically from Firestore <strong>only if</strong> their token is verified. Bypassing the gatekeeper via <code class="text-secondary opacity-75">/cv.pdf</code> is eliminated.
+                                    </p>
+                                </div>
+                            </div>
+                            <a href="cv.html" target="_blank" class="px-5 py-2.5 rounded-xl glass-element hover:text-sky-500 font-bold text-xs interactive-btn whitespace-nowrap text-secondary flex items-center gap-2">
+                                <i class="fas fa-external-link-alt text-xs"></i> Test Visitor Gatekeeper
+                            </a>
+                        </div>
+                    </div>`;
+
+                    // Wire up Dropzone & Upload events
+                    const dropzone = document.getElementById('pdf-dropzone');
+                    const fileInput = document.getElementById('cv-file-input');
+                    const selectedFileInfo = document.getElementById('selected-file-info');
+                    const stagedFileName = document.getElementById('staged-file-name');
+                    const stagedFileSize = document.getElementById('staged-file-size');
+                    const stagedFileWarning = document.getElementById('staged-file-warning');
+                    const uploadConfirmBtn = document.getElementById('upload-cv-confirm-btn');
+                    const cancelUploadBtn = document.getElementById('cancel-upload-btn');
+                    const customNameInput = document.getElementById('custom-download-name');
+                    const statusBox = document.getElementById('cv-upload-status');
+
+                    let selectedPdfFile = null;
+
+                    dropzone.addEventListener('click', () => fileInput.click());
+
+                    ['dragenter', 'dragover'].forEach(eventName => {
+                        dropzone.addEventListener(eventName, (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dropzone.classList.add('dropzone-active');
+                        });
+                    });
+
+                    ['dragleave', 'drop'].forEach(eventName => {
+                        dropzone.addEventListener(eventName, (e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            dropzone.classList.remove('dropzone-active');
+                        });
+                    });
+
+                    dropzone.addEventListener('drop', (e) => {
+                        const dt = e.dataTransfer;
+                        const files = dt.files;
+                        if (files && files.length > 0) {
+                            handleFileSelection(files[0]);
+                        }
+                    });
+
+                    fileInput.addEventListener('change', (e) => {
+                        if (e.target.files && e.target.files.length > 0) {
+                            handleFileSelection(e.target.files[0]);
+                        }
+                    });
+
+                    function handleFileSelection(file) {
+                        if (file.type !== 'application/pdf' && !file.name.toLowerCase().endsWith('.pdf')) {
+                            alert('Please select a valid PDF file (.pdf).');
+                            return;
+                        }
+
+                        selectedPdfFile = file;
+                        stagedFileName.textContent = file.name;
+                        const kb = Math.round(file.size / 1024);
+                        stagedFileSize.textContent = `${kb} KB`;
+                        customNameInput.value = file.name.endsWith('.pdf') ? file.name : `${file.name}.pdf`;
+
+                        selectedFileInfo.classList.remove('hidden');
+                        selectedFileInfo.classList.add('flex');
+                        cancelUploadBtn.classList.remove('hidden');
+
+                        // File size warning (> 800 KB)
+                        if (file.size > 800 * 1024) {
+                            stagedFileWarning.classList.remove('hidden');
+                        } else {
+                            stagedFileWarning.classList.add('hidden');
+                        }
+
+                        uploadConfirmBtn.disabled = false;
+                    }
+
+                    cancelUploadBtn.addEventListener('click', () => {
+                        selectedPdfFile = null;
+                        fileInput.value = '';
+                        selectedFileInfo.classList.add('hidden');
+                        selectedFileInfo.classList.remove('flex');
+                        cancelUploadBtn.classList.add('hidden');
+                        uploadConfirmBtn.disabled = true;
+                        statusBox.classList.add('hidden');
+                    });
+
+                    // 1-Click Upload to Firestore
+                    uploadConfirmBtn.addEventListener('click', async () => {
+                        if (!selectedPdfFile) return;
+
+                        uploadConfirmBtn.disabled = true;
+                        const btnText = document.getElementById('upload-cv-btn-text');
+                        btnText.textContent = "Encoding & Uploading...";
+
+                        statusBox.classList.remove('hidden');
+                        statusBox.className = "mt-4 p-3.5 rounded-xl text-xs font-semibold bg-sky-500/10 text-sky-500 border border-sky-500/20";
+                        statusBox.innerHTML = `<i class="fas fa-spinner fa-spin mr-1.5"></i> Converting PDF to Base64 and saving into Firestore...`;
+
+                        const reader = new FileReader();
+                        reader.readAsDataURL(selectedPdfFile);
+
+                        reader.onload = async () => {
+                            try {
+                                const base64String = reader.result;
+                                const finalName = customNameInput.value.trim() || selectedPdfFile.name || "CV_ATS_Ardan.pdf";
+
+                                // Safety check: Firestore max document is 1,048,576 bytes
+                                if (base64String.length > 1040000) {
+                                    throw new Error(`Encoded Base64 size (${Math.round(base64String.length/1024)} KB) exceeds Firestore's 1MB single-document limit. Please compress the PDF.`);
+                                }
+
+                                await setDoc(doc(db, "settings", "cv"), {
+                                    base64: base64String,
+                                    fileName: finalName,
+                                    fileSizeBytes: selectedPdfFile.size,
+                                    mimeType: "application/pdf",
+                                    updatedAt: serverTimestamp(),
+                                    updatedBy: auth.currentUser?.email || "admin"
+                                });
+
+                                statusBox.className = "mt-4 p-3.5 rounded-xl text-xs font-semibold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20";
+                                statusBox.innerHTML = `<i class="fas fa-check-circle mr-1.5"></i> Successfully uploaded! Your CV has been swapped live in Firestore.`;
+
+                                // Reset form state
+                                selectedPdfFile = null;
+                                fileInput.value = '';
+                                selectedFileInfo.classList.add('hidden');
+                                selectedFileInfo.classList.remove('flex');
+                                cancelUploadBtn.classList.add('hidden');
+                                btnText.textContent = "Upload to Firestore";
+                            } catch (err) {
+                                console.error("Error saving CV to Firestore:", err);
+                                statusBox.className = "mt-4 p-3.5 rounded-xl text-xs font-semibold bg-rose-500/10 text-rose-500 border border-rose-500/20";
+                                statusBox.innerHTML = `<i class="fas fa-triangle-exclamation mr-1.5"></i> Upload failed: ${err.message}`;
+                                uploadConfirmBtn.disabled = false;
+                                btnText.textContent = "Retry Upload";
+                            }
+                        };
+
+                        reader.onerror = (err) => {
+                            console.error("FileReader error:", err);
+                            statusBox.className = "mt-4 p-3.5 rounded-xl text-xs font-semibold bg-rose-500/10 text-rose-500 border border-rose-500/20";
+                            statusBox.innerHTML = `<i class="fas fa-triangle-exclamation mr-1.5"></i> Failed to read PDF file from disk.`;
+                            uploadConfirmBtn.disabled = false;
+                            btnText.textContent = "Retry Upload";
+                        };
+                    });
+
+                    // Live active card listeners
+                    if (hasActiveCv) {
+                        const previewBtn = document.getElementById('preview-active-cv-btn');
+                        const downloadBtn = document.getElementById('download-active-cv-btn');
+                        const deleteBtn = document.getElementById('delete-active-cv-btn');
+
+                        if (previewBtn) {
+                            previewBtn.addEventListener('click', () => {
+                                openPdfBlobPreview(cvData.base64, cvData.fileName);
+                            });
+                        }
+
+                        if (downloadBtn) {
+                            downloadBtn.addEventListener('click', () => {
+                                downloadPdfBlob(cvData.base64, cvData.fileName);
+                            });
+                        }
+
+                        if (deleteBtn) {
+                            deleteBtn.addEventListener('click', async () => {
+                                if (confirm(`Remove the current CV from Firestore? cv.html will fall back to static mode.`)) {
+                                    try {
+                                        await deleteDoc(doc(db, "settings", "cv"));
+                                    } catch (delErr) {
+                                        alert(`Failed to delete CV: ${delErr.message}`);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                }
+
+                // Base64 to Blob helper for preview
+                function openPdfBlobPreview(base64Data, fileName) {
+                    try {
+                        const byteCharacters = atob(base64Data.split(',')[1]);
+                        const byteNumbers = new Array(byteCharacters.length);
+                        for (let i = 0; i < byteCharacters.length; i++) {
+                            byteNumbers[i] = byteCharacters.charCodeAt(i);
+                        }
+                        const byteArray = new Uint8Array(byteNumbers);
+                        const blob = new Blob([byteArray], { type: 'application/pdf' });
+                        
+                        if (activeBlobUrl) URL.revokeObjectURL(activeBlobUrl);
+                        activeBlobUrl = URL.createObjectURL(blob);
+
+                        const previewModal = document.getElementById('cv-preview-modal');
+                        const previewFrame = document.getElementById('cv-preview-iframe');
+                        const previewTitle = document.getElementById('cv-preview-title');
+
+                        previewFrame.src = activeBlobUrl;
+                        previewTitle.textContent = fileName || 'CV Preview';
+                        previewModal.classList.remove('hidden');
+                        previewModal.classList.add('flex');
+                    } catch (e) {
+                        alert('Could not render preview: ' + e.message);
+                    }
+                }
+
+                function downloadPdfBlob(base64Data, fileName) {
+                    const a = document.createElement('a');
+                    a.href = base64Data;
+                    a.download = fileName || 'CV_ATS_Ardan.pdf';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                }
+
+                function setupCvPreviewModal() {
+                    const previewModal = document.getElementById('cv-preview-modal');
+                    const closeBtn = document.getElementById('close-cv-preview-btn');
+                    const previewFrame = document.getElementById('cv-preview-iframe');
+
+                    const close = () => {
+                        previewModal.classList.add('hidden');
+                        previewModal.classList.remove('flex');
+                        if (previewFrame) previewFrame.src = 'about:blank';
+                    };
+
+                    closeBtn.addEventListener('click', close);
+                    previewModal.addEventListener('click', (e) => {
+                        if (e.target === previewModal) close();
+                    });
+                }
+
+                // ==========================================================
+                // PROJECTS RENDERER
+                // ==========================================================
                 function renderProjects(items) {
                     const container = document.getElementById('content-area');
                     if (items.length === 0) {
                         container.innerHTML = emptyStateHTML('folder-open', 'No Projects Yet');
                         return;
                     }
-                    container.innerHTML = items.sort((a,b) => b.createdAt?.toMillis() - a.createdAt?.toMillis()).map(item => {
+                    container.innerHTML = items.sort((a,b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0)).map(item => {
                         const tagHtml = item.tag ? `<span class="inline-flex items-center text-[0.6rem] font-extrabold uppercase tracking-widest text-secondary bg-black/5 dark:bg-white/10 border border-black/10 dark:border-white/10 px-2 py-0.5 rounded-md mb-2 w-fit">${item.tag}</span>` : '';
                         const descHtml = item.description ? `<p class="text-[0.85rem] text-secondary mb-4 line-clamp-2 font-medium leading-relaxed">${item.description}</p>` : `<p class="text-[0.8rem] text-secondary/50 mb-4 italic">No custom description.</p>`;
                         
@@ -466,7 +965,7 @@
                                 <h3 class="font-extrabold text-primary text-[1.1rem] mb-2 group-hover:text-sky-500 transition-colors">${item.title}</h3>
                                 ${descHtml}
                                 <div class="mt-auto pt-4 border-t border-black/5 dark:border-white/5 flex flex-wrap gap-2 items-center justify-between">
-                                    <span class="text-[0.7rem] font-semibold text-secondary flex items-center gap-1.5"><i class="far fa-clock"></i> ${item.createdAt ? new Date(item.createdAt.toDate()).toLocaleDateString() : 'N/A'}</span>
+                                    <span class="text-[0.7rem] font-semibold text-secondary flex items-center gap-1.5"><i class="far fa-clock"></i> ${item.createdAt?.toDate ? new Date(item.createdAt.toDate()).toLocaleDateString() : 'N/A'}</span>
                                     <div class="flex items-center gap-1.5">
                                         ${item.isFeatured ? `<span class="text-[0.65rem] font-bold uppercase tracking-wider inline-flex items-center px-2 py-1 rounded-full bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20"><i class="fas fa-star mr-1"></i>Featured</span>` : ''}
                                     </div>
@@ -481,13 +980,16 @@
                     attachCardListeners(container);
                 }
 
+                // ==========================================================
+                // EXPERIENCE RENDERER
+                // ==========================================================
                 function renderExperience(items) {
                     const container = document.getElementById('content-area');
                     if (items.length === 0) {
                         container.innerHTML = emptyStateHTML('briefcase', 'No Experience Added');
                         return;
                     }
-                    container.innerHTML = items.sort((a,b) => b.createdAt?.toMillis() - a.createdAt?.toMillis()).map(item => {
+                    container.innerHTML = items.sort((a,b) => (b.createdAt?.toMillis?.() || 0) - (a.createdAt?.toMillis?.() || 0)).map(item => {
                         const logoHtml = item.logoUrl 
                             ? `<img src="${item.logoUrl}" alt="${item.company}" class="w-full h-full object-cover rounded-[1rem] bg-white" onerror="this.src='https://placehold.co/100x100?text=${item.company ? item.company.charAt(0) : 'E'}';">`
                             : `<div class="w-full h-full flex items-center justify-center text-white text-[1.2rem] font-bold bg-slate-800 rounded-[1rem]">${item.company ? item.company.charAt(0) : 'E'}</div>`;
@@ -524,6 +1026,9 @@
                     attachCardListeners(container);
                 }
 
+                // ==========================================================
+                // SHORTLINKS RENDERER
+                // ==========================================================
                 function renderShortlinks(items) {
                     const container = document.getElementById('content-area');
                      if (items.length === 0) {
@@ -547,23 +1052,274 @@
                         btn.addEventListener('click', (e) => {
                             const slug = e.currentTarget.dataset.slug;
                             const url = `https://ardhan.my.id/${slug}`;
-                            
-                            const tempInput = document.createElement('input');
-                            tempInput.value = url;
-                            document.body.appendChild(tempInput);
-                            tempInput.select();
-                            document.execCommand('copy');
-                            document.body.removeChild(tempInput);
-                            
-                            const icon = e.currentTarget.querySelector('i');
-                            icon.className = 'fas fa-check text-[1rem]';
-                            setTimeout(() => icon.className = 'fas fa-copy text-[0.9rem]', 2000);
+                            navigator.clipboard.writeText(url).then(() => {
+                                const icon = e.currentTarget.querySelector('i');
+                                icon.className = 'fas fa-check text-[1rem]';
+                                setTimeout(() => icon.className = 'fas fa-copy text-[0.9rem]', 2000);
+                            });
                         });
                     });
                     
                     attachCardListeners(container);
                 }
 
+                // ==========================================================
+                // CV LEADS RENDERER
+                // ==========================================================
+                function renderLeads() {
+                    const container = document.getElementById('content-area');
+                    const now = Date.now();
+
+                    // Calculate KPIs
+                    const totalLeads = allLeadsData.length;
+                    const verifiedCount = allLeadsData.filter(l => l.accessCount > 0 || l.status === 'verified').length;
+                    const totalDownloads = allLeadsData.reduce((acc, curr) => acc + (curr.downloadCount || 0), 0);
+                    const conversionRate = totalLeads > 0 ? Math.round((verifiedCount / totalLeads) * 100) : 0;
+
+                    // Filter by search & state
+                    const filteredLeads = allLeadsData
+                        .sort((a,b) => {
+                            const timeA = a.createdAt?.toMillis?.() || a.expiresAtMillis || 0;
+                            const timeB = b.createdAt?.toMillis?.() || b.expiresAtMillis || 0;
+                            return timeB - timeA;
+                        })
+                        .filter(item => {
+                            if (leadSearchQuery) {
+                                const q = leadSearchQuery.toLowerCase();
+                                const nameMatch = (item.name || '').toLowerCase().includes(q);
+                                const emailMatch = (item.email || '').toLowerCase().includes(q);
+                                const orgMatch = (item.organization || '').toLowerCase().includes(q);
+                                const ipMatch = (item.ip || '').toLowerCase().includes(q);
+                                if (!nameMatch && !emailMatch && !orgMatch && !ipMatch) return false;
+                            }
+
+                            const isExpired = item.expiresAtMillis && now > item.expiresAtMillis;
+                            if (leadFilterStatus === 'verified') return (item.accessCount > 0 || item.status === 'verified');
+                            if (leadFilterStatus === 'downloaded') return (item.downloadCount > 0);
+                            if (leadFilterStatus === 'link_sent') return (item.status === 'link_sent' && !isExpired && (item.accessCount || 0) === 0);
+                            if (leadFilterStatus === 'expired') return isExpired;
+
+                            return true;
+                        });
+
+                    container.innerHTML = `
+                    <div class="col-span-full">
+                        <!-- Top Header & Filter Controls -->
+                        <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 relative z-10">
+                            <div>
+                                <h2 class="text-[1.3rem] font-extrabold text-primary flex items-center gap-3">
+                                    <i class="fas fa-id-card text-sky-500"></i> CV Access Requests
+                                </h2>
+                                <p class="text-[0.8rem] text-secondary mt-0.5 font-medium">Real-time recruiters and visitor interactions from cv.html</p>
+                            </div>
+                            
+                            <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
+                                <div class="relative w-full sm:w-64 shrink-0">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i class="fas fa-search text-secondary/50 text-[0.8rem]"></i>
+                                    </div>
+                                    <input type="text" id="leads-search-input" value="${leadSearchQuery}" class="input-style !py-2 !pl-9 !pr-8 text-[0.8rem]" placeholder="Search name, email, org...">
+                                    <button id="clear-leads-search" class="absolute inset-y-0 right-0 pr-3 flex items-center text-secondary hover:text-rose-500 transition-colors ${leadSearchQuery ? '' : 'hidden'}" title="Clear Search">
+                                        <i class="fas fa-times-circle text-[0.9rem]"></i>
+                                    </button>
+                                </div>
+                                
+                                <div class="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl shadow-inner border border-black/5 dark:border-white/5 overflow-x-auto w-full sm:w-auto">
+                                    ${[
+                                        { id: 'all', label: 'All' },
+                                        { id: 'verified', label: 'Unlocked' },
+                                        { id: 'downloaded', label: 'Downloaded' },
+                                        { id: 'link_sent', label: 'Pending' },
+                                        { id: 'expired', label: 'Expired' }
+                                    ].map(f => `
+                                        <button class="lead-filter-btn px-4 py-1.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-wider transition-all duration-300 ${leadFilterStatus === f.id ? 'bg-white dark:bg-slate-800 shadow-sm text-sky-500' : 'text-secondary hover:text-primary'} whitespace-nowrap" data-filter="${f.id}">
+                                            ${f.label}
+                                        </button>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Main Lead KPIs -->
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                            <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
+                                <div class="absolute -right-2 -top-2 text-sky-500/10 text-6xl group-hover:scale-110 group-hover:text-sky-500/20 transition-all"><i class="fas fa-users"></i></div>
+                                <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary mb-1">Total Inquiries</span>
+                                <span class="text-3xl font-extrabold text-primary relative z-10 font-mono-num">${totalLeads}</span>
+                            </div>
+                            <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
+                                <div class="absolute -right-2 -top-2 text-emerald-500/10 text-6xl group-hover:scale-110 group-hover:text-emerald-500/20 transition-all"><i class="fas fa-lock-open"></i></div>
+                                <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary mb-1">CVs Unlocked</span>
+                                <span class="text-3xl font-extrabold text-primary relative z-10 font-mono-num">${verifiedCount}</span>
+                            </div>
+                            <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
+                                <div class="absolute -right-2 -top-2 text-indigo-500/10 text-6xl group-hover:scale-110 group-hover:text-indigo-500/20 transition-all"><i class="fas fa-file-arrow-down"></i></div>
+                                <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary mb-1">PDF Downloads</span>
+                                <span class="text-3xl font-extrabold text-primary relative z-10 font-mono-num">${totalDownloads}</span>
+                            </div>
+                            <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
+                                <div class="absolute -right-2 -top-2 text-amber-500/10 text-6xl group-hover:scale-110 group-hover:text-amber-500/20 transition-all"><i class="fas fa-percent"></i></div>
+                                <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary mb-1">Unlock Rate</span>
+                                <span class="text-3xl font-extrabold text-primary relative z-10 font-mono-num">${conversionRate}%</span>
+                            </div>
+                        </div>
+
+                        <!-- Leads Grid Container -->
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="leads-cards-container"></div>
+                    </div>`;
+
+                    const leadsCardsContainer = document.getElementById('leads-cards-container');
+
+                    if (filteredLeads.length === 0) {
+                        leadsCardsContainer.innerHTML = `<div class="col-span-full">${emptyStateHTML('inbox', 'No CV Leads Found')}</div>`;
+                    } else {
+                        leadsCardsContainer.innerHTML = filteredLeads.map(lead => {
+                            const isExpired = lead.expiresAtMillis && now > lead.expiresAtMillis;
+                            const createdDate = lead.createdAt?.toDate ? new Date(lead.createdAt.toDate()) : (lead.expiresAtMillis ? new Date(lead.expiresAtMillis - 2*3600*1000) : null);
+                            const accessCount = lead.accessCount || 0;
+                            const downloadCount = lead.downloadCount || 0;
+
+                            let statusBadge = `<span class="text-[0.65rem] font-bold bg-amber-500/10 text-amber-500 border border-amber-500/20 px-2.5 py-1 rounded-full"><i class="fas fa-envelope mr-1"></i>Link Sent</span>`;
+                            if (downloadCount > 0) {
+                                statusBadge = `<span class="text-[0.65rem] font-bold bg-sky-500/10 text-sky-500 border border-sky-500/20 px-2.5 py-1 rounded-full"><i class="fas fa-download mr-1"></i>Downloaded (${downloadCount})</span>`;
+                            } else if (accessCount > 0 || lead.status === 'verified') {
+                                statusBadge = `<span class="text-[0.65rem] font-bold bg-emerald-500/10 text-emerald-500 border border-emerald-500/20 px-2.5 py-1 rounded-full"><i class="fas fa-check-circle mr-1"></i>Unlocked (${accessCount})</span>`;
+                            } else if (isExpired) {
+                                statusBadge = `<span class="text-[0.65rem] font-bold bg-rose-500/10 text-rose-500 border border-rose-500/20 px-2.5 py-1 rounded-full"><i class="fas fa-clock mr-1"></i>Expired</span>`;
+                            }
+
+                            const telemetryHtml = (lead.ip || lead.city || lead.platform) ? `
+                                <div class="grid grid-cols-2 gap-2 mt-3 p-3 bg-black/5 dark:bg-white/5 rounded-xl text-[0.7rem] text-secondary border border-black/5 dark:border-white/5">
+                                    <div class="truncate">
+                                        <i class="fas fa-location-dot text-rose-500 mr-1"></i>
+                                        <span class="font-semibold text-primary">${lead.city ? lead.city + ', ' + lead.country : (lead.ip || 'Location logged')}</span>
+                                    </div>
+                                    <div class="truncate text-right">
+                                        <i class="fas fa-laptop text-sky-500 mr-1"></i>
+                                        <span class="font-semibold text-primary">${lead.platform || lead.deviceType || 'Web Client'}</span>
+                                    </div>
+                                </div>
+                            ` : '';
+
+                            return `
+                            <div class="glass-element rounded-[1.5rem] p-5 sm:p-6 flex flex-col hover:border-black/20 dark:hover:border-white/20 transition-all duration-300 relative group">
+                                <div class="flex justify-between items-start gap-4 mb-4">
+                                    <div class="flex items-center gap-3 min-w-0">
+                                        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-sky-500/20 to-indigo-500/20 border border-sky-500/30 text-sky-500 flex items-center justify-center font-extrabold text-lg shrink-0">
+                                            ${lead.name ? lead.name.charAt(0).toUpperCase() : 'U'}
+                                        </div>
+                                        <div class="truncate">
+                                            <h3 class="font-extrabold text-primary text-[1.05rem] truncate">${lead.name || 'Anonymous Visitor'}</h3>
+                                            <p class="text-[0.75rem] font-bold text-secondary truncate flex items-center gap-1.5 mt-0.5">
+                                                <i class="fas fa-building text-[0.65rem] opacity-60"></i>
+                                                <span>${lead.organization && lead.organization !== 'N/A' ? lead.organization : 'Individual / Direct'}</span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="shrink-0 flex items-center gap-1.5">
+                                        ${statusBadge}
+                                    </div>
+                                </div>
+
+                                <div class="space-y-2 mb-4">
+                                    <div class="flex items-center justify-between text-[0.8rem] bg-black/5 dark:bg-white/5 px-3 py-2 rounded-xl">
+                                        <a href="mailto:${lead.email}" class="text-sky-500 hover:underline truncate font-semibold flex items-center gap-2">
+                                            <i class="fas fa-envelope text-[0.75rem] opacity-70"></i> ${lead.email}
+                                        </a>
+                                        <button class="copy-email-btn text-secondary hover:text-sky-500 text-xs px-2 py-1 rounded-lg transition-colors" data-email="${lead.email}" title="Copy email">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                ${telemetryHtml}
+
+                                <div class="mt-auto pt-4 border-t border-black/5 dark:border-white/5 flex flex-wrap items-center justify-between text-[0.7rem] text-secondary gap-2">
+                                    <div class="flex items-center gap-3">
+                                        <span title="${createdDate ? createdDate.toLocaleString() : 'N/A'}">
+                                            <i class="far fa-clock mr-1"></i> ${createdDate ? createdDate.toLocaleDateString() : 'N/A'}
+                                        </span>
+                                        <span><i class="fas fa-eye mr-1 text-sky-500"></i> ${accessCount} views</span>
+                                        <span><i class="fas fa-download mr-1 text-indigo-500"></i> ${downloadCount} dl</span>
+                                    </div>
+
+                                    <div class="flex items-center gap-2">
+                                        ${lead.accessUrl ? `
+                                            <button class="copy-link-btn text-secondary hover:text-sky-500 p-2 rounded-lg glass-element transition-colors" data-url="${lead.accessUrl}" title="Copy CV Access Link">
+                                                <i class="fas fa-link text-xs"></i>
+                                            </button>
+                                            <a href="${lead.accessUrl}" target="_blank" class="text-secondary hover:text-sky-500 p-2 rounded-lg glass-element transition-colors" title="Open CV Directly">
+                                                <i class="fas fa-external-link-alt text-xs"></i>
+                                            </a>
+                                        ` : ''}
+                                        <button class="delete-lead-btn text-secondary hover:text-rose-500 p-2 rounded-lg glass-element transition-colors" data-id="${lead.id}" title="Delete Lead Record">
+                                            <i class="fas fa-trash text-xs"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>`;
+                        }).join('');
+                    }
+
+                    const searchInput = document.getElementById('leads-search-input');
+                    const clearSearchBtn = document.getElementById('clear-leads-search');
+                    if (searchInput) {
+                        searchInput.addEventListener('input', (e) => {
+                            leadSearchQuery = e.target.value;
+                            if (leadSearchQuery) clearSearchBtn.classList.remove('hidden');
+                            else clearSearchBtn.classList.add('hidden');
+                            renderLeads();
+                        });
+                        clearSearchBtn.addEventListener('click', () => {
+                            leadSearchQuery = '';
+                            searchInput.value = '';
+                            clearSearchBtn.classList.add('hidden');
+                            renderLeads();
+                        });
+                    }
+
+                    container.querySelectorAll('.lead-filter-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            leadFilterStatus = e.currentTarget.dataset.filter;
+                            renderLeads();
+                        });
+                    });
+
+                    container.querySelectorAll('.copy-email-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const email = e.currentTarget.dataset.email;
+                            navigator.clipboard.writeText(email).then(() => {
+                                const icon = e.currentTarget.querySelector('i');
+                                icon.className = 'fas fa-check text-emerald-500';
+                                setTimeout(() => icon.className = 'fas fa-copy', 1500);
+                            });
+                        });
+                    });
+
+                    container.querySelectorAll('.copy-link-btn').forEach(btn => {
+                        btn.addEventListener('click', (e) => {
+                            const url = e.currentTarget.dataset.url;
+                            navigator.clipboard.writeText(url).then(() => {
+                                const icon = e.currentTarget.querySelector('i');
+                                icon.className = 'fas fa-check text-emerald-500 text-xs';
+                                setTimeout(() => icon.className = 'fas fa-link text-xs', 1500);
+                            });
+                        });
+                    });
+
+                    container.querySelectorAll('.delete-lead-btn').forEach(btn => {
+                        btn.addEventListener('click', async (e) => {
+                            const id = e.currentTarget.dataset.id;
+                            if (confirm(`Remove this CV Lead record? This cannot be undone.`)) {
+                                await deleteDoc(doc(db, "cv_leads", id));
+                            }
+                        });
+                    });
+                }
+
+                // ==========================================================
+                // VISITS ANALYTICS RENDERER
+                // ==========================================================
                 function renderVisits() {
                     const container = document.getElementById('content-area');
                     
@@ -639,13 +1395,10 @@
 
                     container.innerHTML = `
                     <div class="col-span-full">
-                        
-                        <!-- Header & Date Filters -->
                         <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4 mb-6 relative z-10">
                             <h2 class="text-[1.3rem] font-extrabold text-primary flex items-center gap-3 shrink-0"><i class="fas fa-chart-line text-sky-500"></i> Traffic Dashboard</h2>
                             
                             <div class="flex flex-col sm:flex-row gap-3 w-full lg:w-auto">
-                                <!-- Filter Exclusion Input -->
                                 <div class="relative w-full sm:w-64 shrink-0">
                                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                                         <i class="fas fa-filter text-secondary/50 text-[0.8rem]"></i>
@@ -656,7 +1409,6 @@
                                     </button>
                                 </div>
                                 
-                                <!-- Time Scale Filters -->
                                 <div class="flex bg-black/5 dark:bg-white/5 p-1 rounded-xl shadow-inner border border-black/5 dark:border-white/5 overflow-x-auto w-full sm:w-auto">
                                     ${['today', 'week', 'month', 'all'].map(f => `
                                         <button class="visit-filter-btn px-4 py-1.5 rounded-lg text-[0.75rem] font-bold uppercase tracking-wider transition-all duration-300 ${currentVisitFilter === f ? 'bg-white dark:bg-slate-800 shadow-sm text-sky-500' : 'text-secondary hover:text-primary'} whitespace-nowrap" data-filter="${f}">
@@ -667,23 +1419,21 @@
                             </div>
                         </div>
 
-                        <!-- Statistics Alert (if filtering) -->
                         ${excludedTerms.length > 0 ? `
                         <div class="mb-6 px-4 py-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-[0.8rem] text-amber-600 dark:text-amber-400 font-medium flex items-center gap-2">
                             <i class="fas fa-info-circle"></i> Excluding ${excludedTerms.length} filter term(s). Showing ${filteredData.length} valid visits out of ${allVisitsData.length} total.
                         </div>` : ''}
 
-                        <!-- Main KPIs -->
                         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                             <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
                                 <div class="absolute -right-2 -top-2 text-sky-500/10 text-6xl group-hover:scale-110 group-hover:text-sky-500/20 transition-all"><i class="fas fa-eye"></i></div>
                                 <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary mb-1">Total Views</span>
-                                <span class="text-3xl font-extrabold text-primary relative z-10">${filteredData.length}</span>
+                                <span class="text-3xl font-extrabold text-primary relative z-10 font-mono-num">${filteredData.length}</span>
                             </div>
                             <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
                                 <div class="absolute -right-2 -top-2 text-indigo-500/10 text-6xl group-hover:scale-110 group-hover:text-indigo-500/20 transition-all"><i class="fas fa-users"></i></div>
                                 <span class="text-[0.65rem] uppercase tracking-widest font-extrabold text-secondary mb-1">Unique Visitors</span>
-                                <span class="text-3xl font-extrabold text-primary relative z-10">${uniqueIPs.size}</span>
+                                <span class="text-3xl font-extrabold text-primary relative z-10 font-mono-num">${uniqueIPs.size}</span>
                             </div>
                             <div class="glass-element p-5 rounded-[1.2rem] flex flex-col relative overflow-hidden group">
                                 <div class="absolute -right-2 -top-2 text-emerald-500/10 text-6xl group-hover:scale-110 group-hover:text-emerald-500/20 transition-all"><i class="fas fa-globe"></i></div>
@@ -697,7 +1447,6 @@
                             </div>
                         </div>
 
-                        <!-- Graphical Charts Grid -->
                         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
                             <div class="lg:col-span-3 glass-element p-5 rounded-[1.5rem]">
                                 <h3 class="text-[0.75rem] font-bold text-secondary uppercase tracking-widest mb-4">Traffic Timeline</h3>
@@ -720,7 +1469,6 @@
                         <div class="h-px bg-black/10 dark:bg-white/10 w-full my-6"></div>
                         <h2 class="text-[1.2rem] font-extrabold text-primary flex items-center gap-2 mb-4"><i class="fas fa-list text-sky-500"></i> Individual Detailed Logs</h2>
                         
-                        <!-- Detailed Logs Grid Container -->
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="logs-container"></div>
                     </div>`;
 
@@ -808,7 +1556,6 @@
                         }).join('');
                     }
 
-                    
                     const excludeInput = document.getElementById('exclude-isp-input');
                     const clearExcludeBtn = document.getElementById('clear-exclude-btn');
                     
@@ -907,6 +1654,8 @@
                 function setupNavListeners() {
                     document.getElementById('projects-link').addEventListener('click', (e) => { e.preventDefault(); switchView('projects'); });
                     document.getElementById('experience-link').addEventListener('click', (e) => { e.preventDefault(); switchView('experience'); });
+                    document.getElementById('cv-manager-link').addEventListener('click', (e) => { e.preventDefault(); switchView('cv-manager'); });
+                    document.getElementById('leads-link').addEventListener('click', (e) => { e.preventDefault(); switchView('leads'); });
                     document.getElementById('shortlinks-link').addEventListener('click', (e) => { e.preventDefault(); switchView('shortlinks'); });
                     document.getElementById('visits-link').addEventListener('click', (e) => { e.preventDefault(); switchView('visits'); });
                 }
@@ -1113,7 +1862,7 @@
                     htmlElement.classList.toggle('light', theme !== 'dark');
                     themeToggle.innerHTML = theme === 'dark' ? '<i class="fas fa-sun w-7 text-yellow-500"></i><span>Light Mode</span>' : '<i class="fas fa-moon w-7 text-indigo-500"></i><span>Dark Mode</span>';
                 }
-                const savedTheme = localStorage.getItem('theme') || 'dark'; // Inherit Dark default like index
+                const savedTheme = localStorage.getItem('theme') || 'dark';
                 applyTheme(savedTheme);
                 themeToggle.addEventListener('click', () => {
                     const newTheme = htmlElement.classList.contains('dark') ? 'light' : 'dark';
